@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en"><head><base target="_top"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DASHBOARD PLANT</title>
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/agengpramudyo24-cloud/ageweb/main/MKG_Favicon_128x128%283%29.png">
+<link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/agengpramudyo24-cloud/ageweb/main/MKG_Favicon_128x128%283%29.png">
+<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/agengpramudyo24-cloud/ageweb/main/MKG_Favicon_128x128%283%29.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="DASHBOARD PLANT">
+<meta name="theme-color" content="#0f172a">
+<script>try{if(localStorage.getItem("theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+<style>
+:root{--bg:#eef1f6;--card:#ffffff;--side:#13233f;--line:#dde3ee;--tx:#14213d;--mut:#5b6b88;--acc:#2f6fe4;--blue:#2f6fe4;--green:#1f9d55;--amber:#c9810a;--red:#d64545;--violet:#7c4dcc;--grid:#e3e8f0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:13px/1.4 "Segoe UI",Inter,Arial,sans-serif}.app{display:flex;min-height:100vh}
+.side{width:226px;background:var(--side);color:#f3f6fb;padding:14px 10px;flex:none;position:sticky;top:0;height:100vh;overflow:auto}.brand{display:flex;gap:10px;align-items:center;padding:6px 8px 12px;font-weight:700;line-height:1.15}.brand small{display:block;font-weight:400;opacity:.65;font-size:11px}.logo{min-width:40px;height:40px;border-radius:10px;background:#fff;color:#9aa8c0;display:grid;place-items:center;font-weight:800;font-size:10px;letter-spacing:.5px;flex:none;overflow:hidden;border:1.5px dashed #b6c3da}.logo img{display:block;max-width:64px;max-height:36px;padding:2px}.logo.has{border:0;background:transparent;border-radius:0;flex:1;width:100%;min-width:0;height:auto;min-height:48px}.logo.has img{max-width:100%;width:100%;max-height:64px;object-fit:contain;padding:0;mix-blend-mode:screen}
+.sec{font-size:10.5px;letter-spacing:.08em;color:rgba(255,255,255,.62);margin:11px 8px 3px}.side a{display:block;padding:5px 9px;border-radius:8px;font-size:12.3px;cursor:pointer;color:#f3f6fb;text-decoration:none}.side a:hover{background:rgba(255,255,255,.08)}.side a.on{background:var(--acc)}
+.main{flex:1;min-width:0}.top{background:var(--card);padding:10px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:5}.top h1{margin:0;font-size:17px}.sp{flex:1}.usr{color:var(--mut)}.menu{display:none;background:none;border:0;font-size:20px;cursor:pointer;color:var(--tx)}
+.btn{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:5px 11px;font:inherit;cursor:pointer;color:var(--tx)}.btn:hover{border-color:var(--acc)}
+.wrap{padding:14px 20px}.hero{border-radius:14px;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(100deg,#13233f,#2a4a8a);color:#fff;margin-bottom:12px;position:relative;overflow:visible;z-index:2}.hero h2{margin:0 0 2px;font-size:21px}.hero p{margin:0;opacity:.9}.dt{background:rgba(0,0,0,.25);border-radius:10px;padding:8px 14px}
+.bar{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}.seg{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}.seg button{background:var(--card);color:var(--mut);border:0;padding:7px 18px;font:inherit;cursor:pointer}.seg button.on{background:var(--acc);color:#fff;font-weight:600}
+select,input[type=search]{background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:9px;padding:7px 10px;font:inherit;min-width:200px}.rg{margin-left:auto;color:var(--mut)}
+.r5{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:12px}.r6{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 14px;box-shadow:0 1px 2px rgba(30,40,60,.08)}
+.k .l{color:var(--mut);font-size:12px}.k .v{font-size:27px;font-weight:700;line-height:1.15}.k .s{font-size:11.5px;font-weight:600}.k{border-bottom:3px solid var(--c)}
+.g3{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;margin-bottom:12px}.g2{display:grid;grid-template-columns:1.25fr 1fr;gap:12px;margin-bottom:12px}.g2e{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}.g3b{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}.ct{font-weight:700;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.leg{display:flex;gap:10px;color:var(--mut);font-weight:400;font-size:11.5px;flex-wrap:wrap}.leg i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}
+table{width:100%;border-collapse:collapse}th{font-size:11px;color:var(--mut);font-weight:600;text-align:left;padding:4px;border-bottom:1px solid var(--line);background:var(--card)}td{padding:4px;border-bottom:1px solid var(--line);font-size:12px}td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}.bb{height:8px;border-radius:2px 4px 4px 2px}
+.info{list-style:none;margin:0;padding:0}.info li{display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid var(--line);font-size:12px}.info .t{margin-left:auto;color:var(--mut);font-size:11px;white-space:nowrap}.dot{width:9px;height:9px;border-radius:50%;flex:none}
+svg text{fill:var(--mut);font-size:11px}svg .v{fill:var(--tx);font-weight:600}.note{color:var(--mut);font-size:11px;margin-top:5px}
+.pill{display:inline-block;padding:1px 8px;border-radius:9px;font-size:11px;font-weight:600;color:#fff;white-space:nowrap}.pill.Overdue,.pill.BD,.pill.s3{background:var(--red)}.pill.OK,.pill.RFU,.pill.s5{background:var(--green)}.pill.DueSoon,.pill.s2{background:var(--amber)}.pill.ND{background:#8795ab}.pill.s1{background:var(--blue)}.pill.s4{background:var(--violet)}
+.stk{display:flex;height:16px;border-radius:5px;overflow:hidden;margin:6px 0 4px}.stk i{display:block}.lg2{display:flex;gap:12px;flex-wrap:wrap;font-size:11.5px;color:var(--mut)}.lg2 b{color:var(--tx)}
+.warn{background:#fff4d6;border:1px solid #e6c978;color:#6b4e00;border-radius:9px;padding:6px 10px;font-size:11.5px;margin-bottom:12px}.err{background:#fde8e8;border:1px solid #e6a0a0;color:#7a1f1f;border-radius:9px;padding:12px 14px;white-space:pre-wrap}
+.scroll{overflow:auto;max-height:70vh}.scroll th{position:sticky;top:0;z-index:1}.sub{color:var(--mut);font-size:11px}.u{font-weight:700}.old{color:var(--red);font-weight:700}
+.load{padding:40px;text-align:center;color:var(--mut)}
+
+.uc{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:12px}.ucard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:0 1px 2px rgba(30,40,60,.08);cursor:pointer;border-top:4px solid var(--c);transition:transform .12s,box-shadow .12s}.ucard:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(30,40,60,.14)}
+.uh{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.uh b{font-size:14px}.um{color:var(--mut);font-size:11px}.ub{display:flex;gap:12px;align-items:center;margin:8px 0}.ring{position:relative;width:78px;height:78px;flex:none}.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:15px}.ring small{position:absolute;left:0;right:0;bottom:15px;text-align:center;font-size:9.5px;color:var(--mut)}
+.mini{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:4px 10px}.mini div{font-size:10.5px;color:var(--mut)}.mini b{display:block;font-size:14px;color:var(--tx);line-height:1.15}.mbar{height:6px;border-radius:4px;background:var(--grid);overflow:hidden;margin:2px 0 6px}.mbar i{display:block;height:100%;border-radius:4px}
+.uf{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:6px;font-size:11px;color:var(--mut)}.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}.chip{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:4px 12px;cursor:pointer;font-size:12px;color:var(--mut)}.chip.on{background:var(--side);color:#fff;border-color:var(--side)}
+.modal{position:fixed;inset:0;background:rgba(10,20,40,.55);z-index:50;display:grid;place-items:center;padding:16px}.mbox{background:var(--card);border-radius:16px;max-width:880px;width:100%;max-height:92vh;overflow:auto;padding:18px 20px}.mbox h3{margin:0}.x{float:right;cursor:pointer;font-size:20px;color:var(--mut);border:0;background:none}
+.tgl{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}.tgl button{background:var(--card);border:0;padding:7px 14px;cursor:pointer;color:var(--mut);font:inherit}.tgl button.on{background:var(--side);color:#fff}
+@media(max-width:1000px){.side{position:fixed;left:-240px;z-index:20;transition:left .2s}.side.open{left:0}.side .sclose{display:block}.menu{display:block}.r5,.r6{grid-template-columns:repeat(2,1fr)}.g3,.g2,.g2e,.g3b{grid-template-columns:1fr}.wrap{padding:10px}}
+.seg.sm{margin:0;float:right}.seg.sm button{padding:3px 11px;font-size:11px}
+.sclose{display:none;margin:4px 8px 6px auto;background:rgba(255,255,255,.1);color:#cfdcf5;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:5px 12px;font:inherit;font-size:12px;font-weight:600;cursor:pointer}.sclose:hover{background:rgba(255,255,255,.18)}
+/* heavy-equipment pictures (real PNGs from GitHub) */
+:root{--img-pc:url("https://raw.githubusercontent.com/agengpramudyo24-cloud/ageweb/main/PC200-10M0-CE-1.png");--img-gd:url("https://raw.githubusercontent.com/agengpramudyo24-cloud/ageweb/main/gd705-5-1.png")}
+.hero>*{position:relative;z-index:1}
+#hh{padding-bottom:0}#hh:empty{display:none}#hh:not(:empty)+.wrap{padding-top:0}
+.hero::before{content:"";position:absolute;bottom:0;top:0;background-repeat:no-repeat;background-position:center bottom;background-size:contain;pointer-events:none}
+.hero::before{right:150px;width:470px;top:-72px;bottom:0;background-image:var(--img-gd)}
+.side>*{position:relative;z-index:1}.side>.brand{z-index:auto}
+.side::after{content:"";position:fixed;left:0;bottom:8px;width:226px;height:120px;background:var(--img-pc) no-repeat center bottom/contain;pointer-events:none}
+@media(max-width:1000px){.side::after{position:absolute}.hero::before{right:6px;width:250px;top:-30px}}
+
+/* ===== night mode ===== */
+:root{--selbg:#eef3ff;--thA:#e8eefb;--thB:#fff3c4;--bd:#e6e9f0}
+.r7{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;margin-bottom:12px}
+html[data-theme=dark]{color-scheme:dark;--bg:#0d1526;--card:#162038;--side:#0a1120;--line:#27334f;--tx:#e7ecf6;--mut:#9aa9c4;--acc:#4a86f0;--blue:#4a86f0;--green:#2fbf71;--amber:#e0a43a;--red:#ec6a6a;--violet:#9a7de0;--grid:#26324d;--selbg:#1f2e52;--thA:#1c2a4a;--thB:#3b3418;--bd:#27334f}
+html[data-theme=dark] .card,html[data-theme=dark] .ucard{box-shadow:none}
+html[data-theme=dark] .ucard:hover{box-shadow:0 6px 16px rgba(0,0,0,.45)}
+html[data-theme=dark] .warn{background:#3a2f12;border-color:#6e5a24;color:#f0d68a}
+html[data-theme=dark] .err{background:#3a1b1d;border-color:#7a3a3d;color:#f3b9b9}
+html[data-theme=dark] .modal{background:rgba(2,6,15,.72)}
+html[data-theme=dark] textarea,html[data-theme=dark] input[type=date]{background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:9px}
+html[data-theme=dark] .gt .p1{background:#5a4a14;color:#f0d68a}
+html[data-theme=dark] .gt .p3{background:#5b2328;color:#f3b0b0}
+html[data-theme=dark] .gt .p4{background:#1f4a35;color:#8be0b0}
+html[data-theme=dark] .gt td.c{border-color:var(--card)}
+html[data-theme=dark] .gt .bad{background:#4a2025;color:#f3b0b0}
+html[data-theme=dark] .gt .ok{background:#1b4030;color:#8be0b0}
+html[data-theme=dark] .gt .tb td{background:#0a1120}
+html[data-theme=dark] .logo{background:transparent}
+#th{padding:5px 10px;line-height:1}
+#imsel{min-width:0;width:auto;padding:5px 8px;font-size:12px}
+@media(max-width:700px){.top{gap:8px;padding:10px 12px}#imsel{max-width:92px;font-size:11px;padding:5px 4px}.usr{display:none}html[data-img] .hero::before{opacity:.3}}
+@media(max-width:1000px){.r7{grid-template-columns:repeat(2,1fr)}}
+</style></head><body><div class="app"><aside class="side" id="side"><button class="sclose" id="sclose" aria-label="Close menu">&#10005; Close</button><div class="brand"><div class="logo" id="logo">LOGO</div></div><nav id="nav"></nav></aside>
+<div class="main"><div class="top"><button class="menu" id="mb">&#9776;</button><h1 id="ttl">Dashboard</h1><div class="sp"></div><select id="imsel" class="btn" title="Gambar alat berat" aria-label="Gambar alat berat"><option value="foto">Foto asli</option><option value="ilustrasi">Ilustrasi</option><option value="blueprint">Blueprint</option><option value="siluet">Siluet</option><option value="none">Tanpa gambar</option></select><button class="btn" id="th" title="Night mode">&#127769;</button><button class="btn" id="rf" title="Muat ulang data dari Supabase">&#8635; Refresh</button><button class="btn" id="lo" title="Keluar" onclick="PMS_LOGOUT()">Keluar</button><span class="usr">&#128276;</span></div><div class="wrap" id="hh"></div><div class="wrap" id="view"><div class="load">Loading&hellip;</div></div></div></div>
+<script>
+/* ===== Adapter Supabase untuk DASHBOARD PLANT =====
+   Menggantikan google.script.run: membaca view api_* lewat REST Supabase, lalu menjalankan
+   Code.gs ASLI (tidak diubah) di browser. */
+(function(){
+var META={"Settings":{"v":"api_settings","c":["Key","Value","Keterangan"],"t":["x","x","x"]},"Unit_Master":{"v":"api_unit_master","c":["Unit_ID","Model","Brand","Group","Classification","Year","Delivery_Date","Serial_No","Engine_Model","Engine_No","Condition","Meter_Type","Plate_No","On_Site","Status","Remark","Last_Meter","Last_Meter_Date","BD_Count","BD_Hours","Open_BD","Unit_Status","Hours_Per_Day"],"t":["x","x","x","x","x","x","d","x","x","x","x","x","x","x","x","x","x","d","x","x","x","x","x"]},"INPUT_DBR":{"v":"api_input_dbr","c":["BD_ID","Date","Shift","Unit","BD_Date","BD_Time","Work_Start","Work_Finish","Finish_Time","Location","HM_Meter","Problem","Action_Progress","Job_Status","Downtime_Code","Broken_Code","MOL_No","Component_1","PR_No","D0","D1","D2","D3","D4","D5","D6","D7","D8","D9","D10","D11","D12","Man_Power_1","Man_Power_2","Man_Power_3","Man_Power_4","Man_Power_5","Man_Power_6","Man_Power_7","Man_Power_8","Delay_Status","Week","Month_No","Model","Group","Repair_Hrs","Delay_Hrs","Total_BD_Hrs","Aging_Days","Delay_Total_Hrs","Event_Key","Event_First","Event_Seq","Comp_Key","Comp_First","Comp_Seq","Comp1_Hrs","Is_Tyre","Tyre_Issue","Tyre_Pos","Tyre_Brand"],"t":["x","d","x","x","d","t","t","t","t","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x"]},"HM_Log":{"v":"api_hm_log","c":["Date","Shift","Unit","Activity","Segment","Operator","HM_Start","HM_Finish","Working_Hrs","MO","HM_Production","Remark","Fuel_Liter"],"t":["d","x","x","x","x","x","x","x","x","x","x","x","x"]},"Calendar":{"v":"api_calendar","c":["Date","Week","Month_No","Month","Year"],"t":["d","x","x","x","x"]},"Ref_Group":{"v":"api_ref_group","c":["Group","Target_PA","Plan_MTBF_Hrs","Plan_MTTR_Hrs","Section","Keterangan"],"t":["x","x","x","x","x","x"]},"PM_Schedule":{"v":"api_pm_schedule","c":["Unit","Service_Type","Plan_Date","Plan_Meter","Status","Actual_Date","Actual_Meter","WO_No","Remark","Group","Current_Meter","Remaining","Due_Status","On_Time"],"t":["x","x","d","x","x","d","x","x","x","x","x","x","x","x"]},"Service_Interval":{"v":"api_service_interval","c":["Group","Service_Type","Interval","Meter_Type","Keterangan"],"t":["x","x","x","x","x"]},"Ref_Mechanic":{"v":"api_ref_mechanic","c":["Mechanic","Role","Crew","Active","Keterangan"],"t":["x","x","x","x","x"]},"Ref_Lists":{"v":"api_ref_lists","c":["Act_Category"],"t":["x"]},"Activity_Log":{"v":"api_activity_log","c":["Date","Shift","Mechanic","Unit","Category","Activity / Job Description","Start","Finish","Hours_Manual","Status","Ref_No (WO / BD)","Remark","Hours","Group","Model","Is_Outside","Week","Month_No","Check"],"t":["d","x","x","x","x","x","t","t","x","x","x","x","x","x","x","x","x","x","x"]},"Tyre_Fit_Log":{"v":"api_tyre_fit_log","c":["Fit_Date","Unit","Pos","Fit_Meter","Tyre_Brand","Life_Target","Remark"],"t":["d","x","x","x","x","x","x"]},"Tyre_Schedule":{"v":"api_tyre_schedule","c":["Unit","Model","Group","Meter_Type","Last_Check_Date","Check_Interval_Days","Tyre_Fit_Meter","Tyre_Life_Target","Next_Check_Due","Days_Overdue","Check_Status","Current_Meter","Tyre_Used","Life_Used_%","Life_Status","Events_Period","Hours_Period","Leak_Events","Last_Tyre_Event","Avg_Days_Between","Rank","Overdue_Rank"],"t":["x","x","x","x","d","x","x","x","d","x","x","x","x","x","x","x","x","x","d","x","x","x"]},"Greasing_Plan":{"v":"api_greasing_plan","c":["Unit","Tabel","Start_Day","Interval_Days","Kg_Per_Greasing","Active","Plan_Days","Remark"],"t":["x","x","x","x","x","x","x","x"]},"Greasing_Log":{"v":"api_greasing_log","c":["Date","Shift","Unit","Meter","Point_Area","Grease_Type","Qty_Kg","Mechanic","Remark","Downtime_Hrs","Group"],"t":["d","x","x","x","x","x","x","x","x","x","x"]},"Oil_Sampling":{"v":"api_oil_sampling","c":["Sample_ID","Date","Unit","Compartment","Unit_Meter","Oil_Meter","Lab","Result_Date","Fe_ppm","Cu_ppm","Pb_ppm","Si_ppm","Viscosity_cSt","Water_pct","Condition","Recommendation","WO_No","Group","Result_TAT_Days"],"t":["x","d","x","x","x","x","x","d","x","x","x","x","x","x","x","x","x","x","x"]},"Work_Order":{"v":"api_work_order","c":["WO_No","Date","Unit","Model","Group","WO_Type","Description","Component","Downtime_Code","First_Report","Last_Report","Report_Days","Total_BD_Hrs","Delay_Hrs","Waiting_Part_Hrs","Last_Action","Status","Age_Days","HM_Meter","Event_No","Is_Open"],"t":["x","d","x","x","x","x","x","x","x","d","d","x","x","x","x","x","x","x","x","x","x"]},"Backlog":{"v":"api_backlog","c":["Backlog_ID","Date_Found","Unit","Model","Group","Component","Description","Age_Days","Waiting_Part_Hrs","Part_Status","WO_No","Last_Action","Status"],"t":["x","d","x","x","x","x","x","x","x","x","x","x","x"]},"Component_Failure":{"v":"api_component_failure","c":["CF_ID","Date","Unit","Model","Group","Component","Failure_Code","Downtime_Code","Meter_At_Failure","Prev_Failure_Meter","Component_Life","Event_BD_Hrs","Comp_No"],"t":["x","d","x","x","x","x","x","x","x","x","x","x","x"]},"KPI_Fuel":{"v":"api_kpi_fuel","c":["Unit_ID","Group","Meter_Type","Include","Satuan","YTD_Fuel_Liter","YTD_Work_HM_or_KM","YTD_Ratio","Rasio_Jan","Rasio_Feb","Rasio_Mar","Rasio_Apr","Rasio_Mei","Rasio_Jun","Rasio_Jul","Rasio_Agu","Rasio_Sep","Rasio_Okt","Rasio_Nov","Rasio_Des"],"t":["x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x"]},"KPI_FuelWeek":{"v":"api_kpi_fuel_week","c":["Unit_ID","Group","Meter_Type","Include","Satuan","Rasio_W01","Rasio_W02","Rasio_W03","Rasio_W04","Rasio_W05","Rasio_W06","Rasio_W07","Rasio_W08","Rasio_W09","Rasio_W10","Rasio_W11","Rasio_W12","Rasio_W13","Rasio_W14","Rasio_W15","Rasio_W16","Rasio_W17","Rasio_W18","Rasio_W19","Rasio_W20","Rasio_W21","Rasio_W22","Rasio_W23","Rasio_W24","Rasio_W25","Rasio_W26","Rasio_W27","Rasio_W28","Rasio_W29","Rasio_W30","Rasio_W31","Rasio_W32","Rasio_W33","Rasio_W34","Rasio_W35","Rasio_W36","Rasio_W37","Rasio_W38","Rasio_W39","Rasio_W40","Rasio_W41","Rasio_W42","Rasio_W43","Rasio_W44","Rasio_W45","Rasio_W46","Rasio_W47","Rasio_W48","Rasio_W49","Rasio_W50","Rasio_W51","Rasio_W52"],"t":["x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x","x"]}};
+var CODE_FN=function(SpreadsheetApp,Utilities,Logger,HtmlService){
+/**
+ * Plant Maintenance System (PMS) - Google Apps Script web app
+ * PT. MKG MSM  |  Read-only dashboard on top of the PMS database (v7 Google Sheet).
+ *
+ * All input is done in the Sheet (INPUT_DBR, HM_Log, Greasing_Log, PM_Schedule,
+ * Tyre_Schedule). This script only READS the Sheet and draws the pages.
+ * Container-bound: create it from  Extensions > Apps Script  inside the Sheet.
+ */
+
+var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+var APP_TITLE = 'DASHBOARD PLANT';
+// Logo shown in the browser tab (favicon). Same Drive file as LOGO_URL in Index.html. File must be shared as "Anyone with the link".
+var LOGO_ID = '1lLBnl5WUdgagiaDEi3fSxzCEpMmQZz6g';
+
+// Sheets that the generic table page is allowed to show.
+var VIEWABLE = ['Unit_Master', 'HM_Log', 'INPUT_DBR', 'Greasing_Log', 'Greasing_Plan', 'PM_Schedule', 'Tyre_Schedule',
+  'Oil_Sampling', 'Work_Order', 'Backlog', 'Component_Failure', 'KPI_Group', 'KPI_Unit', 'KPI_Month',
+  'KPI_Week', 'KPI_YTD', 'KPI_YTD_Group', 'KPI_Tyre', 'Service_Interval', 'Activity_Log', 'Ref_Mechanic'];
+
+/* ---------- web app entry ---------- */
+// Favicon (128x128 PNG) - separate Drive file from the sidebar logo in Index.html.
+// Preferred: direct .png link (Apps Script reads the image type from the file extension).
+var FAVICON_URL = 'https://raw.githubusercontent.com/agengpramudyo24-cloud/ageweb/main/MKG_Favicon_128x128%283%29.png';
+var FAVICON_ID = '1rzzTnVdYtq73sC7vMZpUgVPQCBbG0nJb';
+function doGet() {
+  var out = HtmlService.createTemplateFromFile('Index').evaluate()
+    .setTitle(APP_TITLE)
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1')
+    .addMetaTag('mobile-web-app-capable', 'yes')
+    .addMetaTag('apple-mobile-web-app-capable', 'yes')
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+  // Apps Script downloads the favicon itself and rejects unsupported types, so try several
+  // URL forms in order and never let a favicon problem stop the dashboard from loading.
+  var urls = [
+    FAVICON_URL,
+    'https://drive.google.com/thumbnail?id=' + FAVICON_ID + '&sz=w128',
+    'https://lh3.googleusercontent.com/d/' + FAVICON_ID,
+    'https://drive.usercontent.google.com/download?id=' + FAVICON_ID + '&export=view',
+    'https://drive.google.com/uc?export=view&id=' + FAVICON_ID
+  ];
+  for (var k = 0; k < urls.length; k++) {
+    try { out.setFaviconUrl(urls[k]); break; } catch (e) { /* try next */ }
+  }
+  return out;
+}
+
+/* ---------- small helpers ---------- */
+var _tz = null, _tcache = {};
+function tz_() { return _tz || (_tz = SpreadsheetApp.getActiveSpreadsheet().getSpreadsheetTimeZone()); }
+function iso_(v) {
+  if (v instanceof Date) return isNaN(v.getTime()) ? '' : Utilities.formatDate(v, tz_(), 'yyyy-MM-dd');
+  if (v === '' || v === null || v === undefined) return '';
+  return String(v).slice(0, 10);
+}
+function dn_(s) { return Date.UTC(+s.slice(0, 4), +s.slice(5, 7) - 1, +s.slice(8, 10)) / 864e5; }
+function fromDn_(n) { return new Date(n * 864e5).toISOString().slice(0, 10); }
+function addDays_(s, k) { return fromDn_(dn_(s) + k); }
+function num_(v) {
+  if (typeof v === 'number') return v;
+  if (v === '' || v === null || v === undefined) return 0;
+  var t = String(v).trim();
+  if (t.indexOf(',') >= 0 && t.indexOf('.') < 0) t = t.replace(',', '.');   // "2,5" -> 2.5
+  return +t || 0;
+}
+function str_(v) { return v === null || v === undefined ? '' : String(v); }
+function r4_(x) { return Math.round(x * 1e4) / 1e4; }
+function rg_(lo, hi) {
+  var f = function (s) { return ('0' + (+s.slice(8, 10))).slice(-2) + ' ' + MON[+s.slice(5, 7) - 1]; };
+  return lo === hi ? f(lo) : f(lo) + '–' + f(hi);
+}
+
+function table_(name) {
+  if (_tcache[name]) return _tcache[name];
+  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(name);
+  if (!sh) throw new Error('Sheet "' + name + '" not found. Use the PMS database v8 sheet.');
+  var v = sh.getDataRange().getValues();
+  var h = v.shift().map(String), ix = {};
+  h.forEach(function (x, i) { ix[x] = i; });
+  return (_tcache[name] = { h: h, v: v, ix: ix });
+}
+function col_(t, name, sheet) {
+  if (!(name in t.ix)) throw new Error('Column "' + name + '" not found in sheet ' + sheet);
+  return t.ix[name];
+}
+
+function settings_() {
+  var t = table_('Settings'), o = {};
+  t.v.forEach(function (r) { if (r[0] !== '') o[String(r[0])] = r[1]; });
+  return o;
+}
+
+/* ---------- core data load (shared by Dashboard / Tyre / Pareto) ---------- */
+/* ---------- Delay type = hours in INPUT_DBR columns D0..D12 (codes from Ref_Delay) ---------- */
+var DNAMES = ['Repair in Progress', 'Vendor Repair Progress', 'Waiting Vendor Manpower', 'Waiting Part & Material', 'Waiting Access / Unit Movement', 'Bad Weather',
+  'Waiting Mechanic Manpower', 'Waiting Tools', 'Rest Time', 'Operation / Maintenance Error', 'Scheduled Opportunity', 'Waiting Decision', 'Other (undefined)'];
+function dLabel_(i) { return 'D' + i + ' ' + DNAMES[i]; }
+function dly_(D, lo, hi) {
+  var t = {}, c = {}, tot = 0;
+  D.R.forEach(function (x) {
+    if (x.d < lo || x.d > hi || !x.dh) return;
+    x.dd.forEach(function (v, i) { if (v) t[dLabel_(i)] = (t[dLabel_(i)] || 0) + v; });
+    var k = x.code || 'N/A'; c[k] = (c[k] || 0) + x.dh; tot += x.dh;
+  });
+  return { t: t, c: c, tot: tot };
+}
+function load_() {
+  var S = settings_();
+  var asof = iso_(S['Period_End']), ys = iso_(S['YTD_Start']);
+  if (!asof || !ys) throw new Error('Settings!Period_End / YTD_Start is empty - check the Settings sheet.');
+
+  // Unit master
+  var um = table_('Unit_Master'), U = {}, ulist = [], bd = 0, modelOf = {}, groupOf = {}, ustat = {}, tgt = {};
+  var cU = col_(um, 'Unit_ID', 'Unit_Master'), cG = col_(um, 'Group', 'Unit_Master'), cM = col_(um, 'Meter_Type', 'Unit_Master'),
+    cS = col_(um, 'Status', 'Unit_Master'), cH = col_(um, 'Hours_Per_Day', 'Unit_Master'), cUS = col_(um, 'Unit_Status', 'Unit_Master'),
+    cMod = col_(um, 'Model', 'Unit_Master');
+  um.v.forEach(function (r) {
+    var u = str_(r[cU]); if (!u) return;
+    modelOf[u] = str_(r[cMod]); groupOf[u] = str_(r[cG]); ustat[u] = str_(r[cUS]);
+    if (r[cUS] === 'Breakdown') bd++;
+    if (r[cS] === 'Active') U[u] = { g: str_(r[cG]), km: r[cM] === 'KM', h: num_(r[cH]) || num_(S['Default_Hours_Per_Day']) || 10 };
+  });
+  Object.keys(U).forEach(function (u) { ulist.push(u); });
+
+  // Breakdown rows
+  var ib = table_('INPUT_DBR'), R = [], n = 'INPUT_DBR';
+  var c = {
+    u: col_(ib, 'Unit', n), d: col_(ib, 'Date', n), e: col_(ib, 'BD_Date', n), h: col_(ib, 'Total_BD_Hrs', n), code: col_(ib, 'Downtime_Code', n),
+    comp: col_(ib, 'Component_1', n), first: col_(ib, 'Event_First', n), cf: col_(ib, 'Comp_First', n), ek: col_(ib, 'Event_Key', n), ck: col_(ib, 'Comp_Key', n), p: col_(ib, 'Problem', n),
+    st: col_(ib, 'Job_Status', n), ap: col_(ib, 'Action_Progress', n), dcs: DNAMES.map(function (_, i) { return col_(ib, 'D' + i, n); }), rh: col_(ib, 'Repair_Hrs', n), wk: col_(ib, 'Week', n), mod: col_(ib, 'Model', n), c1h: col_(ib, 'Comp1_Hrs', n), tyre: col_(ib, 'Is_Tyre', n), iss: col_(ib, 'Tyre_Issue', n), pos: col_(ib, 'Tyre_Pos', n)
+  };
+  ib.v.forEach(function (r) {
+    var u = str_(r[c.u]); if (!u) return;
+    var d = iso_(r[c.d]); if (!d) return;
+    var dd = c.dcs.map(function (ci) { return num_(r[ci]); }), dsum = dd.reduce(function (a, b) { return a + b; }, 0), dmx = 0, dtp = '';
+    dd.forEach(function (v, i) { if (v > dmx) { dmx = v; dtp = dLabel_(i); } });
+    R.push({ u: u, d: d, e: iso_(r[c.e]), h: num_(r[c.h]), code: str_(r[c.code]), c: str_(r[c.comp]), first: r[c.first] === 1, cf: r[c.cf] === 1, ek: str_(r[c.ek]), ck: str_(r[c.ck]),
+      p: str_(r[c.p]), st: str_(r[c.st]), ap: str_(r[c.ap]), ri: R.length, dd: dd, dt: dtp, dh: dsum, rh: num_(r[c.rh]), w: +String(r[c.wk]).replace(/\D/g, '') || null, mod: str_(r[c.mod]), f: num_(r[c.c1h]), tyre: r[c.tyre] === 1, iss: str_(r[c.iss]), pos: str_(r[c.pos]) });
+  });
+
+  // HM log
+  var hm = table_('HM_Log'), H = [];
+  var hu = col_(hm, 'Unit', 'HM_Log'), hd = col_(hm, 'Date', 'HM_Log'), hw = col_(hm, 'Working_Hrs', 'HM_Log');
+  hm.v.forEach(function (r) { var u = str_(r[hu]); if (u) H.push({ u: u, d: iso_(r[hd]), w: num_(r[hw]) }); });
+
+  // calendar weeks
+  var cal = table_('Calendar'), wk = {};
+  var wd = col_(cal, 'Date', 'Calendar'), ww = col_(cal, 'Week', 'Calendar');
+  cal.v.forEach(function (r) { var d = iso_(r[wd]); if (d && r[ww] !== '') (wk[String(r[ww])] = wk[String(r[ww])] || []).push(d); });
+
+  // groups
+  var rgT = table_('Ref_Group'), cgg = col_(rgT, 'Group', 'Ref_Group'), groups = [];
+  var ctp = 'Target_PA' in rgT.ix ? rgT.ix['Target_PA'] : -1;
+  rgT.v.forEach(function (r) { if (r[cgg] !== '') { groups.push(String(r[cgg])); if (ctp >= 0 && num_(r[ctp]) > 0) tgt[String(r[cgg])] = num_(r[ctp]); } });
+
+  return { asof: asof, ys: ys, U: U, ulist: ulist, bd: bd, R: R, H: H, wk: wk, groups: groups, modelOf: modelOf, groupOf: groupOf, ustat: ustat, tgt: tgt };
+}
+
+/* ---------- windows: days / weeks / months / ytd (clamped to data range) ---------- */
+function windows_(D) {
+  var asof = D.asof, ys = D.ys;
+  var has = function (lo, hi) {
+    return D.R.some(function (x) { return x.d >= lo && x.d <= hi; }) || D.H.some(function (a) { return a.d >= lo && a.d <= hi; });
+  };
+  var win = function (k, lo, hi) {
+    hi = hi > asof ? asof : hi; lo = lo < ys ? ys : lo;
+    return { k: k, rng: rg_(lo, hi), lo: lo, hi: hi };
+  };
+  var weeks = [];
+  Object.keys(D.wk).sort(function (a, b) { return +a.split(' ')[1] - +b.split(' ')[1]; }).forEach(function (w) {
+    var ds = D.wk[w].slice().sort(), lo = ds[0], hi = ds[ds.length - 1];
+    if (lo > asof || hi < ys) return;
+    var x = win('W' + ('0' + w.split(' ')[1]).slice(-2), lo, hi);
+    if (has(x.lo, x.hi)) weeks.push(x);
+  });
+  var months = [], y = +ys.slice(0, 4), m = +ys.slice(5, 7), ey = +asof.slice(0, 4), em = +asof.slice(5, 7);
+  while (y < ey || (y === ey && m <= em)) {
+    var lo = y + '-' + ('0' + m).slice(-2) + '-01', nxt = m === 12 ? (y + 1) + '-01-01' : y + '-' + ('0' + (m + 1)).slice(-2) + '-01';
+    months.push(win(MON[m - 1] + (y === ey ? '' : ' ' + String(y).slice(2)), lo, addDays_(nxt, -1)));
+    m++; if (m > 12) { m = 1; y++; }
+  }
+  var days = [];
+  for (var x = ys; x <= asof; x = addDays_(x, 1)) {
+    if (has(x, x)) { var w = win(('0' + (+x.slice(8, 10))).slice(-2) + ' ' + MON[+x.slice(5, 7) - 1], x, x); w.wd = WD[new Date(dn_(x) * 864e5).getUTCDay()]; days.push(w); }
+  }
+  return { days: days, weeks: weeks, months: months, ytd: win('YTD', ys, asof) };
+}
+
+function index_(arr, key) { var o = {}; arr.forEach(function (x) { (o[x[key]] = o[x[key]] || []).push(x); }); return o; }
+function sortDesc_(entries, f) {  // stable sort, descending by f
+  return entries.map(function (e, i) { return [e, i]; }).sort(function (a, b) { var d = f(b[0]) - f(a[0]); return d !== 0 ? d : a[1] - b[1]; }).map(function (p) { return p[0]; });
+}
+
+/* ---------- KPI calculation for one window ---------- */
+function calc_(D, Rb, Hb, lo, hi) {
+  var days = dn_(hi) - dn_(lo) + 1, PU = {}, pas = [], mas = [], uas = [], mtbf = [], mttr = [], dt = {}, comp = {}, compOrder = [], cev = {}, cks = {}, uev = {}, UC = {}, usmT = 0, scmT = 0, evT = 0;
+  D.ulist.forEach(function (u) {
+    var i = D.U[u], all = Rb[u] || [], rows = all.filter(function (x) { return x.d >= lo && x.d <= hi; });
+    var t = 0; rows.forEach(function (x) { t += x.h; }); dt[u] = t;
+    var es = {}; rows.forEach(function (x) { es[x.ek || (x.u + '|' + x.e)] = 1; }); uev[u] = Object.keys(es).length;   // events ACTIVE in the window (incl. ones that started earlier)
+    var cc = {}, ccOrder = [], ccs = {};
+    rows.forEach(function (x) {
+      if (x.c) {
+        if (!cc[x.c]) { cc[x.c] = [0, 0]; ccOrder.push(x.c); ccs[x.c] = {}; }
+        cc[x.c][0] += x.h; if (x.ck && !ccs[x.c][x.ck]) { ccs[x.c][x.ck] = 1; cc[x.c][1]++; }
+      }
+    });
+    UC[u] = sortDesc_(ccOrder.map(function (k) { return [k, cc[k][0], cc[k][1]]; }), function (e) { return e[1]; }).slice(0, 6)
+      .map(function (e) { return [e[0], Math.round(e[1]), e[2]]; });
+    rows.forEach(function (x) {
+      if (x.c) {
+        if (!(x.c in comp)) { comp[x.c] = 0; compOrder.push(x.c); }
+        comp[x.c] += x.h; if (x.ck) { cks[x.c] = cks[x.c] || {}; if (!cks[x.c][x.ck]) { cks[x.c][x.ck] = 1; cev[x.c] = (cev[x.c] || 0) + 1; } }
+      }
+      if (x.code === 'USM') usmT += x.h;
+      if (x.code === 'SCM') scmT += x.h;
+    });
+    var o = PU[u] = {}, usm = 0;
+    rows.forEach(function (x) { if (x.code === 'USM') usm += x.h; });
+    var ev = all.filter(function (x) { return x.code === 'USM' && x.first && x.e >= lo && x.e <= hi; }).length; evT += ev;
+    pas.push(Math.max(0, 1 - t / (i.h * days))); o.pa = pas[pas.length - 1];
+    if (ev) { mttr.push(usm / ev); o.mttr = usm / ev; }
+    var w = 0;
+    if (!i.km) {
+      w = 0; (Hb[u] || []).forEach(function (a) { if (a.d >= lo && a.d <= hi) w += a.w; });
+      if (w + t > 0) { mas.push(w / (w + t)); o.ma = mas[mas.length - 1]; }
+      if (i.h * days - t > 0) { uas.push(Math.min(1, w / (i.h * days - t))); o.ua = uas[uas.length - 1]; }
+      mtbf.push(ev === 0 ? w : w / ev); o.mtbf = mtbf[mtbf.length - 1];
+    }
+    o.dt = t; o.uev = uev[u]; o.usm = ev; o.w = w;
+  });
+  var av = function (l) { if (!l.length) return null; var s = 0; l.forEach(function (x) { s += x; }); return r4_(s / l.length); };
+  var tot = 0, ct = 0; D.ulist.forEach(function (u) { tot += dt[u]; }); compOrder.forEach(function (k) { ct += comp[k]; });
+  tot = tot || 1; ct = ct || 1;
+  var GR = {};
+  D.groups.forEach(function (g) {
+    var us = D.ulist.filter(function (u) { return D.U[u].g === g; }), o = { n: us.length };
+    ['pa', 'ma', 'ua', 'mtbf', 'mttr'].forEach(function (k) {
+      var vals = us.filter(function (u) { return k in PU[u]; }).map(function (u) { return PU[u][k]; });
+      o[k] = vals.length ? r4_(vals.reduce(function (a, b) { return a + b; }, 0) / vals.length) : null;
+    });
+    GR[g] = o;
+  });
+  var au = {}, uc = {}, dtTot = 0;
+  D.ulist.forEach(function (u) { dtTot += dt[u]; if (dt[u] > 0 || uev[u]) au[u] = [Math.round(dt[u]), uev[u]]; if (UC[u].length) uc[u] = UC[u]; });
+  var tu = sortDesc_(D.ulist.map(function (u) { return [u, dt[u]]; }), function (e) { return e[1]; }).filter(function (e) { return e[1] > 0; }).slice(0, 10)
+    .map(function (e) { return [e[0], Math.round(e[1]), Math.round(e[1] / tot * 1000) / 1000, uev[e[0]]]; });
+  var tc = sortDesc_(compOrder.map(function (k) { return [k, comp[k]]; }), function (e) { return e[1]; }).slice(0, 10)
+    .map(function (e) { return [e[0], Math.round(e[1]), Math.round(e[1] / ct * 1000) / 1000, cev[e[0]] || 0]; });
+  return { pu: PU, au: au, uc: uc, g: GR, pa: av(pas), ma: av(mas), ua: av(uas), mtbf: av(mtbf), mttr: av(mttr), dt: Math.round(dtTot), usm: Math.round(usmT), scm: Math.round(scmT), ev: evT, tu: tu, tc: tc };
+}
+
+/* ---------- API: Dashboard ---------- */
+function apiDashboard() {
+  var D = load_(), W = windows_(D), Rb = index_(D.R, 'u'), Hb = index_(D.H, 'u');
+  var add = function (w) { var o = calc_(D, Rb, Hb, w.lo, w.hi); delete o.pu; Object.keys(o).forEach(function (k) { w[k] = o[k]; }); return w; };
+  var add0 = add; add = function (w) { add0(w); w.dl = dly_(D, w.lo, w.hi); return w; };
+  W.days.forEach(add); W.weeks.forEach(add); W.months.forEach(add); add(W.ytd);
+  var info = backlogRows_(D).sort(function (a, b) { return b.age - a.age; }).slice(0, 8).map(function (r) { return [r.u, r.c, r.s, r.age]; });
+  var pm;
+  try {
+    var pt = table_('PM_Schedule'), pU = col_(pt, 'Unit', 'PM_Schedule'), pS = col_(pt, 'Service_Type', 'PM_Schedule'), pD = col_(pt, 'Plan_Date', 'PM_Schedule'),
+      pR = col_(pt, 'Remaining', 'PM_Schedule'), pT = col_(pt, 'Due_Status', 'PM_Schedule');
+    pm = { due: 0, over: 0, planned: 0, rows: 0, items: [] };
+    pt.v.forEach(function (r) {
+      if (str_(r[pU]) === '') return;
+      var st = str_(r[pT]); pm.rows++;
+      if (st === 'Due') pm.due++; else if (st === 'Overdue') pm.over++; else if (st === 'OK' || st === 'Planned') pm.planned++;
+      if (st === 'Due' || st === 'Overdue') pm.items.push({ u: str_(r[pU]), t: str_(r[pS]), s: st, rem: r[pR] === '' ? null : num_(r[pR]), d: iso_(r[pD]) });
+    });
+    pm.items.sort(function (a, b) { return (a.s === b.s ? 0 : a.s === 'Overdue' ? -1 : 1) || (a.rem || 0) - (b.rem || 0); });
+    pm.items = pm.items.slice(0, 5);
+  } catch (e) { pm = { err: String(e.message || e) }; }
+  var ul = D.ulist.slice().sort().map(function (u) { return [u, D.U[u].g]; });
+  return { ul: ul, units: D.ulist.length, act: D.ulist.length, bd: D.bd, days: W.days, weeks: W.weeks, months: W.months, ytd: W.ytd, info: info, pm: pm, asof: Utilities.formatDate(new Date(dn_(D.asof) * 864e5 + 12 * 36e5), tz_(), 'dd MMM yyyy') };
+}
+
+/* ---------- Tyre life per position (sheet Tyre_Fit_Log: one row = one tyre fitted on a position) ---------- */
+// In use = latest row of a unit+position: life = current meter - Fit_Meter.  Replaced = older rows: life = next Fit_Meter - Fit_Meter.
+function tyreLife_(ts) {
+  var S = settings_(), warn = num_(S['Tyre_Life_Warn_Pct']) || 0.9, t;
+  try { t = table_('Tyre_Fit_Log'); } catch (e) { return { has: false, units: [], n: 0, avg: null, rp: [], hist: [], bad: 0 }; }
+  var cD = 'Fit_Date' in t.ix ? t.ix['Fit_Date'] : -1, cU = col_(t, 'Unit', 'Tyre_Fit_Log'), cP = col_(t, 'Pos', 'Tyre_Fit_Log'), cM = col_(t, 'Fit_Meter', 'Tyre_Fit_Log'),
+    cB = 'Tyre_Brand' in t.ix ? t.ix['Tyre_Brand'] : -1, cT = 'Life_Target' in t.ix ? t.ix['Life_Target'] : -1,
+    cR = 'Remark' in t.ix ? t.ix['Remark'] : -1, cF = 'Fit_Type' in t.ix ? t.ix['Fit_Type'] : -1;
+  var um = table_('Unit_Master'), uU = col_(um, 'Unit_ID', 'Unit_Master'), uM = col_(um, 'Model', 'Unit_Master'), uT = col_(um, 'Meter_Type', 'Unit_Master'), uL = col_(um, 'Last_Meter', 'Unit_Master'), UM = {};
+  um.v.forEach(function (r) { var u = str_(r[uU]); if (u) UM[u] = { m: str_(r[uM]), mt: str_(r[uT]) || 'HM', cur: r[uL] === '' ? null : num_(r[uL]) }; });
+  var tu = col_(ts, 'Unit', 'Tyre_Schedule'), tt = 'Tyre_Life_Target' in ts.ix ? ts.ix['Tyre_Life_Target'] : -1, TG = {};
+  ts.v.forEach(function (r) { var u = str_(r[tu]); if (u && tt >= 0 && num_(r[tt]) > 0) TG[u] = num_(r[tt]); });
+  var G = {};   // unit -> position -> [fits]
+  t.v.forEach(function (r) {
+    var u = str_(r[cU]).trim(), p = str_(r[cP]).trim().toUpperCase(), m = r[cM];
+    if (!u || !p || m === '' || m === null) return;
+    ((G[u] = G[u] || {})[p] = G[u][p] || []).push({ m: num_(m), d: cD >= 0 ? iso_(r[cD]) : '', b: cB >= 0 ? str_(r[cB]) : '', tg: cT >= 0 ? num_(r[cT]) : 0, rm: cR >= 0 ? str_(r[cR]) : '', ft: cF >= 0 ? str_(r[cF]) : '' });
+  });
+  var out = [], sum = 0, n = 0, RP = [], HS = [], bad = 0;
+  Object.keys(G).sort().forEach(function (u) {
+    var info = UM[u] || { m: '', mt: 'HM', cur: null }, ps = [], us = 0, un = 0;
+    Object.keys(G[u]).sort(function (a, b) { return (+a || 0) - (+b || 0) || (a < b ? -1 : 1); }).forEach(function (p) {
+      var f = G[u][p].slice().sort(function (a, b) { return a.m - b.m; }), cur = f[f.length - 1], tg = cur.tg || TG[u] || 0,
+        age = info.cur === null ? null : Math.max(0, info.cur - cur.m), pct = age !== null && tg ? age / tg : null, hist = [];
+      for (var i = 0; i < f.length - 1; i++) {
+        var lf = f[i + 1].m - f[i].m; if (lf <= 0) { bad++; continue; }   // same meter twice = typing error, ignored
+        hist.push(lf); us += lf; un++;
+        var tg1 = f[i].tg || TG[u] || 0;   // history: tyre fitted at f[i], removed when f[i + 1] was fitted
+        HS.push({ u: u, m: info.m, mt: info.mt, p: p, fd: f[i].d, td: f[i + 1].d, fm: f[i].m, tm: f[i + 1].m, life: lf, tg: tg1 || null,
+          pct: tg1 ? r4_(lf / tg1) : null, rs: tg1 ? (lf >= tg1 ? 'Met' : 'Below') : 'No target', rm: f[i + 1].rm });
+      }
+      // every row is a tyre replacement (counted in the period of its Fit_Date), unless the optional column Fit_Type says AWAL / INITIAL (first installation)
+      f.forEach(function (x) {
+        if (x.d && !/AWAL|INITIAL/.test(x.ft.toUpperCase())) RP.push({ u: u, d: x.d });
+      });
+      ps.push({ p: p, fm: cur.m, fd: cur.d, br: cur.b, age: age, tg: tg || null, pct: pct === null ? null : r4_(pct),
+        st: pct === null ? 'No Target' : pct >= 1 ? 'Overdue' : pct >= warn ? 'Due Soon' : 'OK', nr: hist.length, avg: hist.length ? Math.round(hist.reduce(function (a, b) { return a + b; }, 0) / hist.length) : null });
+    });
+    sum += us; n += un;
+    out.push({ u: u, m: info.m, mt: info.mt, cur: info.cur, pos: ps, nr: un, avg: un ? Math.round(us / un) : null,
+      worst: ps.reduce(function (a, x) { return x.pct !== null && x.pct > a ? x.pct : a; }, 0) });
+  });
+  return { has: out.length > 0, units: out, n: n, avg: n ? Math.round(sum / n) : null, warn: warn, rp: RP, hist: HS, bad: bad };
+}
+
+/* ---------- API: Tyre maintenance ---------- */
+function apiTyre() {
+  var D = load_(), W = windows_(D), ISS = ['Puncture / Leak', 'Burst / Cut', 'Worn Out', 'Wheel Nut / Stud', 'Overdue / End of Life', 'Rim Damage', 'Replacement / Rotation', 'Other'];
+  var T = D.R.filter(function (x) { return x.tyre; });
+  // tyres replaced = rows of sheet Tyre_Fit_Log that replace an earlier tyre on the same unit + position (a unit's replacements on one date = one job)
+  var pl; try { pl = tyreLife_(table_('Tyre_Schedule')); } catch (e) { pl = { has: false, units: [], rp: [], err: String(e.message || e) }; }
+  var TB = {}, RPm = {}, RP = [];   // inner tube (ban dalam) = the job of that unit and date says so in Action_Progress
+  T.forEach(function (x) { if (/BAN DALAM|INNER TUBE|\bTUBE\b/i.test(x.ap)) TB[x.u + '|' + x.d] = 1; });
+  (pl.rp || []).forEach(function (x) { var k = x.u + '|' + x.d, o = RPm[k] || (RPm[k] = { u: x.u, d: x.d, q: 0, tb: 0, est: 0 }); o.q++; if (TB[k]) o.tb++; });
+  Object.keys(RPm).forEach(function (k) { RP.push(RPm[k]); });
+  var agg = function (lo, hi) {
+    var rs = T.filter(function (x) { return x.d >= lo && x.d <= hi; }), ev = rs.filter(function (x) { return x.first; });
+    var iss = {}; ISS.forEach(function (k) { iss[k] = [0, 0]; });
+    rs.forEach(function (x) { (iss[x.iss] = iss[x.iss] || [0, 0])[1] += x.h; });
+    ev.forEach(function (x) { (iss[x.iss] = iss[x.iss] || [0, 0])[0] += 1; });
+    var issL = Object.keys(iss).filter(function (k) { return iss[k][0] || iss[k][1]; }).map(function (k) { return [k, iss[k][0], Math.round(iss[k][1])]; });
+    issL = sortDesc_(issL, function (e) { return e[1] * 1e6 + e[2]; });
+    var U = {}, hrs = 0, un = {};
+    rs.forEach(function (x) { U[x.u] = U[x.u] || [0, 0, 0]; U[x.u][1] += x.h; hrs += x.h; });
+    ev.forEach(function (x) { U[x.u][0] += 1; if (x.iss === 'Puncture / Leak') U[x.u][2] += 1; un[x.u] = 1; });
+    var tu = sortDesc_(Object.keys(U).filter(function (u) { return U[u][0]; }).map(function (u) { return [u, D.modelOf[u] || '', U[u][0], U[u][2], Math.round(U[u][1])]; }),
+      function (e) { return e[2] * 1e6 + e[4]; }).slice(0, 10);
+    var rp = RP.filter(function (x) { return x.d >= lo && x.d <= hi; }), RU = {}, rq = 0, rt = 0, re = 0;
+    rp.forEach(function (x) {
+      var o = RU[x.u] || (RU[x.u] = [0, 0, 0, '', 0]); o[0]++; o[1] += x.q; o[2] += x.tb; if (x.d > o[3]) o[3] = x.d; o[4] += x.est;
+      rq += x.q; rt += x.tb; re += x.est;
+    });
+    var ru = sortDesc_(Object.keys(RU).map(function (u) { return [u, D.modelOf[u] || '', RU[u][0], RU[u][1], RU[u][2], rg_(RU[u][3], RU[u][3]), RU[u][4]]; }),
+      function (e) { return e[3] * 1e3 + e[2]; });   // [unit, model, jobs, tyres, inner tubes, last date, jobs with assumed qty]
+    return { rj: rp.length, rq: rq, rt: rt, re: re, ru: ru, ev: ev.length, h: Math.round(hrs), lk: ev.filter(function (x) { return x.iss === 'Puncture / Leak'; }).length, un: Object.keys(un).length, iss: issL, tu: tu };
+  };
+  var mk = function (l) { return l.map(function (w) { var o = agg(w.lo, w.hi); o.lo = w.lo; o.hi = w.hi; o.k = w.k; o.rng = w.rng; if (w.wd) o.wd = w.wd; return o; }); };
+  var days = mk(W.days), weeks = mk(W.weeks), months = mk(W.months), ytd = mk([W.ytd])[0]; ytd.k = 'YTD';
+  var trend = months.map(function (m) { return [m.k, m.ev, m.lk]; });
+
+  var ts = table_('Tyre_Schedule'), g = function (n) { return col_(ts, n, 'Tyre_Schedule'); };
+  var cu = g('Unit'), cm = g('Model'), ck = g('Check_Status'), cod = g('Days_Overdue'), clc = g('Last_Check_Date'), cli = g('Life_Used_%'), cls = g('Life_Status');
+  var sch = [];
+  ts.v.forEach(function (r) {
+    if (r[cu] === '') return;
+    sch.push({ u: str_(r[cu]), m: str_(r[cm]), ck: str_(r[ck]), od: num_(r[cod]), lc: iso_(r[clc]) ? rg_(iso_(r[clc]), iso_(r[clc])) : null,
+      li: r[cli] === '' ? null : num_(r[cli]), ls: str_(r[cls]) });
+  });
+  var od = sortDesc_(sch.filter(function (s) { return s.ck === 'Overdue' || s.ls === 'Overdue'; }),
+    function (s) { return (s.ck === 'Overdue' ? 1e6 : 0) + s.od * 1e3 + (s.li || 0); }).slice(0, 12);
+  var cnt = function (k, v) { return sch.filter(function (s) { return s[k] === v; }).length; };
+  var rec = sortDesc_(T.filter(function (x) { return x.first; }), function (x) { return dn_(x.d); }).slice(0, 12)
+    .map(function (x) { return { d: rg_(x.d, x.d), u: x.u, p: x.p, i: x.iss, h: x.h, st: x.st }; });
+  return { asof: apiAsof_(D), days: days, weeks: weeks, months: months, ytd: ytd, trend: trend, od: od, tot: sch.length, rec: rec, pl: pl,
+    ck: { over: cnt('ck', 'Overdue'), soon: cnt('ck', 'Due Soon'), ok: cnt('ck', 'OK'), nd: cnt('ck', 'No Data') },
+    lf: { over: cnt('ls', 'Overdue'), soon: cnt('ls', 'Due Soon'), ok: cnt('ls', 'OK'), nd: cnt('ls', 'No Data') } };
+}
+/* ---------- Preventive Maintenance (service achievement) ---------- */
+var PM_TOL_PCT = 0.2;      // meter tolerance = 20% of service interval (e.g. 500 HM -> 100, 5000 KM -> 1000)
+var PM_DATE_TOL = 7;       // executed more than 7 days away from plan date = out of range
+function apiPM() {
+  var S = settings_(), n = 'PM_Schedule', t = table_(n);
+  var c = { u: col_(t, 'Unit', n), s: col_(t, 'Service_Type', n), pd: col_(t, 'Plan_Date', n), pm: col_(t, 'Plan_Meter', n), st: col_(t, 'Status', n),
+    ed: col_(t, 'Actual_Date', n), em: col_(t, 'Actual_Meter', n), wo: col_(t, 'WO_No', n), rk: col_(t, 'Remark', n) };
+  var cCur = 'Current_Meter' in t.ix ? t.ix['Current_Meter'] : -1, cDue = 'Due_Status' in t.ix ? t.ix['Due_Status'] : -1;
+  var um = table_('Unit_Master'), uU = col_(um, 'Unit_ID', 'Unit_Master'), uM = col_(um, 'Model', 'Unit_Master'), uG = col_(um, 'Group', 'Unit_Master'),
+    uT = col_(um, 'Meter_Type', 'Unit_Master'), UM = {};
+  um.v.forEach(function (r) { var u = str_(r[uU]); if (u) UM[u] = { mod: str_(r[uM]), g: str_(r[uG]), mt: str_(r[uT]) || 'HM' }; });
+  var si = table_('Service_Interval'), sG = col_(si, 'Group', 'Service_Interval'), sS = col_(si, 'Service_Type', 'Service_Interval'),
+    sI = col_(si, 'Interval', 'Service_Interval'), INT = {};
+  si.v.forEach(function (r) { if (str_(r[sG]) && str_(r[sS])) INT[str_(r[sG]) + '|' + str_(r[sS])] = num_(r[sI]); });
+  var cal = table_('Calendar'), cd = col_(cal, 'Date', 'Calendar'), cw = col_(cal, 'Week', 'Calendar'), WK = {}, combo = {};
+  cal.v.forEach(function (r) {
+    var d = iso_(r[cd]); if (!d || str_(r[cw]) === '') return;
+    var w = +String(r[cw]).replace(/\D/g, ''); WK[d] = w; combo[d.slice(0, 4) + '|' + (+d.slice(5, 7)) + '|' + w] = 1;
+  });
+  var calList = Object.keys(combo).map(function (k) { var p = k.split('|'); return { y: +p[0], m: +p[1], w: +p[2] }; });
+  var today = Utilities.formatDate(new Date(), tz_(), 'yyyy-MM-dd');
+  var thHM = num_(S['PM_Due_Threshold_HM']) || 50, thKM = num_(S['PM_Due_Threshold_KM']) || 500;
+  var rows = [];
+  t.v.forEach(function (r) {
+    var u = str_(r[c.u]); if (!u) return;
+    var m = UM[u] || { mod: '', g: '', mt: 'HM' }, svc = str_(r[c.s]), pd = iso_(r[c.pd]), ed = iso_(r[c.ed]), st = str_(r[c.st]);
+    var pmv = r[c.pm] === '' ? null : num_(r[c.pm]), emv = (r[c.em] === '' || num_(r[c.em]) === 0) ? null : num_(r[c.em]);
+    var itv = INT[m.g + '|' + svc] || 0;
+    var tol = itv ? Math.round(itv * PM_TOL_PCT) : (m.mt === 'KM' ? thKM * 2 : thHM * 2);
+    var done = emv !== null || ed !== '' || st === 'Done';
+    var dev = (done && emv !== null && pmv !== null) ? emv - pmv : null;
+    var dd = (done && ed && pd) ? Math.round(dn_(ed) - dn_(pd)) : null;
+    var cls, acc = null;
+    if (st === 'Cancelled') cls = 'CANCELLED';
+    else if (done) {
+      var mOk = dev === null || Math.abs(dev) <= tol, dOk = dd === null || Math.abs(dd) <= PM_DATE_TOL;
+      cls = mOk && dOk ? 'IN RANGE' : 'OUT RANGE';
+      var a1 = dev === null ? 1 : 1 - Math.max(0, Math.abs(dev) - tol) / (itv || tol * 5);
+      var a2 = dd === null ? 1 : 1 - Math.max(0, Math.abs(dd) - PM_DATE_TOL) / 30;
+      acc = Math.max(0, Math.min(a1, a2));
+    } else if ((pd && pd < today) || (cDue >= 0 && str_(r[cDue]) === 'Overdue')) cls = 'OUT STANDING';
+    else cls = 'PLANNED';
+    var wkn = pd && WK[pd] ? WK[pd] : null;
+    rows.push({ u: u, mod: m.mod, g: m.g, mt: m.mt, svc: svc, itv: itv || null, pd: pd, pm: pmv, ed: ed, em: emv, wo: str_(r[c.wo]), rk: str_(r[c.rk]), st: st,
+      y: pd ? +pd.slice(0, 4) : null, mo: pd ? +pd.slice(5, 7) : null, w: wkn, dev: dev, dd: dd, tol: tol,
+      mn: pmv === null ? null : pmv - tol, mx: pmv === null ? null : pmv + tol, cls: cls, acc: acc === null ? null : r4_(acc),
+      cur: cCur >= 0 && r[cCur] !== '' ? num_(r[cCur]) : null });
+  });
+  rows.sort(function (a, b) { return (a.pd || '9') < (b.pd || '9') ? -1 : (a.pd || '9') > (b.pd || '9') ? 1 : (a.u < b.u ? -1 : 1); });
+  return { rows: rows, cal: calList, today: today, tolPct: PM_TOL_PCT, dateTol: PM_DATE_TOL };
+}
+
+/* ---------- Daily Activity (mechanics) ---------- */
+var DAYS_ID = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+function actRows_() {
+  var S = settings_(), hpd = num_(S['Default_Hours_Per_Day']) || 10;
+  var rm = table_('Ref_Mechanic'), mN = col_(rm, 'Mechanic', 'Ref_Mechanic'), mR = col_(rm, 'Role', 'Ref_Mechanic'), mC = col_(rm, 'Crew', 'Ref_Mechanic'),
+    mA = col_(rm, 'Active', 'Ref_Mechanic'), roster = [], isR = {};
+  rm.v.forEach(function (r) { var nm = str_(r[mN]).trim(); if (!nm) return; isR[nm] = 1; roster.push({ n: nm, role: str_(r[mR]), crew: str_(r[mC]), act: str_(r[mA]) !== 'No' }); });
+  var rows = [], bad = { noMech: 0, noHrs: 0 }, a = 'Activity_Log', t = table_(a);
+  var c = { d: col_(t, 'Date', a), sh: col_(t, 'Shift', a), m: col_(t, 'Mechanic', a), u: col_(t, 'Unit', a), cat: col_(t, 'Category', a), ds: col_(t, 'Activity / Job Description', a),
+    st: col_(t, 'Status', a), ref: col_(t, 'Ref_No (WO / BD)', a), h: col_(t, 'Hours', a), g: col_(t, 'Group', a), mod: col_(t, 'Model', a), o: col_(t, 'Is_Outside', a), w: col_(t, 'Week', a) };
+  t.v.forEach(function (r) {
+    var d = iso_(r[c.d]); if (!d) return;
+    var m = str_(r[c.m]).trim(); if (!m) { bad.noMech++; return; }
+    var h = num_(r[c.h]); if (h <= 0) bad.noHrs++;
+    rows.push({ d: d, sh: str_(r[c.sh]), m: m, u: str_(r[c.u]), cat: str_(r[c.cat]), ds: str_(r[c.ds]), h: h, st: str_(r[c.st]) || 'Done', ref: str_(r[c.ref]),
+      g: str_(r[c.g]), mod: str_(r[c.mod]), o: r[c.o] === 1 ? 1 : 0, w: str_(r[c.w]).replace(/\D/g, ''), src: 'LOG' });
+  });
+  // mechanics named in INPUT_DBR Man_Power_1..8 (only names that exist in Ref_Mechanic)
+  var ib = table_('INPUT_DBR'), b = 'INPUT_DBR', mp = [];
+  for (var k = 1; k <= 8; k++) if (('Man_Power_' + k) in ib.ix) mp.push(ib.ix['Man_Power_' + k]);
+  var q = { d: col_(ib, 'Date', b), sh: col_(ib, 'Shift', b), u: col_(ib, 'Unit', b), p: col_(ib, 'Problem', b), ap: col_(ib, 'Action_Progress', b), js: col_(ib, 'Job_Status', b),
+    h: col_(ib, 'Repair_Hrs', b), g: col_(ib, 'Group', b), mod: col_(ib, 'Model', b), w: col_(ib, 'Week', b) };
+  ib.v.forEach(function (r) {
+    var u = str_(r[q.u]), d = iso_(r[q.d]); if (!u || !d) return;
+    var seen = {};
+    mp.forEach(function (ci) {
+      var m = str_(r[ci]).trim(); if (!m || !isR[m] || seen[m]) return; seen[m] = 1;
+      rows.push({ d: d, sh: str_(r[q.sh]), m: m, u: u, cat: 'Breakdown Repair', ds: str_(r[q.p]) + (str_(r[q.ap]) ? ' – ' + str_(r[q.ap]) : ''), h: num_(r[q.h]),
+        st: str_(r[q.js]) === 'BD' ? 'In Progress' : 'Done', ref: '', g: str_(r[q.g]), mod: str_(r[q.mod]), o: 0, w: str_(r[q.w]).replace(/\D/g, ''), src: 'DBR' });
+    });
+  });
+  rows.sort(function (x, y) { return x.d < y.d ? -1 : x.d > y.d ? 1 : (x.m < y.m ? -1 : x.m > y.m ? 1 : 0); });
+  return { rows: rows, roster: roster, bad: bad, hpd: hpd, S: S };
+}
+function apiActivity() {
+  var A = actRows_(), ds = {}, ws = {}, ms = {};
+  A.rows.forEach(function (r) { ds[r.d] = 1; ms[r.d.slice(0, 7)] = 1; if (r.w) ws[r.w] = (ws[r.w] || []).concat([r.d]); });
+  var cats = []; try { var rl = table_('Ref_Lists'), ci = rl.ix['Act_Category']; if (ci !== undefined) rl.v.forEach(function (r) { if (str_(r[ci])) cats.push(str_(r[ci])); }); } catch (e) {}
+  var wl = Object.keys(ws).sort(function (a, b) { return +a - +b; }).map(function (w) { var x = ws[w].sort(); return { k: w, rng: rg_(x[0], x[x.length - 1]) }; });
+  return { rows: A.rows, roster: A.roster, bad: A.bad, hpd: A.hpd, cats: cats,
+    days: Object.keys(ds).sort().map(function (d) { return { k: d, wd: WD[new Date(dn_(d) * 864e5).getUTCDay()] }; }),
+    weeks: wl, months: Object.keys(ms).sort().map(function (k) { return { k: k, label: MON[+k.slice(5, 7) - 1] + ' ' + k.slice(0, 4) }; }),
+    asof: apiAsof_(load_()) };
+}
+// WhatsApp-ready text for one day (used by the page button; a time trigger can call this later too)
+function waText_(date) {
+  var A = actRows_(), S = A.S, R = A.rows.filter(function (r) { return r.d === date; });
+  var dt = new Date(dn_(date) * 864e5), L = [];
+  var hs = function (v) { return (Math.round(v * 10) / 10).toString().replace('.', ',') + ' jam'; };
+  var tot = 0, done = 0, prog = 0, pend = 0, out = 0, by = {}, order = [];
+  R.forEach(function (r) { tot += r.h; if (r.st === 'Done') done++; else if (r.st === 'In Progress') prog++; else pend++; if (r.o) out++; if (!by[r.m]) { by[r.m] = []; order.push(r.m); } by[r.m].push(r); });
+  L.push('*DAILY ACTIVITY MEKANIK*');
+  L.push(str_(S['Company']) + (S['Site'] ? ' – ' + str_(S['Site']) : ''));
+  L.push(DAYS_ID[dt.getUTCDay()] + ', ' + ('0' + dt.getUTCDate()).slice(-2) + ' ' + MON[dt.getUTCMonth()] + ' ' + dt.getUTCFullYear());
+  L.push('');
+  if (!R.length) { L.push('Belum ada aktivitas tercatat.'); return L.join('\n'); }
+  L.push('Total: ' + R.length + ' pekerjaan | ' + hs(tot) + ' | ' + order.length + ' mekanik');
+  L.push('Selesai: ' + done + ' | Progress: ' + prog + ' | Pending: ' + pend + (out ? ' | Di luar unit: ' + out : ''));
+  order.sort().forEach(function (m) {
+    var x = by[m], h = x.reduce(function (s, r) { return s + r.h; }, 0);
+    L.push(''); L.push('*' + m + '* (' + hs(h) + ')');
+    x.forEach(function (r) {
+      L.push('• [' + (r.o ? (r.u || 'LUAR UNIT') : r.u) + '] ' + r.ds + (r.h ? ' – ' + hs(r.h) : '') + ' ' + (r.st === 'Done' ? '✅' : r.st === 'In Progress' ? '🔧' : '⏳'));
+    });
+  });
+  var op = R.filter(function (r) { return r.st !== 'Done'; });
+  if (op.length) { L.push(''); L.push('*Lanjut / Pending:*'); op.forEach(function (r) { L.push('• ' + (r.u || 'LUAR UNIT') + ' – ' + r.ds + ' (' + r.m + ', ' + r.st + ')'); }); }
+  return L.join('\n');
+}
+function apiWaText(date) { return waText_(String(date)); }
+
+/* ---------- Component Failure ---------- */
+function apiCompFail() {
+  var D = load_(), rows = [], gs = {}, CM = {}, hasMap = false;
+  try {
+    var cs = table_('Ref_ComponentSystem'), a = col_(cs, 'Component', 'Ref_ComponentSystem'), b = col_(cs, 'System_Group', 'Ref_ComponentSystem'), f = col_(cs, 'Count_As_Failure', 'Ref_ComponentSystem');
+    cs.v.forEach(function (r) { var k = str_(r[a]).trim().toUpperCase(); if (k) CM[k] = { s: str_(r[b]) || 'Unmapped', nf: str_(r[f]) === 'No' }; });
+    hasMap = true;
+  } catch (e) {}
+  D.R.forEach(function (x) {
+    if (!x.c) return;
+    var cm = CM[x.c.trim().toUpperCase()];
+    var g = D.groupOf[x.u] || ''; gs[g] = 1;
+    rows.push({ u: x.u, g: g, mod: x.mod || D.modelOf[x.u] || '', d: x.d, y: +x.d.slice(0, 4), mo: +x.d.slice(5, 7), w: x.w, c: x.c, ck: x.ck, s: cm ? cm.s : 'Unmapped', nf: cm ? (cm.nf ? 1 : 0) : (/^PREVENTIVE|^TOP UP/i.test(x.c) ? 1 : 0), cf: x.cf ? 1 : 0, h: x.h, p: x.p, st: x.st });
+  });
+  rows.sort(function (a, b) { return a.d < b.d ? -1 : a.d > b.d ? 1 : 0; });
+  var combo = {}; rows.forEach(function (r) { if (r.w) combo[r.y + '|' + r.mo + '|' + r.w] = 1; });
+  return { hasMap: hasMap, rows: rows, groups: Object.keys(gs).filter(Boolean).sort(), cal: Object.keys(combo).map(function (k) { var p = k.split('|'); return { y: +p[0], m: +p[1], w: +p[2] }; }),
+    asof: apiAsof_(D) };
+}
+
+function apiAsof_(D) { return Utilities.formatDate(new Date(dn_(D.asof) * 864e5 + 12 * 36e5), tz_(), 'dd MMM yyyy'); }
+
+/* ---------- API: Pareto per unit ---------- */
+function apiPareto() {
+  var D = load_(), units = {};
+  D.R.forEach(function (x) {
+    var o = units[x.u] || (units[x.u] = { g: D.groupOf[x.u] || '', ev: [] });
+    o.ev.push({ d: x.d, p: x.p, c: x.c, code: x.code, h: x.h, f: x.f, first: x.first ? 1 : 0, cf: x.cf ? 1 : 0, ek: x.ek, ck: x.ck, st: x.st, dh: x.dh, rh: x.rh, dt: x.dt, dd: x.dd });
+  });
+  var months = {}; D.R.forEach(function (x) { months[x.d.slice(0, 7)] = 1; });
+  return { units: units, months: Object.keys(months).sort().map(function (k) { return [k, MON[+k.slice(5, 7) - 1] + ' ' + k.slice(2, 4)]; }) };
+}
+
+/* ---------- API: Backlog ---------- */
+function apiBacklog() { var D = load_(); return { rows: backlogRows_(D), names: DNAMES }; }
+function backlogRows_(D) {
+  // Built from INPUT_DBR (same source as every other page): a unit is "pending" when its LATEST
+  // INPUT_DBR row has Job_Status = BD. Status / delay hours come from D0..D12 of that row;
+  // totals are summed over all rows of the same breakdown event (Event_Key).
+  var last = {}, rows = [];
+  D.R.forEach(function (x) { var o = last[x.u]; if (!o || x.d > o.d || (x.d === o.d && x.ri > o.ri)) last[x.u] = x; });
+  var grp = function (i) { return i === 0 ? 'In Progress' : (i === 1 || i === 2) ? 'Waiting Vendor' : i === 3 ? 'Waiting Part' : i === 6 ? 'Waiting Manpower' : DNAMES[i]; };
+  Object.keys(last).forEach(function (u) {
+    var x = last[u];
+    if (x.st !== 'BD' || !D.groupOf.hasOwnProperty(u)) return;
+    var ev = D.R.filter(function (y) { return y.u === u && (x.ek ? y.ek === x.ek : y.d === x.d); });
+    var first = ev.reduce(function (m, y) { var k = y.e || y.d; return k < m ? k : m; }, x.e || x.d);
+    var tot = DNAMES.map(function () { return 0; });
+    ev.forEach(function (y) { y.dd.forEach(function (v, i) { tot[i] += v; }); });
+    var cur = -1, mx = 0; x.dd.forEach(function (v, i) { if (v > mx) { mx = v; cur = i; } });
+    rows.push({ u: u, m: D.modelOf[u] || x.mod, g: D.groupOf[u] || '', c: x.c, p: x.p, s: cur < 0 ? 'No delay data' : grp(cur),
+      a: x.ap, d: first, age: Math.round(dn_(D.asof) - dn_(first)), now: x.dd, tot: tot,
+      wh: tot[3], dh: tot.reduce(function (a, b) { return a + b; }, 0) });
+  });
+  return rows;
+}
+
+/* ---------- API: Greasing achievement (Greasing_Plan = schedule rules, Greasing_Log = what was done) ---------- */
+var GREASE_TOL = 1;   // a log entry within +/- this many days of a planned day counts as that plan being done
+function apiGreasing(ym) {
+  var S = settings_(), asof = iso_(S['Period_End']) || Utilities.formatDate(new Date(), tz_(), 'yyyy-MM-dd');
+  var pl = table_('Greasing_Plan'), lg = table_('Greasing_Log'), pn = 'Greasing_Plan', ln = 'Greasing_Log';
+  var cp = { u: col_(pl, 'Unit', pn), t: col_(pl, 'Tabel', pn), s: col_(pl, 'Start_Day', pn), i: col_(pl, 'Interval_Days', pn), k: col_(pl, 'Kg_Per_Greasing', pn),
+    a: col_(pl, 'Active', pn), x: 'Plan_Days' in pl.ix ? pl.ix['Plan_Days'] : -1 };
+  var cl = { d: col_(lg, 'Date', ln), u: col_(lg, 'Unit', ln), q: col_(lg, 'Qty_Kg', ln) };
+  // months available: first logged month .. as-of month
+  var mset = {}, logs = [];
+  lg.v.forEach(function (r) {
+    var u = str_(r[cl.u]), d = iso_(r[cl.d]); if (!u || !d) return;
+    logs.push({ u: u, d: d, q: num_(r[cl.q]) }); mset[d.slice(0, 7)] = 1;
+  });
+  mset[asof.slice(0, 7)] = 1;
+  var mk = Object.keys(mset).sort(), first = mk[0], cur = first, months = [];
+  while (cur <= asof.slice(0, 7)) {
+    months.push([cur, MON[+cur.slice(5, 7) - 1] + ' ' + cur.slice(0, 4)]);
+    var yy = +cur.slice(0, 4), mm = +cur.slice(5, 7) + 1; if (mm > 12) { mm = 1; yy++; }
+    cur = yy + '-' + ('0' + mm).slice(-2);
+  }
+  ym = ym && /^\d{4}-\d{2}$/.test(ym) ? ym : asof.slice(0, 7);
+  var Y = +ym.slice(0, 4), M = +ym.slice(5, 7), dim = new Date(Date.UTC(Y, M, 0)).getUTCDate();
+  var rows = [], cnt = {};
+  pl.v.forEach(function (r) {
+    var u = str_(r[cp.u]); if (!u || str_(r[cp.a]).toLowerCase() === 'no') return;
+    var tb = str_(r[cp.t]) || 'OTHER', kg = num_(r[cp.k]), plan = [];
+    var ex = cp.x >= 0 ? str_(r[cp.x]) : '';
+    if (ex) ex.split(/[ ,;]+/).forEach(function (z) { z = +z; if (z >= 1 && z <= dim) plan.push(z); });
+    else { var st = num_(r[cp.s]) || 1, iv = num_(r[cp.i]) || 7; for (var d = st; d <= dim; d += iv) plan.push(d); }
+    plan.sort(function (a, b) { return a - b; });
+    var mine = logs.filter(function (l) { return l.u === u && l.d.slice(0, 7) === ym; }).map(function (l) { return { d: +l.d.slice(8, 10), q: l.q, used: false }; });
+    var used = mine.reduce(function (a, l) { return a + l.q; }, 0), days = [], done = 0, over = 0, i;
+    for (i = 0; i <= dim; i++) days.push(0);
+    plan.forEach(function (p) {
+      var best = null;
+      mine.forEach(function (l) { if (!l.used && Math.abs(l.d - p) <= GREASE_TOL && (!best || Math.abs(l.d - p) < Math.abs(best.d - p))) best = l; });
+      if (best) { best.used = true; days[p] = 2; done++; }
+      else if (ym + '-' + ('0' + p).slice(-2) < asof) { days[p] = 3; over++; }
+      else days[p] = 1;
+    });
+    mine.forEach(function (l) { if (!l.used && !days[l.d]) days[l.d] = 4; });
+    cnt[tb] = (cnt[tb] || 0) + 1;
+    rows.push({ u: u, t: tb, n: cnt[tb], days: days.slice(1), sch: plan.length, done: done, over: over, pct: plan.length ? done / plan.length : null,
+      pk: plan.length * kg, uk: used });
+  });
+  return { ym: ym, months: months, dim: dim, rows: rows, asof: asof, tol: GREASE_TOL, asd: asof.slice(0, 7) === ym ? +asof.slice(8, 10) : (asof.slice(0, 7) > ym ? 99 : 0) };
+}
+
+/* ---------- API: Fuel ratio (reads KPI_Fuel + KPI_FuelWeek) ---------- */
+function apiFuel() {
+  var out = {};
+  [['unit', 'KPI_Fuel'], ['week', 'KPI_FuelWeek']].forEach(function (p) {
+    var t = table_(p[1]), cu = col_(t, 'Unit_ID', p[1]), rows = [];
+    var rc = t.h.map(function (h, i) { return h.indexOf('Rasio_') === 0 ? i : -1; }).filter(function (i) { return i >= 0; });
+    t.v.forEach(function (r) {
+      if (r[cu] === '') return;
+      var o = { u: str_(r[cu]), g: str_(r[col_(t, 'Group', p[1])]), s: str_(r[col_(t, 'Satuan', p[1])]), inc: r[col_(t, 'Include', p[1])], r: rc.map(function (i) { return r[i] === '' ? null : num_(r[i]); }) };
+      if (p[0] === 'unit') { o.fuel = num_(r[col_(t, 'YTD_Fuel_Liter', p[1])]); o.work = num_(r[col_(t, 'YTD_Work_HM_or_KM', p[1])]); o.ytd = r[col_(t, 'YTD_Ratio', p[1])] === '' ? null : num_(r[col_(t, 'YTD_Ratio', p[1])]); }
+      rows.push(o);
+    });
+    out[p[0]] = { labels: rc.map(function (i) { return t.h[i].replace('Rasio_', ''); }), rows: rows };
+  });
+  return out;
+}
+
+/* ---------- API: generic table viewer ---------- */
+function apiSheet(name) {
+  if (VIEWABLE.indexOf(name) < 0) throw new Error('Sheet not allowed: ' + name);
+  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(name);
+  if (!sh) throw new Error('Sheet "' + name + '" not found.');
+  var v = sh.getDataRange().getDisplayValues(), h = v.shift();
+  var rows = v.filter(function (r) { return r.slice(0, 6).some(function (x) { return String(x).trim() !== ''; }); });
+  return { name: name, h: h, rows: rows.slice(0, 3000), total: rows.length };
+}
+
+/* ---------- API: Unit performance (PA / MA / UA / MTBF / MTTR per unit, per window) ---------- */
+function apiUnits() {
+  var D = load_(), W = windows_(D), Rb = index_(D.R, 'u'), Hb = index_(D.H, 'u');
+  var r1 = function (x) { return Math.round(x * 10) / 10; };
+  var mk = function (w) {
+    var o = calc_(D, Rb, Hb, w.lo, w.hi), pu = {};
+    D.ulist.forEach(function (u) {
+      var p = o.pu[u];
+      // [PA, MA, UA, MTBF, MTTR, downtime hrs, events, USM events, working hrs]
+      pu[u] = [r4_(p.pa), 'ma' in p ? r4_(p.ma) : null, 'ua' in p ? r4_(p.ua) : null, 'mtbf' in p ? r1(p.mtbf) : null,
+        'mttr' in p ? r1(p.mttr) : null, r1(p.dt), p.uev, p.usm, Math.round(p.w)];
+    });
+    var res = { k: w.k, rng: w.rng, pu: pu }; if (w.wd) res.wd = w.wd; return res;
+  };
+  var units = D.ulist.map(function (u) {
+    return { u: u, m: D.modelOf[u] || '', g: D.U[u].g, km: D.U[u].km, bd: D.ustat[u] === 'Breakdown' };
+  });
+  return { asof: apiAsof_(D), units: units, groups: D.groups, tgt: D.tgt, days: W.days.map(mk), weeks: W.weeks.map(mk), months: W.months.map(mk), ytd: mk(W.ytd) };
+}
+function testPM() {
+  var r = apiPM();
+  Logger.log('rows: ' + r.rows.length);
+  var bad = r.rows.filter(function (x) {
+    return [x.dev, x.dd, x.acc, x.pm, x.em, x.cur].some(function (v) { return typeof v === 'number' && !isFinite(v); });
+  });
+  Logger.log('baris bermasalah: ' + bad.length);
+  bad.slice(0, 5).forEach(function (x) { Logger.log(JSON.stringify(x)); });
+}
+function testPM2() {
+  var r = apiPM();
+  var found = 0;
+  (function walk(v, path) {
+    if (found >= 10) return;
+    if (v instanceof Date) { Logger.log('DATE di ' + path); found++; return; }
+    if (typeof v === 'number' && !isFinite(v)) { Logger.log('NaN/Inf di ' + path); found++; return; }
+    if (v && typeof v === 'object') Object.keys(v).forEach(function (k) { walk(v[k], path + '.' + k); });
+  })(r, 'hasil');
+  Logger.log('cal: ' + r.cal.length + ' | selesai, masalah: ' + found);
+  Logger.log('contoh cal: ' + JSON.stringify(r.cal.slice(0, 3)));
+}
+return {apiActivity:apiActivity,apiAsof_:apiAsof_,apiBacklog:apiBacklog,apiCompFail:apiCompFail,apiDashboard:apiDashboard,apiFuel:apiFuel,apiGreasing:apiGreasing,apiPM:apiPM,apiPareto:apiPareto,apiSheet:apiSheet,apiTyre:apiTyre,apiUnits:apiUnits,apiWaText:apiWaText};
+};
+var LS='pms-sb';
+function cfg(){try{return JSON.parse(localStorage.getItem(LS)||'{}')}catch(e){return {}}}
+function save(o){try{localStorage.setItem(LS,JSON.stringify(o))}catch(e){}}
+var C=Object.assign({url:'',key:'',access:'',refresh:'',email:''},window.PMS_CONFIG||{},cfg());
+var DB=null;           // cache: nama sheet -> array baris (nilai mentah)
+var loading=null;
+
+/* ---------- UI login ---------- */
+function ui(msg){
+  return new Promise(function(ok){
+    var m=document.getElementById('sbgate');
+    if(!m){m=document.createElement('div');m.id='sbgate';
+      m.style.cssText='position:fixed;inset:0;z-index:99999;background:rgba(10,20,40,.72);display:flex;align-items:center;justify-content:center;padding:16px;font-family:system-ui,sans-serif';
+      document.body.appendChild(m)}
+    m.innerHTML='<form style="background:#fff;color:#14213d;border-radius:14px;padding:22px;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.4)">'+
+      '<h3 style="margin:0 0 4px">Masuk Dashboard Plant</h3><div style="font-size:13px;color:#666;margin-bottom:12px">Data dibaca dari Supabase.</div>'+
+      (msg?'<div style="background:#fde8e8;color:#9b1c1c;padding:8px 10px;border-radius:8px;font-size:13px;margin-bottom:10px">'+msg+'</div>':'')+
+      (C.url&&C.key?'':'<label style="font-size:12px">Project URL</label><input name="url" placeholder="https://xxxx.supabase.co" style="width:100%;box-sizing:border-box;padding:9px;margin:3px 0 10px;border:1px solid #ccd;border-radius:8px"><label style="font-size:12px">Anon (public) key</label><input name="key" placeholder="eyJ..." style="width:100%;box-sizing:border-box;padding:9px;margin:3px 0 10px;border:1px solid #ccd;border-radius:8px">')+
+      '<label style="font-size:12px">Email</label><input name="email" type="email" required value="'+(C.email||'')+'" style="width:100%;box-sizing:border-box;padding:9px;margin:3px 0 10px;border:1px solid #ccd;border-radius:8px">'+
+      '<label style="font-size:12px">Password</label><input name="pw" type="password" required style="width:100%;box-sizing:border-box;padding:9px;margin:3px 0 14px;border:1px solid #ccd;border-radius:8px">'+
+      '<button style="width:100%;padding:10px;border:0;border-radius:8px;background:#1d4ed8;color:#fff;font-weight:600;cursor:pointer">Masuk</button></form>';
+    var f=m.firstChild; f.onsubmit=function(e){e.preventDefault();
+      var g=function(n){return f.elements[n]?f.elements[n].value.trim():''};
+      if(g('url'))C.url=g('url').replace(/\/+$/,''); if(g('key'))C.key=g('key');
+      C.email=g('email'); ok(g('pw'))}
+  });
+}
+function hideUi(){var m=document.getElementById('sbgate');if(m)m.remove()}
+function login(msg){
+  return ui(msg).then(function(pw){
+    return fetch(C.url+'/auth/v1/token?grant_type=password',{method:'POST',headers:{apikey:C.key,'Content-Type':'application/json'},body:JSON.stringify({email:C.email,password:pw})})
+      .then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j}})})
+      .then(function(x){
+        if(!x.ok||!x.j.access_token){return login((x.j&&(x.j.error_description||x.j.msg||x.j.message))||'Login gagal')}
+        C.access=x.j.access_token;C.refresh=x.j.refresh_token||'';save({url:C.url,key:C.key,email:C.email,access:C.access,refresh:C.refresh});hideUi()})
+      .catch(function(){return login('Tidak bisa menghubungi Supabase. Cek URL & koneksi.')});
+  });
+}
+function refresh(){
+  if(!C.refresh)return Promise.reject();
+  return fetch(C.url+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:C.key,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:C.refresh})})
+    .then(function(r){return r.json().then(function(j){if(!r.ok||!j.access_token)throw 0;C.access=j.access_token;C.refresh=j.refresh_token||C.refresh;save({url:C.url,key:C.key,email:C.email,access:C.access,refresh:C.refresh})})});
+}
+window.PMS_LOGOUT=function(){C.access=C.refresh='';save({url:C.url,key:C.key,email:C.email});DB=null;loading=null;location.reload()};
+
+/* ---------- REST ---------- */
+function page(view,from,retry){
+  return fetch(C.url+'/rest/v1/'+view+'?select=*&order=_id.asc',{headers:{apikey:C.key,Authorization:'Bearer '+C.access,'Range-Unit':'items',Range:from+'-'+(from+999)}})
+   .then(function(r){
+     if(r.status===401&&!retry)return refresh().catch(function(){return login('Sesi habis, silakan masuk lagi.')}).then(function(){return page(view,from,1)});
+     if(!r.ok)return r.text().then(function(t){throw new Error('Supabase '+r.status+' pada '+view+': '+t.slice(0,160))});
+     return r.json()});
+}
+function fetchAll(view){
+  var out=[];
+  return (function go(from){return page(view,from).then(function(rows){out=out.concat(rows);if(rows.length===1000)return go(from+1000)})})(0).then(function(){return out});
+}
+function ensure(){
+  if(DB)return Promise.resolve();
+  if(loading)return loading;
+  var go=function(){
+    var names=Object.keys(META);
+    return Promise.all(names.map(function(n){var m=META[n];return fetchAll(m.v).then(function(rows){
+      var t=[m.c.slice()];
+      rows.forEach(function(r){t.push(m.c.map(function(c,i){var x=r[c];if(x===null||x===undefined)return '';return x}))});
+      return [n,t]})})).then(function(a){DB={};a.forEach(function(p){DB[p[0]]=p[1]})});
+  };
+  loading=(C.access?go().catch(function(e){if(String(e.message||e).indexOf('401')>=0)return login().then(go);throw e}):login().then(go)).then(function(){loading=null},function(e){loading=null;throw e});
+  return loading;
+}
+window.PMS_RESET=function(){DB=null;loading=null};
+
+/* ---------- Pengganti SpreadsheetApp / Utilities ---------- */
+var MONN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function fmt(d,tz,f){
+  var p={};new Intl.DateTimeFormat('en-GB',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(d).forEach(function(x){p[x.type]=x.value});
+  return f.replace('yyyy',p.year).replace('MMM',MONN[+p.month-1]).replace('MM',p.month).replace('dd',p.day).replace('HH',p.hour).replace('mm',p.minute).replace('ss',p.second);
+}
+function dec(x,t){
+  if(x===''||x===null)return '';
+  if(t==='d')return new Date(String(x).slice(0,10)+'T00:00:00Z');
+  if(t==='t')return new Date('1899-12-30T'+String(x).slice(0,8)+'Z');
+  return x;
+}
+function disp(x){
+  if(x===''||x===null)return '';
+  if(typeof x==='number')return Number.isInteger(x)?String(x):String(Math.round(x*1e6)/1e6);
+  return String(x);
+}
+function sheet(name){
+  var s=DB[name],m=META[name];if(!s)return null;
+  return {getDataRange:function(){return {
+    getValues:function(){return s.map(function(r,ri){return ri===0?r.slice():r.map(function(x,i){return dec(x,m.t[i])})})},
+    getDisplayValues:function(){return s.map(function(r){return r.map(function(x){return disp(x)})})}}}};
+}
+var SA={getActiveSpreadsheet:function(){return {getSpreadsheetTimeZone:function(){return 'Asia/Makassar'},getSheetByName:function(n){return sheet(n)}}}};
+var UT={formatDate:fmt};
+
+window.PMS_BACKEND=function(fn,arg){
+  return ensure().then(function(){
+    var api=CODE_FN(SA,UT,{log:function(){}},{});
+    if(typeof api[fn]!=='function')throw new Error('Fungsi tidak ada: '+fn);
+    return arg===undefined?api[fn]():api[fn](arg);
+  });
+};
+})();
+
+</script>
+<script>
+/* === LOGO: put your logo image URL here (see PANDUAN) – empty = placeholder === */
+var LOGO_URL='https://drive.google.com/thumbnail?id=1lLBnl5WUdgagiaDEi3fSxzCEpMmQZz6g&sz=w512';
+/* optional: your own heavy-equipment picture for the banner (transparent PNG, light-blue/white silhouette works best). Empty = built-in generic silhouettes */
+var HERO_BG_URL='';
+var $=function(s,r){return(r||document).querySelector(s)},n=function(v,d){return(+v).toLocaleString('en-US',{maximumFractionDigits:d||0})},pc=function(v){return v==null?'–':(v*100).toFixed(1)+'%'},hh=function(v){return v==null?'–':(+v).toFixed(1)};
+(function(){if(HERO_BG_URL){var st=document.createElement('style');st.textContent='.hero{background:url("'+HERO_BG_URL+'") no-repeat right 180px center/auto 130%,linear-gradient(100deg,#13233f,#2a4a8a)}';document.head.appendChild(st)}})();
+(function(){if(LOGO_URL){var l=document.getElementById('logo');l.className='logo has';l.innerHTML='<img src="'+LOGO_URL+'" alt="logo">'}})();
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+var MENU=[['Dashboard','dash'],['EQUIPMENT'],['Indicator Equipment Health','unit'],
+['MAINTENANCE'],['Preventive Maintenance','pm'],['Tyre Maintenance','tyre'],['Tyre Schedule','sheet:Tyre_Schedule'],['Work Order','sheet:Work_Order'],['Daily Activity','act'],['Backlog Monitoring','backlog'],
+['COMPONENT'],['Oil Sampling (SOS)','sheet:Oil_Sampling'],['Greasing','greasing'],['Component Failure','comp'],
+['REPORT & ANALYTICS'],['Pareto Breakdown','pareto'],['Fuel Ratio','fuel'],
+['MASTER DATA'],['Unit Master','sheet:Unit_Master'],['Service Interval','sheet:Service_Interval']];
+var cache={},page='dash';
+function api(fn,arg){if(window.PMS_BACKEND)return window.PMS_BACKEND(fn,arg);return new Promise(function(ok,bad){var r=google.script.run.withSuccessHandler(ok).withFailureHandler(function(e){bad(e)});r[fn].apply(r,arg===undefined?[]:[arg])})}
+function get(key,fn,arg){return cache[key]?Promise.resolve(cache[key]):api(fn,arg).then(function(d){cache[key]=d;return d})}
+function buildNav(){var h='';MENU.forEach(function(m){if(m.length==1)h+='<div class="sec">'+esc(m[0])+'</div>';else h+='<a data-p="'+m[1]+'">'+esc(m[0])+'</a>'});$('#nav').innerHTML=h;
+ $('#nav').onclick=function(e){var a=e.target.closest('a');if(a){go(a.dataset.p,a.textContent);$('#side').classList.remove('open')}}}
+function go(p,t){page=p;document.querySelectorAll('#nav a').forEach(function(a){a.className=a.dataset.p==p?'on':''});$('#ttl').textContent=t||'Dashboard';$('#hh').innerHTML='';$('#view').innerHTML='<div class="load">Loading&hellip;</div>';window.scrollTo(0,0);
+ var f=p=='dash'?function(){return get('dash','apiDashboard').then(pDash)}:p=='comp'?function(){return get('comp','apiCompFail').then(pComp)}:p=='act'?function(){return get('act','apiActivity').then(pAct)}:p=='pm'?function(){return get('pm','apiPM').then(pPM)}:p=='tyre'?function(){return get('tyre','apiTyre').then(pTyre)}:p=='pareto'?function(){return get('pareto','apiPareto').then(pPareto)}:p=='backlog'?function(){return get('backlog','apiBacklog').then(pBacklog)}:p=='fuel'?function(){return get('fuel','apiFuel').then(pFuel)}:p=='greasing'?function(){var q=GR.ym||'';return get('gr:'+q,'apiGreasing',q).then(pGreasing)}:p=='unit'?function(){return get('unit','apiUnits').then(pUnit)}:function(){var nm=p.split(':')[1];return get(p,'apiSheet',nm).then(pSheet)};
+ f().then(function(){if(page!=p||$('#view').querySelector('.hero'))return;var sb={pareto:'Breakdown analysis by category and unit',backlog:'Units still under breakdown',fuel:'Fuel consumption ratio',greasing:'Greasing plan vs achievement',unit:'Unit health and performance'};var s=sb[p]||(p.indexOf('sheet:')==0?'Data sheet':'Monitor &bull; Maintain &bull; Maximize Performance');
+  var put=function(as){if(page==p&&!$('#view').querySelector('.hero'))$('#hh').innerHTML=hero(esc(t||'Dashboard'),s,as||'')};get('dash','apiDashboard').then(function(d){put(d&&d.asof)},function(){put('')})}).catch(function(e){$('#view').innerHTML='<div class="err"><b>Could not load this page.</b>\n'+esc(e&&e.message?e.message:e)+'</div>'})}
+var card=function(l,v,s,c,sc){return'<div class="card k" style="--c:'+c+'"><div class="l">'+l+'</div><div class="v">'+v+'</div><div class="s" style="color:'+(sc||'var(--mut)')+'">'+s+'</div></div>'};
+var today=function(){return new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})};
+(function(){var f=function(){var t=new Date().toLocaleTimeString('en-GB',{hour12:false});var e=document.querySelectorAll('.clk');for(var i=0;i<e.length;i++)e[i].textContent=t};f();setInterval(f,1000)})();
+var hero=function(t,s,asof){return'<div class="hero"><div><h2>'+t+'</h2><p>'+s+'</p></div><div class="dt"><b>'+today()+'</b> <b class="clk">'+new Date().toLocaleTimeString('en-GB',{hour12:false})+'</b><br><small>Data as of '+esc(asof)+'</small></div></div>'};
+var barHtml=function(){return'<div class="bar"><div class="seg"><button id="bD">Daily</button><button id="bW">Weekly</button><button id="bM" class="on">Monthly</button><button id="bY">Year to Date</button></div><select id="per"></select><span class="rg" id="rg"></span></div>'};
+function wireBar(st,draw,get){var L=function(){return st.mode=='D'?get.days:st.mode=='W'?get.weeks:get.months};
+ $('#per').onchange=function(e){st.per=e.target.value;draw()};[['bD','D'],['bW','W'],['bM','M'],['bY','Y']].forEach(function(b){$('#'+b[0]).onclick=function(){st.mode=b[1];['bD','bW','bM','bY'].forEach(function(i){$('#'+i).className=i==b[0]?'on':''});draw()}});
+ return function(){if(st.mode=='Y'){$('#per').style.display='none';return}$('#per').style.display='';var l=L();if(!l.some(function(x){return x.k==st.per}))st.per=l[l.length-1].k;
+  $('#per').innerHTML=l.map(function(x){return'<option value="'+x.k+'"'+(x.k==st.per?' selected':'')+'>'+(st.mode=='D'?x.wd+', '+x.k:st.mode=='W'?'Week '+x.k.slice(1):x.k)+' ('+x.rng+')</option>'}).join('')}}
+
+/* ================= DASHBOARD ================= */
+function pDash(D){var st={mode:'M',per:null},usel=[];
+ $('#view').innerHTML=hero('DASHBOARD PLANT','Monitor • Maintain • Maximize Performance',D.asof)+barHtml()+'<div class="r5" id="r1"></div><div class="r5" id="r2"></div>'+
+ '<div class="card" style="margin-bottom:12px"><div class="ct">PA &amp; MA by Category<span class="leg"><span><i style="background:var(--blue)"></i>PA</span><span><i style="background:var(--green)"></i>MA</span><span>Bars scaled 50–100% • KM units (e.g. SARANA): PA &amp; MTTR only</span></span></div><div class="scroll" style="max-height:none"><table id="tg"></table></div></div>'+
+ '<div class="g3"><div class="card"><div class="ct">PA &amp; MA Trend<span class="leg"><span><i style="background:var(--blue)"></i>PA</span><span><i style="background:var(--green)"></i>MA</span></span></div><div id="c1"></div></div>'+
+ '<div class="card"><div class="ct">Total Delay by Type<span class="seg sm" id="dm"><button data-m="t" class="on">Type</button><button data-m="c">Code</button></span></div><div id="c2"></div></div>'+
+ '<div class="card"><div class="ct">Key Information<a style="color:var(--acc);font-size:12px;font-weight:600;cursor:pointer" id="va">View all →</a></div><ul class="info" id="inf"></ul></div></div>'+
+ '<div class="g2e"><div class="card"><div class="ct">Top 10 Units by Downtime<details id="dd" style="position:relative;font-weight:400"><summary id="ds" style="list-style:none;cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:4px 10px;font-size:12px;min-width:190px"></summary><div id="dl" style="position:absolute;right:0;top:30px;z-index:9;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 6px 18px rgba(30,40,60,.18);width:250px;max-height:290px;overflow:auto;padding:6px"></div></details></div><div id="ud"></div><table id="t1"></table></div><div class="card"><div class="ct">Top 10 Breakdown Components</div><table id="t2"></table></div></div>';
+ $('#va').onclick=function(){go('backlog','Backlog Monitoring')};$('#dm').onclick=function(e){var b=e.target.closest('button');if(b){st.dm=b.dataset.m;Array.prototype.forEach.call(this.children,function(x){x.className=x==b?'on':''});draw()}};
+ var sel=wireBar(st,function(){draw()},D);var L=function(){return st.mode=='D'?D.days:st.mode=='W'?D.weeks:D.months};
+ function dl(a,b,pct,inv){if(a==null||b==null)return['','var(--mut)'];var d=pct?(a/b-1)*100:(a-b)*100,up=d>=0,good=inv?!up:up;return[(up?'▲ ':'▼ ')+Math.abs(d).toFixed(1)+(pct?'%':' pt')+' vs previous period',good?'var(--green)':'var(--red)']}
+ function line(ser,labs,sl){var W=470,H=230,p={l:40,r:24,t:20,b:24},iw=W-p.l-p.r,ih=H-p.t-p.b,m=labs.length,x=function(i){return p.l+(m==1?iw/2:i*iw/(m-1))},y=function(v){return p.t+ih-(v-.6)/.4*ih};var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%">';
+  for(var q=0;q<=4;q++){var v=.6+.4*q/4;s+='<line x1="'+p.l+'" x2="'+(W-p.r)+'" y1="'+y(v)+'" y2="'+y(v)+'" stroke="var(--grid)"/><text x="'+(p.l-6)+'" y="'+(y(v)+4)+'" text-anchor="end">'+Math.round(v*100)+'%</text>'}
+  var stp=Math.ceil(m/8);labs.forEach(function(l,i){if(i%stp==0||(i==m-1&&(m-1)%stp>stp/2))s+='<text x="'+x(i)+'" y="'+(H-7)+'" text-anchor="middle">'+l+'</text>'});
+  ser.forEach(function(se){var pts=[];se.v.forEach(function(v,i){if(v!=null)pts.push([x(i),y(Math.max(.6,v))])});s+='<polyline fill="none" stroke="'+se.c+'" stroke-width="2.4" points="'+pts.map(function(q){return q.join(',')}).join(' ')+'"/>'+pts.map(function(q){return'<circle cx="'+q[0]+'" cy="'+q[1]+'" r="3.4" fill="'+se.c+'" stroke="var(--card)" stroke-width="2"/>'}).join('');
+   if(sl>=0&&se.v[sl]!=null)s+='<text class="v" x="'+x(sl)+'" y="'+(y(Math.max(.6,se.v[sl]))+(se.c=='var(--green)'?17:-9))+'" text-anchor="middle">'+(se.v[sl]*100).toFixed(1)+'%</text>'});return s+'</svg>'}
+ function bars(l,sl){var W=330,H=230,p={l:40,r:8,t:18,b:24},iw=W-p.l-p.r,ih=H-p.t-p.b,m=l.length,gw=iw/m,bw=Math.min(16,gw/2.4),mx=Math.max.apply(null,l.map(function(x){return x.usm+x.scm}).concat([1]))*1.1;var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%">';
+  for(var q=0;q<=4;q++){var yy=p.t+ih-ih*q/4;s+='<line x1="'+p.l+'" x2="'+(W-p.r)+'" y1="'+yy+'" y2="'+yy+'" stroke="var(--grid)"/><text x="'+(p.l-6)+'" y="'+(yy+4)+'" text-anchor="end">'+Math.round(mx*q/4)+'</text>'}
+  var stp=Math.ceil(m/6);l.forEach(function(x,i){var cx=p.l+gw*i+gw/2;if(i%stp==0||(i==m-1&&(m-1)%stp>stp/2))s+='<text x="'+cx+'" y="'+(H-7)+'" text-anchor="middle">'+x.k+'</text>';
+   [[x.usm,'var(--blue)',-bw-1],[x.scm,'var(--green)',1]].forEach(function(a){var h=a[0]/mx*ih;s+='<path d="M'+(cx+a[2])+','+(p.t+ih)+' v'+(-Math.max(h-3,0))+' q0,-3 3,-3 h'+(bw-6)+' q3,0 3,3 v'+Math.max(h-3,0)+'z" fill="'+a[1]+'" opacity="'+(i==sl||sl<0?1:.5)+'"/>'});
+   if(i==sl)s+='<text class="v" x="'+cx+'" y="'+(p.t+ih-x.usm/mx*ih-6)+'" text-anchor="middle">'+x.usm+'</text>'});return s+'</svg>'}
+ function draw(){sel();var l=L(),i=st.mode=='Y'?-1:l.findIndex(function(x){return x.k==st.per}),cur=st.mode=='Y'?D.ytd:l[i],prev=i>0?l[i-1]:null;
+  $('#rg').textContent=(st.mode=='D'?'Daily':st.mode=='W'?'Weekly':st.mode=='M'?'Monthly':'Year to date')+' • '+cur.rng;
+  var pmCards=function(p){if(!p||p.err||!p.rows)return card('PM Due','–',p&&p.err?'PM_Schedule not readable':'no PM rows yet','#c9810a')+card('PM Overdue','–',p&&p.err?'check sheet columns':'no PM rows yet','#d64545');return card('PM Due',p.due,p.planned+' more planned / OK','#c9810a',p.due?'var(--amber)':'var(--green)')+card('PM Overdue',p.over,p.over?'needs action now':'none overdue','#d64545',p.over?'var(--red)':'var(--green)')};var rd=D.act-D.bd;$('#r1').innerHTML=card('Total Unit',D.units,'Active '+D.act,'#2f6fe4')+card('Unit Ready',rd,pc(rd/D.act),'#1f9d55','var(--green)')+card('Unit Breakdown',D.bd,pc(D.bd/D.act),'#d64545','var(--red)')+pmCards(D.pm);
+  var defs=[['PA','pa',pc,0,0,'#2f6fe4'],['MA','ma',pc,0,0,'#1f9d55'],['UA','ua',pc,0,0,'#c9810a'],['MTBF (hrs)','mtbf',hh,1,0,'#2f6fe4'],['MTTR (hrs)','mttr',hh,1,1,'#d64545']];
+  $('#r2').innerHTML=defs.map(function(d){var r=prev&&st.mode!='Y'?dl(cur[d[1]],prev[d[1]],d[3],d[4]):['selected period','var(--mut)'];return card(d[0]+' – All Units',d[2](cur[d[1]]),r[0],d[5],r[1])}).join('');
+  var full=st.mode=='Y'?D.months:l,si0=st.mode=='Y'?D.months.length-1:i,wn=st.mode=='D'?14:st.mode=='W'?12:99,a0=Math.max(0,si0-wn+1),src=full.slice(a0,si0+1),labs=src.map(function(x){return x.k}),si=si0-a0;
+  $('#c1').innerHTML=line([{c:'var(--blue)',v:src.map(function(x){return x.pa})},{c:'var(--green)',v:src.map(function(x){return x.ma})}],labs,si);var dlo=(st.dm=='c'?cur.dl.c:cur.dl.t)||{};$('#c2').innerHTML=pie(Object.keys(dlo).map(function(k){return{k:k,v:dlo[k]}}).sort(function(a,b){return b.v-a.v}),'h');
+  $('#inf').innerHTML=((D.pm&&D.pm.items)||[]).map(function(x){return'<li><span class="dot" style="background:'+(x.s=='Overdue'?'var(--red)':'var(--amber)')+'"></span>PM '+esc(x.u)+' – '+esc(x.t)+' ('+x.s+')<span class="t">'+(x.rem==null?'':x.rem<0?Math.abs(x.rem)+' over':x.rem+' left')+'</span></li>'}).join('')+'<li><span class="dot" style="background:var(--red)"></span>Units still down: '+D.bd+'<span class="t">backlog</span></li>'+D.info.slice(0,5).map(function(b){return'<li><span class="dot" style="background:'+(b[2]=='In Progress'?'var(--blue)':'var(--amber)')+'"></span>'+esc(b[0])+' – '+esc(b[1])+' ('+esc(b[2])+')<span class="t">'+b[3]+' days</span></li>'}).join('');
+  var gb=function(v,c){return v==null?'<span style="color:var(--mut)">–</span>':'<div style="display:flex;align-items:center;gap:8px"><div style="flex:1;background:var(--grid);border-radius:5px;height:10px"><div style="width:'+Math.max(0,Math.min(100,(v-.5)/.5*100))+'%;height:10px;border-radius:5px;background:'+c+'"></div></div><b style="width:52px;text-align:right">'+(v*100).toFixed(1)+'%</b></div>'};
+  $('#tg').innerHTML='<tr><th>Category</th><th class="n">Units</th><th style="width:27%">PA</th><th style="width:27%">MA</th><th class="n">UA</th><th class="n">MTBF (hrs)</th><th class="n">MTTR (hrs)</th></tr>'+Object.keys(cur.g).map(function(g){var k=cur.g[g];return'<tr><td><b>'+esc(g)+'</b></td><td class="n">'+k.n+'</td><td>'+gb(k.pa,'var(--blue)')+'</td><td>'+gb(k.ma,'var(--green)')+'</td><td class="n">'+pc(k.ua)+'</td><td class="n">'+hh(k.mtbf)+'</td><td class="n">'+hh(k.mttr)+'</td></tr>'}).join('');
+  var tb=function(a,c,k){return'<tr><th>No</th><th>'+k+'</th><th></th><th class="n">Events</th><th class="n">Hours</th><th class="n">%</th></tr>'+(a.length?a.map(function(r,j){return'<tr><td>'+(j+1)+'</td><td>'+esc(r[0])+'</td><td style="width:30%"><div class="bb" style="width:'+r[1]/a[0][1]*100+'%;background:'+c+'"></div></td><td class="n"><b>'+r[3]+'×</b></td><td class="n">'+n(r[1])+'</td><td class="n">'+(r[2]*100).toFixed(1)+'%</td></tr>'}).join(''):'<tr><td colspan="6" style="color:var(--mut)">No breakdown in this period</td></tr>')};
+  $('#t1').innerHTML=tb(cur.tu,'var(--blue)','Unit');
+  var allU=Object.keys(cur.au).map(function(u){return[u,cur.au[u]]}).sort(function(x,y){return y[1][0]-x[1][0]}),totU=allU.reduce(function(s,x){return s+x[1][0]},0)||1;
+  if(!$('#dl').dataset.b){$('#dl').dataset.b=1;$('#dl').innerHTML='<div style="padding:3px 6px;color:var(--mut);font-size:11.5px">Tick up to 10 units <a id="clr" style="color:var(--acc);cursor:pointer;float:right">Clear</a></div>'+D.ul.map(function(u){return'<label style="display:flex;gap:7px;padding:3px 6px;font-size:12px;cursor:pointer"><input type="checkbox" value="'+esc(u[0])+'"> '+esc(u[0])+' <span style="color:var(--mut);margin-left:auto">'+esc(u[1])+'</span></label>'}).join('');
+   $('#dl').onchange=function(e){var v=e.target.value;if(e.target.checked){if(usel.length>=10){e.target.checked=false;return}usel.push(v)}else usel=usel.filter(function(x){return x!=v});draw()};$('#clr').onclick=function(){usel=[];draw()}}
+  $('#dl').querySelectorAll('input').forEach(function(x){x.checked=usel.indexOf(x.value)>=0});
+  $('#ds').textContent=usel.length?usel.length+' unit'+(usel.length>1?'s':'')+' selected ▾':'Top 10 – all units ▾';
+  if(!usel.length){$('#ud').innerHTML='';$('#t1').style.display=''}else{$('#t1').style.display='none';
+   var rows=usel.map(function(u){return[u].concat(cur.au[u]||[0,0])}).sort(function(x,y){return y[1]-x[1]}),mx=rows[0][1]||1;
+   var html='<table><tr><th>No</th><th>Unit</th><th></th><th class="n">Events</th><th class="n">Hours</th><th class="n">% fleet</th><th class="n">Rank</th></tr>'+rows.map(function(r,j){var rk=allU.findIndex(function(x){return x[0]==r[0]});return'<tr><td>'+(j+1)+'</td><td>'+esc(r[0])+'</td><td style="width:24%"><div class="bb" style="width:'+r[1]/mx*100+'%;background:var(--blue)"></div></td><td class="n"><b>'+r[2]+'×</b></td><td class="n">'+n(r[1])+'</td><td class="n">'+(r[1]/totU*100).toFixed(1)+'%</td><td class="n">'+(rk>=0&&r[1]>0?rk+1:'–')+'</td></tr>'}).join('')+'</table>';
+   if(rows.some(function(r){return r[2]==0&&r[1]>0}))html+='<div class="note">0× = the breakdown started in an earlier period and is still running; its hours are counted here, the event only in the period it started.</div>';
+   if(usel.length==1){var u=usel[0],a=cur.au[u]||[0,0],uc=cur.uc[u]||[];html+='<div class="ct" style="margin-top:12px">Components – '+esc(u)+'</div><table><tr><th>No</th><th>Component</th><th></th><th class="n">Events</th><th class="n">Hours</th><th class="n">%</th></tr>'+(uc.length?uc.map(function(r,j){return'<tr><td>'+(j+1)+'</td><td>'+esc(r[0])+'</td><td style="width:26%"><div class="bb" style="width:'+r[1]/uc[0][1]*100+'%;background:var(--amber)"></div></td><td class="n"><b>'+r[2]+'×</b></td><td class="n">'+n(r[1])+'</td><td class="n">'+(a[0]?(r[1]/a[0]*100).toFixed(0):0)+'%</td></tr>'}).join(''):'<tr><td colspan="6" style="color:var(--mut)">No breakdown recorded in this period</td></tr>')+'</table>'}
+   $('#ud').innerHTML=html}
+  $('#t2').innerHTML=tb(cur.tc,'var(--amber)','Component')}
+ draw()}
+
+/* ================= TYRE ================= */
+function pAct(D){var st={mode:'D',per:D.days.length?D.days[D.days.length-1].k:'',m:'',c:'',t:''},MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+ PAL=['#2f6fe4','#1f9d55','#c9810a','#7c4dcc','#d64545','#0e8a8f','#8a5a2b','#d6479b','#5b6b88','#6a9a1f','#e07b39','#3d5a99','#9aa5b8'],cats=D.cats.length?D.cats:[],SC={'Done':'var(--green)','In Progress':'var(--blue)','Pending':'var(--amber)'},
+ dl=function(s){var x=D.days.filter(function(d){return d.k==s})[0];return(x?x.wd+', ':'')+s.slice(8,10)+' '+MN[+s.slice(5,7)-1]+' '+s.slice(0,4)};
+ D.rows.forEach(function(r){if(cats.indexOf(r.cat)<0&&r.cat)cats.push(r.cat)});var cc=function(k){var i=cats.indexOf(k);return PAL[(i<0?cats.length:i)%PAL.length]};
+ if(!D.rows.length){$('#view').innerHTML=hero('Daily Activity','Mechanic activities – inside and outside units',D.asof)+'<div class="card" style="padding:26px;text-align:center"><b>No activity recorded yet.</b><div class="note" style="font-size:12.5px;margin-top:6px">Fill the <b>Activity_Log</b> sheet (one row per mechanic per job) – and keep the mechanic names in <b>Ref_Mechanic</b>. Mechanics written in INPUT_DBR Man_Power columns also appear here automatically.</div></div>';return}
+ $('#view').innerHTML=hero('Daily Activity','Mechanic activities – inside and outside units',D.asof)+
+ '<div class="bar"><div class="seg"><button id="aD" class="on">Daily</button><button id="aW">Weekly</button><button id="aM">Monthly</button></div><button class="btn" id="pv">&#9664;</button><select id="per" style="min-width:190px"></select><button class="btn" id="nx">&#9654;</button><select id="fm" style="min-width:140px"></select><select id="fc" style="min-width:170px"></select><select id="ft" style="min-width:130px"></select><button class="btn" id="wa" style="margin-left:auto;background:#1f9d55;color:#fff;border-color:#1f9d55">&#128172; WhatsApp report</button></div>'+
+ '<div class="warn" id="wn" style="display:none"></div><div class="r6" id="k"></div>'+
+ '<div class="g2"><div class="card"><div class="ct">Mechanic Board<span class="leg" id="mbl"></span></div><div class="uc" id="mbd" style="grid-template-columns:repeat(auto-fill,minmax(270px,1fr))"></div></div><div><div class="card" style="margin-bottom:12px"><div class="ct">Work Mix by Category<span class="leg">man-hours</span></div><div id="cm"></div></div><div class="card" style="margin-bottom:12px"><div class="ct">Inside vs Outside Units</div><div id="io"></div></div><div class="card"><div class="ct">Units Worked On<span class="leg">top 8 by hours</span></div><table id="tu"></table></div></div></div>'+
+ '<div class="card"><div class="ct">Activity Log</div><div class="scroll"><table id="tb"></table></div></div>';
+ var inWin=function(r){return st.mode=='D'?r.d==st.per:st.mode=='W'?r.w==st.per:r.d.slice(0,7)==st.per},
+ sel=function(){return D.rows.filter(function(r){return inWin(r)&&(!st.m||r.m==st.m)&&(!st.c||r.cat==st.c)&&(!st.t||(st.t=='O'?r.o:!r.o))})},
+ L=function(){return st.mode=='D'?D.days.map(function(x){return[x.k,dl(x.k)]}):st.mode=='W'?D.weeks.map(function(x){return[x.k,'Week '+x.k+' ('+x.rng+')']}):D.months.map(function(x){return[x.k,x.label]})};
+ function opts(){var l=L();if(!l.some(function(x){return x[0]==st.per}))st.per=l.length?l[l.length-1][0]:'';$('#per').innerHTML=l.slice().reverse().map(function(x){return'<option value="'+x[0]+'"'+(x[0]==st.per?' selected':'')+'>'+esc(x[1])+'</option>'}).join('');
+  var ms={},cs={};D.rows.filter(inWin).forEach(function(r){ms[r.m]=1;if(r.cat)cs[r.cat]=1});
+  $('#fm').innerHTML='<option value="">All mechanics</option>'+Object.keys(ms).sort().map(function(m){return'<option'+(st.m==m?' selected':'')+'>'+esc(m)+'</option>'}).join('');
+  $('#fc').innerHTML='<option value="">All categories</option>'+Object.keys(cs).sort().map(function(m){return'<option'+(st.c==m?' selected':'')+'>'+esc(m)+'</option>'}).join('');
+  $('#ft').innerHTML=[['','Unit + outside'],['U','Inside units only'],['O','Outside units only']].map(function(x){return'<option value="'+x[0]+'"'+(st.t==x[0]?' selected':'')+'>'+x[1]+'</option>'}).join('')}
+ var bars=function(a,key,col,fmt,tot){var mx=Math.max.apply(null,a.map(function(x){return x[key]}).concat([.001]));return a.map(function(x){return'<div style="margin:0 0 7px"><div style="display:flex;justify-content:space-between;font-size:12px"><span>'+esc(x.k)+'</span><span><b>'+fmt(x)+'</b></span></div><div class="mbar" style="height:8px"><i style="width:'+x[key]/mx*100+'%;background:'+(col?col:cc(x.k))+'"></i></div></div>'}).join('')};
+ function draw(){opts();var a=sel(),win=D.rows.filter(inWin),hrs=a.reduce(function(s,r){return s+r.h},0),ms={},us={},days={};
+  a.forEach(function(r){var o=ms[r.m]||(ms[r.m]={k:r.m,h:0,n:0,d:0,r:[]});o.h+=r.h;o.n++;if(r.st=='Done')o.d++;o.r.push(r);days[r.d]=1;if(!r.o&&r.u){var q=us[r.u]||(us[r.u]={k:r.u,h:0,n:0,g:r.g});q.h+=r.h;q.n++}});
+  var nd=Object.keys(days).length||1,done=a.filter(function(r){return r.st=='Done'}).length,out=a.filter(function(r){return r.o}),oh=out.reduce(function(s,r){return s+r.h},0),act=D.roster.filter(function(x){return x.act}).length||Object.keys(ms).length;
+  $('#wn').style.display=D.bad.noMech||D.bad.noHrs?'':'none';$('#wn').innerHTML=(D.bad.noMech?'<b>'+D.bad.noMech+' Activity_Log row(s) have no Mechanic</b> and are skipped. ':'')+(D.bad.noHrs?'<b>'+D.bad.noHrs+' row(s) have no hours</b> (fill Start/Finish or Hours_Manual). ':'')+'See the Check column in Activity_Log.';
+  $('#k').innerHTML=card('Activities',a.length,done+' done','#2f6fe4')+card('Man-hours',n(hrs,1),'over '+nd+' day'+(nd>1?'s':''),'#7c4dcc')+card('Mechanics Active',Object.keys(ms).length,'of '+act+' on roster','#1f9d55')+card('Units Worked',Object.keys(us).length,'inside units','#0e8a8f')+card('Outside Jobs',out.length,n(oh,1)+' hrs non-unit','#c9810a',out.length?'var(--amber)':'')+card('Completion',a.length?Math.round(done/a.length*100)+'%':'–',(a.length-done)+' open / pending','#1f9d55',(a.length-done)?'var(--amber)':'var(--green)');
+  var ml=Object.keys(ms).map(function(k){return ms[k]}).sort(function(x,y){return y.h-x.h}),cap=D.hpd*nd,rol={};D.roster.forEach(function(x){rol[x.n]=x});
+  $('#mbl').textContent='bar = hours vs '+D.hpd+' h/day';
+  $('#mbd').innerHTML=ml.length?ml.map(function(o){var u=Math.min(100,o.h/cap*100),ro=rol[o.k]||{},over=o.h>cap+.01;return'<div class="ucard" style="cursor:default;border-top-color:'+(over?'var(--amber)':'var(--blue)')+'"><div class="uh"><div><b>'+esc(o.k)+'</b><div class="um">'+esc(ro.role||'')+(ro.crew?' • Crew '+esc(ro.crew):'')+'</div></div><div style="text-align:right"><b style="font-size:17px">'+n(o.h,1)+'<small> h</small></b><div class="um">'+o.n+' job'+(o.n>1?'s':'')+'</div></div></div><div class="mbar" style="margin:8px 0 6px"><i style="width:'+u+'%;background:'+(over?'var(--amber)':'var(--blue)')+'"></i></div>'+o.r.slice(0,5).map(function(r){return'<div style="display:flex;gap:6px;align-items:flex-start;font-size:11.5px;padding:2px 0"><span class="dot" style="margin-top:4px;background:'+(SC[r.st]||'#8795ab')+'"></span><span style="flex:1"><b>'+esc(r.u||'OUTSIDE')+'</b> '+esc(r.ds)+'</span><span class="sub">'+(r.h?n(r.h,1)+'h':'')+'</span></div>'}).join('')+(o.r.length>5?'<div class="sub">+'+(o.r.length-5)+' more…</div>':'')+'</div>'}).join(''):'<div class="note">No activity for this filter.</div>';
+  var cm={};a.forEach(function(r){var k=r.cat||'(no category)';cm[k]=(cm[k]||0)+r.h});var cl=Object.keys(cm).map(function(k){return{k:k,h:cm[k]}}).sort(function(x,y){return y.h-x.h});
+  $('#cm').innerHTML=cl.length?bars(cl,'h',null,function(x){return n(x.h,1)+' h'}):'<div class="note">–</div>';
+  var ih=hrs-oh,t2=hrs||1;$('#io').innerHTML='<div class="stk" style="height:20px"><i style="width:'+ih/t2*100+'%;background:var(--blue)"></i><i style="width:'+oh/t2*100+'%;background:var(--amber)"></i></div><div class="lg2"><span><i style="display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--blue);margin-right:4px"></i><b>'+n(ih,1)+' h</b> inside units ('+(a.length-out.length)+' jobs)</span><span><i style="display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--amber);margin-right:4px"></i><b>'+n(oh,1)+' h</b> outside / non-unit ('+out.length+' jobs)</span></div>';
+  var ul=Object.keys(us).map(function(k){return us[k]}).sort(function(x,y){return y.h-x.h}).slice(0,8);
+  $('#tu').innerHTML='<tr><th>Unit</th><th>Group</th><th class="n">Jobs</th><th class="n">Hours</th></tr>'+(ul.length?ul.map(function(x){return'<tr><td class="u">'+esc(x.k)+'</td><td>'+esc(x.g)+'</td><td class="n">'+x.n+'</td><td class="n">'+n(x.h,1)+'</td></tr>'}).join(''):'<tr><td colspan="4" class="sub">–</td></tr>');
+  var tr=a.slice().sort(function(x,y){return x.d<y.d?1:x.d>y.d?-1:(x.m<y.m?-1:1)});
+  $('#tb').innerHTML='<tr><th>Date</th><th>Shift</th><th>Mechanic</th><th>Unit</th><th>Category</th><th>Description</th><th class="n">Hrs</th><th>Status</th><th>Ref</th><th>Src</th></tr>'+(tr.length?tr.map(function(r){return'<tr><td>'+r.d.slice(8,10)+' '+MN[+r.d.slice(5,7)-1]+'</td><td>'+esc(r.sh)+'</td><td><b>'+esc(r.m)+'</b></td><td>'+(r.o?'<span class="pill" style="background:var(--amber)">'+esc(r.u||'OUTSIDE')+'</span>':'<b>'+esc(r.u)+'</b> <span class="sub">'+esc(r.g)+'</span>')+'</td><td><i class="dot" style="display:inline-block;background:'+cc(r.cat)+';margin-right:5px"></i>'+esc(r.cat)+'</td><td>'+esc(r.ds)+'</td><td class="n">'+(r.h?n(r.h,1):'–')+'</td><td><span class="pill" style="background:'+(SC[r.st]||'#8795ab')+'">'+esc(r.st)+'</span></td><td>'+esc(r.ref)+'</td><td class="sub">'+r.src+'</td></tr>'}).join(''):'<tr><td colspan="10" class="sub" style="padding:16px;text-align:center">No activity for this filter.</td></tr>')}
+ [['aD','D'],['aW','W'],['aM','M']].forEach(function(b){$('#'+b[0]).onclick=function(){st.mode=b[1];st.per=b[1]=='D'?D.days[D.days.length-1].k:b[1]=='W'?(D.weeks.length?D.weeks[D.weeks.length-1].k:''):D.months[D.months.length-1].k;['aD','aW','aM'].forEach(function(i){$('#'+i).className=i==b[0]?'on':''});st.m=st.c='';draw()}});
+ $('#per').onchange=function(e){st.per=e.target.value;draw()};$('#fm').onchange=function(e){st.m=e.target.value;draw()};$('#fc').onchange=function(e){st.c=e.target.value;draw()};$('#ft').onchange=function(e){st.t=e.target.value;draw()};
+ var step=function(d){var l=L(),i=l.findIndex(function(x){return x[0]==st.per})+d;if(i>=0&&i<l.length){st.per=l[i][0];draw()}};$('#pv').onclick=function(){step(-1)};$('#nx').onclick=function(){step(1)};
+ $('#wa').onclick=function(){var day=st.mode=='D'?st.per:(function(){var w=D.rows.filter(inWin).map(function(r){return r.d}).sort();return w[w.length-1]||D.days[D.days.length-1].k})();
+  var m=document.createElement('div');m.className='modal';m.innerHTML='<div class="mbox" style="max-width:560px"><button class="x">&times;</button><h3>WhatsApp report</h3><div class="sub" style="margin:2px 0 8px">'+dl(day)+' – ready to paste into your group</div><textarea id="wt" style="width:100%;height:340px;font:12.5px/1.45 Consolas,monospace;border:1px solid var(--line);border-radius:9px;padding:10px" readonly>Loading…</textarea><div style="margin-top:10px;display:flex;gap:8px"><button class="btn" id="cp" style="background:var(--side);color:#fff">Copy text</button><span class="sub" id="cs" style="align-self:center"></span></div></div>';document.body.appendChild(m);
+  m.onclick=function(e){if(e.target==m||e.target.className=='x')m.remove()};api('apiWaText',day).then(function(t){$('#wt',m).value=t}).catch(function(e){$('#wt',m).value='Error: '+(e&&e.message?e.message:e)});
+  $('#cp',m).onclick=function(){var t=$('#wt',m);t.select();var ok=false;try{ok=document.execCommand('copy')}catch(e){}$('#cs',m).textContent=ok?'Copied ✔':'Press Ctrl+C to copy'}};
+ draw()}
+
+function pPM(D){var R=D.rows.filter(function(r){return r.cls!='CANCELLED'}),ys={};R.forEach(function(r){if(r.y)ys[r.y]=1});var yl=Object.keys(ys).map(Number).sort(),ty=+D.today.slice(0,4);if(!yl.length)yl=[ty];
+ var st={y:yl.indexOf(ty)>=0?ty:yl[yl.length-1],mo:0,w:0,g:'',c:'',q:''},MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],gl={};R.forEach(function(r){if(r.g)gl[r.g]=1});gl=Object.keys(gl).sort();
+ var CL={'IN RANGE':['IR','var(--green)'],'OUT RANGE':['OR','var(--amber)'],'OUT STANDING':['OS','var(--red)'],'PLANNED':['PL','var(--blue)']},dfmt=function(s){return s?s.slice(8,10)+' '+MN[+s.slice(5,7)-1]+' '+s.slice(0,4):''};
+ $('#view').innerHTML=hero('Preventive Maintenance','Service achievement',D.today)+
+ '<div class="bar"><b style="color:var(--mut)">Period</b><select id="fy" style="min-width:90px"></select><select id="fm" style="min-width:110px"></select><select id="fw" style="min-width:110px"></select><select id="fg" style="min-width:140px"></select><span class="rg" id="rg"></span></div>'+
+ '<div class="warn" id="wn" style="display:none"></div><div class="r6" id="k"></div>'+
+ '<div class="g2"><div class="card"><div class="ct">Achievement per Week<span class="leg"><span><i style="background:var(--green)"></i>In range</span><span><i style="background:var(--amber)"></i>Out range</span><span><i style="background:var(--red)"></i>Out standing</span><span><i style="background:#9db4e6"></i>Planned</span></span></div><div id="ch"></div></div>'+
+ '<div class="card"><div class="ct">Plan vs Actual</div><div id="pv"></div><div class="note" id="rl"></div></div></div>'+
+ '<div class="card"><div class="ct">Service Schedule &amp; Execution<span class="chips" style="margin:0" id="cc"></span></div><div class="bar" style="margin:0 0 8px"><input type="search" id="fq" placeholder="Search unit / model / service…"></div><div class="scroll"><table id="tb"></table></div></div>';
+ var inYM=function(r){return r.y==st.y&&(!st.mo||r.mo==st.mo)&&(!st.g||r.g==st.g)},selw=function(){return R.filter(function(r){return inYM(r)&&(!st.w||r.w==st.w)})};
+ function filters(){var yv=$('#fy');yv.innerHTML=yl.map(function(y){return'<option'+(y==st.y?' selected':'')+'>'+y+'</option>'}).join('');
+  $('#fm').innerHTML='<option value="0">All months</option>'+MN.map(function(m,i){return'<option value="'+(i+1)+'"'+(st.mo==i+1?' selected':'')+'>'+m+'</option>'}).join('');
+  var wl={};D.cal.forEach(function(c){if(c.y==st.y&&(!st.mo||c.m==st.mo))wl[c.w]=1});wl=Object.keys(wl).map(Number).sort(function(a,b){return a-b});if(st.w&&wl.indexOf(st.w)<0)st.w=0;
+  $('#fw').innerHTML='<option value="0">All weeks</option>'+wl.map(function(w){return'<option value="'+w+'"'+(st.w==w?' selected':'')+'>Week '+w+'</option>'}).join('');
+  $('#fg').innerHTML='<option value="">All groups</option>'+gl.map(function(g){return'<option'+(st.g==g?' selected':'')+'>'+esc(g)+'</option>'}).join('')}
+ var cnt=function(a){var o={'IN RANGE':0,'OUT RANGE':0,'OUT STANDING':0,'PLANNED':0};a.forEach(function(r){o[r.cls]++});return o};
+ function chart(){var by={};R.filter(inYM).forEach(function(r){if(r.w)(by[r.w]=by[r.w]||[]).push(r)});var ks=Object.keys(by).map(Number).sort(function(a,b){return a-b});
+  if(!ks.length)return'<div class="note">No scheduled services in this period.</div>';
+  var W=620,H=230,p={l:30,r:8,t:14,b:26},iw=W-p.l-p.r,ih=H-p.t-p.b,gw=iw/ks.length,bw=Math.min(36,gw*.62),mx=Math.ceil(Math.max.apply(null,ks.map(function(k){return by[k].length}).concat([4]))/4)*4;
+  var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%">';for(var q=0;q<=4;q++){var yy=p.t+ih-ih*q/4;s+='<line x1="'+p.l+'" x2="'+(W-p.r)+'" y1="'+yy+'" y2="'+yy+'" stroke="var(--grid)"/><text x="'+(p.l-5)+'" y="'+(yy+4)+'" text-anchor="end">'+Math.round(mx*q/4)+'</text>'}
+  ks.forEach(function(k,i){var o=cnt(by[k]),cx=p.l+gw*i+gw/2,y0=p.t+ih,on=!st.w||st.w==k,tip='Week '+k+' – plan '+by[k].length+' | in range '+o['IN RANGE']+' | out range '+o['OUT RANGE']+' | out standing '+o['OUT STANDING']+' | planned '+o['PLANNED'];
+   s+='<g opacity="'+(on?1:.4)+'"><title>'+tip+'</title>';[['IN RANGE','var(--green)'],['OUT RANGE','var(--amber)'],['OUT STANDING','var(--red)'],['PLANNED','#9db4e6']].forEach(function(c){var h=o[c[0]]/mx*ih;if(h>0){y0-=h;s+='<rect x="'+(cx-bw/2)+'" y="'+y0+'" width="'+bw+'" height="'+Math.max(h-1.5,1)+'" rx="3" fill="'+c[1]+'"/>'}});
+   s+='<text class="v" x="'+cx+'" y="'+(y0-4)+'" text-anchor="middle">'+by[k].length+'</text><text x="'+cx+'" y="'+(H-8)+'" text-anchor="middle">W'+k+'</text></g>'});return s+'</svg>'}
+ function draw(){filters();var a=selw(),o=cnt(a),done=o['IN RANGE']+o['OUT RANGE'],plan=a.length,acc=done?o['IN RANGE']/done:null,pva=plan?done/plan:null,aa=a.filter(function(r){return r.acc!=null}),av=aa.length?aa.reduce(function(s,r){return s+r.acc},0)/aa.length:null;
+  $('#rg').textContent=(st.w?'Week '+st.w+' • ':'')+(st.mo?MN[st.mo-1]+' ':'')+st.y+(st.g?' • '+st.g:'');
+  var nd=D.rows.filter(function(r){return r.cls!='CANCELLED'&&!r.y}).length;$('#wn').style.display=nd?'':'none';$('#wn').innerHTML='<b>'+nd+' PM row(s) have no Plan_Date</b> and are not shown in the period filters – fill Plan_Date in PM_Schedule.';
+  var pc2=function(v){return v==null?'–':Math.round(v*100)+'%'};
+  $('#k').innerHTML=card('Plan',plan,'services scheduled','#2f6fe4')+card('Done',done,'executed','#1f9d55','var(--green)')+card('In Range',o['IN RANGE'],'within tolerance','#1f9d55','var(--green)')+card('Out Range',o['OUT RANGE'],'outside tolerance','#c9810a',o['OUT RANGE']?'var(--amber)':'')+card('Out Standing',o['OUT STANDING'],'not done, past plan','#d64545',o['OUT STANDING']?'var(--red)':'var(--green)')+card('Service Accuracy',pc2(acc),av==null?'in range ÷ done':'avg score '+pc2(av),'#7c4dcc');
+  $('#ch').innerHTML=chart();
+  var seg=[[o['IN RANGE'],'var(--green)','In range'],[o['OUT RANGE'],'var(--amber)','Out range'],[o['OUT STANDING'],'var(--red)','Out standing'],[o['PLANNED'],'#9db4e6','Planned']],t=plan||1;
+  $('#pv').innerHTML='<div style="font-size:34px;font-weight:700;line-height:1.1">'+pc2(pva)+'</div><div class="sub">executed vs planned</div><div class="stk" style="height:20px;margin:10px 0 6px">'+seg.map(function(x){return'<i style="width:'+x[0]/t*100+'%;background:'+x[1]+'"></i>'}).join('')+'</div><div class="lg2">'+seg.map(function(x){return'<span><i style="display:inline-block;width:9px;height:9px;border-radius:50%;background:'+x[1]+';margin-right:4px"></i><b>'+x[0]+'</b> '+x[2]+'</span>'}).join('')+'</div>';
+  $('#rl').innerHTML='In range = meter deviation within ±'+Math.round(D.tolPct*100)+'% of the service interval AND executed within ±'+D.dateTol+' days of the plan date. Out standing = not executed and plan date has passed (or meter already overdue).';
+  var chips=[['','All ('+plan+')'],['IN RANGE','In range'],['OUT RANGE','Out range'],['OUT STANDING','Out standing'],['PLANNED','Planned']];
+  $('#cc').innerHTML=chips.map(function(c){return'<span class="chip'+(st.c==c[0]?' on':'')+'" data-c="'+c[0]+'">'+c[1]+'</span>'}).join('');
+  var q=st.q.toLowerCase(),L=a.filter(function(r){return(!st.c||r.cls==st.c)&&(!q||(r.u+' '+r.mod+' '+r.svc).toLowerCase().indexOf(q)>=0)});
+  var th='<tr><th rowspan="2" class="n">No</th><th rowspan="2" class="n">Interval</th><th colspan="2" style="text-align:center;background:var(--thA)">EQUIPMENT</th><th colspan="3" style="text-align:center;background:var(--thA)">PLAN SERVICE</th><th colspan="2" style="text-align:center;background:var(--thB)">EXECUTION</th><th rowspan="2">Week plan</th><th rowspan="2" class="n">Deviation</th><th rowspan="2" class="n">Tolerance</th><th rowspan="2" class="n">Min</th><th rowspan="2" class="n">Max</th><th rowspan="2">Classification</th><th rowspan="2" class="n">Accuracy</th></tr><tr><th>Model</th><th>Code</th><th>Date</th><th class="n">Meter</th><th>Code PS</th><th class="n">Meter</th><th>Date</th></tr>';
+  $('#tb').innerHTML=th+(L.length?L.map(function(r,i){var c=CL[r.cls],ac=r.acc==null?'–':'<b style="color:'+(r.acc>=.95?'var(--green)':r.acc>=.85?'var(--amber)':'var(--red)')+'">'+Math.round(r.acc*100)+'%</b>',m=function(v){return v==null?'–':n(v)};
+   return'<tr><td class="n">'+(i+1)+'</td><td class="n">'+(r.itv?n(r.itv):'–')+'</td><td>'+esc(r.mod)+'</td><td class="u">'+esc(r.u)+'</td><td>'+dfmt(r.pd)+'</td><td class="n">'+m(r.pm)+' <span class="sub">'+r.mt+'</span></td><td>'+esc(r.svc)+'</td><td class="n">'+m(r.em)+'</td><td>'+dfmt(r.ed)+(r.dd?' <span class="sub" style="color:'+(Math.abs(r.dd)>D.dateTol?'var(--red)':'var(--mut)')+'">'+(r.dd>0?'+':'')+r.dd+'d</span>':'')+'</td><td>'+(r.w?'Week '+r.w:'–')+'</td><td class="n" style="'+(r.dev!=null&&Math.abs(r.dev)>r.tol?'color:var(--red);font-weight:700':'')+'">'+(r.dev==null?'–':n(r.dev))+'</td><td class="n">'+n(r.tol)+'</td><td class="n">'+m(r.mn)+'</td><td class="n">'+m(r.mx)+'</td><td><span class="pill" style="background:'+c[1]+'">'+r.cls+'</span></td><td class="n">'+ac+'</td></tr>'}).join(''):'<tr><td colspan="16" class="sub" style="padding:18px;text-align:center">No services match this filter.</td></tr>')}
+ $('#fy').onchange=function(e){st.y=+e.target.value;st.w=0;draw()};$('#fm').onchange=function(e){st.mo=+e.target.value;st.w=0;draw()};$('#fw').onchange=function(e){st.w=+e.target.value;draw()};$('#fg').onchange=function(e){st.g=e.target.value;draw()};
+ $('#fq').oninput=function(e){st.q=e.target.value;var p=e.target.selectionStart;draw();var f=$('#fq');f.focus();f.setSelectionRange(p,p)};
+ $('#view').onclick=function(e){var c=e.target.closest('.chip');if(c){st.c=c.dataset.c;draw()}};draw()}
+
+function pTyre(D){var st={mode:'M',per:null,hu:'',hs:''};
+ $('#view').innerHTML=hero('Tyre Maintenance','Punctures, leaks &amp; overdue checks',D.asof)+barHtml()+'<div class="r7" id="k"></div>'+
+ '<div class="g2"><div class="card"><div class="ct">Tyres Replaced per Unit<span class="leg">ban diganti</span></div><div class="scroll" style="max-height:340px"><table id="rp"></table></div></div><div class="card"><div class="ct">Replacement Summary</div><ul class="info" id="rs"></ul></div></div>'+
+ '<div class="card" style="margin-bottom:12px"><div class="ct">Tyre Life per Position<span style="display:flex;gap:8px;align-items:center;font-weight:400"><span class="leg" id="plg"></span><select id="plu" style="min-width:170px"></select></span></div><div id="plb"></div></div>'+
+ '<div class="card" style="margin-bottom:12px"><div class="ct">Tyre Replacement History<span style="display:flex;gap:8px;align-items:center;font-weight:400"><span class="leg">tyres removed in the selected period</span><select id="hu" style="min-width:150px"></select><select id="hs" style="min-width:140px"></select></span></div><div class="r5" id="hk" style="margin-bottom:8px"></div><div class="scroll" style="max-height:380px"><table id="ht"></table></div></div>'+
+ '<div class="g2"><div class="card"><div class="ct">Tyre Problem Pareto <span class="leg">events (×) • hours • cumulative %</span></div><table id="pr"></table></div><div class="card"><div class="ct">Tyre Events per Month<span class="leg"><span><i style="background:var(--blue)"></i>All tyre events</span><span><i style="background:var(--red)"></i>Puncture / Leak</span></span></div><div id="tr"></div></div></div>'+
+ '<div class="warn" id="wn" style="display:none"><b>Tyre_Schedule has no check data yet.</b> Fill Last_Check_Date, Check_Interval_Days, Tyre_Fit_Meter and Tyre_Life_Target in the Tyre_Schedule sheet to get Overdue / Due Soon status.</div>'+
+ '<div class="g3b"><div class="card"><div class="ct">Check Schedule Status</div><div id="s1"></div><div class="ct" style="margin-top:14px">Tyre Life Status (HM/KM used vs target)</div><div id="s2"></div></div><div class="card"><div class="ct">Overdue List<span style="color:var(--mut);font-size:11.5px;font-weight:400">units</span></div><table id="od"></table></div><div class="card"><div class="ct">Top Units – Tyre Events</div><table id="tu"></table></div></div>'+
+ '<div class="card"><div class="ct">Latest Tyre Events</div><div class="scroll"><table id="rc"></table></div></div>';
+ var sel=wireBar(st,function(){draw()},D);var L=function(){return st.mode=='D'?D.days:st.mode=='W'?D.weeks:D.months};
+ var pl=function(s){return'<span class="pill '+String(s).replace(' ','').replace('No Data','ND')+'">'+esc(s)+'</span>'};
+ var stack=function(o){var t=o.over+o.soon+o.ok+o.nd||1,seg=[[o.over,'var(--red)','Overdue'],[o.soon,'var(--amber)','Due soon'],[o.ok,'var(--green)','OK'],[o.nd,'#8795ab','No data']];return'<div class="stk">'+seg.map(function(s){return'<i style="width:'+s[0]/t*100+'%;background:'+s[1]+'"></i>'}).join('')+'</div><div class="lg2">'+seg.map(function(s){return'<span><i style="display:inline-block;width:9px;height:9px;border-radius:50%;background:'+s[1]+';margin-right:4px"></i><b>'+s[0]+'</b> '+s[2]+'</span>'}).join('')+'</div>'};
+ function trend(a,sl){var W=470,H=230,p={l:34,r:10,t:18,b:24},iw=W-p.l-p.r,ih=H-p.t-p.b,m=a.length,gw=iw/m,bw=Math.min(34,gw*.55),mx=Math.max.apply(null,a.map(function(x){return x[1]}).concat([4]))*1.15;var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%">';
+  for(var q=0;q<=4;q++){var yy=p.t+ih-ih*q/4;s+='<line x1="'+p.l+'" x2="'+(W-p.r)+'" y1="'+yy+'" y2="'+yy+'" stroke="var(--grid)"/><text x="'+(p.l-6)+'" y="'+(yy+4)+'" text-anchor="end">'+Math.round(mx*q/4)+'</text>'}
+  a.forEach(function(x,i){var cx=p.l+gw*i+gw/2,h1=x[1]/mx*ih,h2=x[2]/mx*ih,on=x[0]==sl||sl==null;s+='<rect x="'+(cx-bw/2)+'" y="'+(p.t+ih-h1)+'" width="'+bw+'" height="'+h1+'" rx="4" fill="var(--blue)" opacity="'+(on?1:.55)+'"/><rect x="'+(cx-bw/2)+'" y="'+(p.t+ih-h2)+'" width="'+bw+'" height="'+h2+'" rx="3" fill="var(--red)" opacity="'+(on?1:.7)+'"/><text class="v" x="'+cx+'" y="'+(p.t+ih-h1-5)+'" text-anchor="middle">'+x[1]+'</text><text x="'+cx+'" y="'+(H-7)+'" text-anchor="middle">'+x[0]+'</text>'});return s+'</svg>'}
+ function draw(){sel();var l=L(),i=st.mode=='Y'?-1:l.findIndex(function(x){return x.k==st.per}),c=st.mode=='Y'?D.ytd:l[i];
+  $('#rg').textContent=(st.mode=='D'?'Daily':st.mode=='W'?'Weekly':st.mode=='M'?'Monthly':'Year to Date')+' • '+c.rng;$('#wn').style.display=D.ck.nd==D.tot&&D.tot>0?'':'none';
+  $('#k').innerHTML=card('Tyre Events',c.ev,'unique breakdown events','#2f6fe4')+card('Puncture / Leak',c.lk,c.ev?Math.round(c.lk/c.ev*100)+'% of tyre events':'–','#d64545','var(--red)')+card('Tyres Replaced',c.rq,c.rj+' replacement job'+(c.rj==1?'':'s'),'#1f9d55',c.rq?'var(--green)':'')+card('Tyre Downtime',n(c.h)+' hrs',c.ev?(c.h/c.ev).toFixed(1)+' hrs / event':'–','#c9810a')+card('Units Affected',c.un,'of '+D.tot+' tyre units','#2f6fe4')+card('Check Overdue',D.ck.over,D.ck.soon+' due soon','#d64545','var(--red)')+card('Tyre Life Overdue',D.lf.over,D.lf.soon+' due soon','#c9810a','var(--amber)');
+
+  var rm=c.ru.length?c.ru[0][3]:1;
+  $('#rp').innerHTML='<tr><th>No</th><th>Unit</th><th>Model</th><th></th><th class="n">Jobs</th><th class="n">Tyres</th><th class="n">Inner tube</th><th>Last</th></tr>'+(c.ru.length?c.ru.map(function(r,j){return'<tr><td>'+(j+1)+'</td><td class="u">'+esc(r[0])+'</td><td>'+esc(r[1])+'</td><td style="width:20%"><div class="bb" style="width:'+r[3]/rm*100+'%;background:var(--green)"></div></td><td class="n">'+r[2]+'×</td><td class="n"><b>'+r[3]+'</b>'+'</td><td class="n">'+(r[4]||'–')+'</td><td>'+esc(r[5])+'</td></tr>'}).join(''):'<tr><td colspan="8" style="color:var(--mut)">'+(D.pl&&D.pl.has?'No tyre replacement in Tyre_Fit_Log for this period':'Sheet Tyre_Fit_Log not found or empty – replacements are counted from it')+'</td></tr>');
+  var ru=c.ru.length;$('#rs').innerHTML=[['var(--green)','Tyres replaced',c.rq],['var(--blue)','Replacement jobs',c.rj],['var(--violet)','Units involved',ru],['var(--amber)','Average tyres per unit',ru?(c.rq/ru).toFixed(1):'–'],['var(--mut)','of which inner tubes (ban dalam)',c.rt]].map(function(x){return'<li><span class="dot" style="background:'+x[0]+'"></span>'+x[1]+'<span class="t"><b style="color:var(--tx);font-size:13px">'+x[2]+'</b></span></li>'}).join('');
+  (function(){var P=D.pl||{units:[]},sel=$('#plu'),bx=$('#plb'),CO={'OK':'var(--green)','Due Soon':'var(--amber)','Overdue':'var(--red)','No Target':'#8795ab'},mt=function(u){return u.mt=='KM'?'KM':'HM'};
+   if(!P.has){sel.style.display='none';$('#plg').textContent='';bx.innerHTML='<div class="note" style="font-size:12.5px">'+(P.err?'Could not read sheet Tyre_Fit_Log: '+esc(P.err):'No data yet. Add the sheet <b>Tyre_Fit_Log</b> (one row for every tyre fitted: Fit_Date, Unit, Pos, Fit_Meter) to see tyre age per position.')+'</div>';return}
+   sel.style.display='';var cur=sel.value;if(!P.units.some(function(u){return u.u==cur}))cur=P.units.slice().sort(function(a,b){return b.worst-a.worst})[0].u;
+   sel.innerHTML=P.units.map(function(u){return'<option value="'+esc(u.u)+'"'+(u.u==cur?' selected':'')+'>'+esc(u.u)+(u.m?' – '+esc(u.m):'')+'</option>'}).join('');
+   $('#plg').innerHTML='Average life when replaced (all units): <b>'+(P.avg==null?'–':n(P.avg)+' HM/KM')+'</b> • '+P.n+' replacement'+(P.n==1?'':'s');
+   function show(){var u=P.units.filter(function(x){return x.u==sel.value})[0],mx=Math.max.apply(null,u.pos.map(function(p){return p.pct||0}).concat([1]));
+    bx.innerHTML='<div class="sub" style="margin-bottom:6px">'+esc(u.m)+' • meter now <b>'+(u.cur==null?'–':n(u.cur)+' '+mt(u))+'</b> • average life when replaced <b>'+(u.avg==null?'–':n(u.avg)+' '+mt(u))+'</b> ('+u.nr+' replacement'+(u.nr==1?'':'s')+')</div><div class="scroll" style="max-height:360px"><table><tr><th>Pos</th><th>Fitted</th><th>Brand</th><th class="n">Fit meter</th><th class="n">Age now</th><th class="n">Target</th><th style="width:26%">Life used</th><th>Status</th><th class="n">Avg life before</th></tr>'+
+    u.pos.map(function(p){var c=CO[p.st];return'<tr><td class="u">'+esc(p.p)+'</td><td>'+esc(p.fd)+'</td><td>'+esc(p.br)+'</td><td class="n">'+n(p.fm)+'</td><td class="n"><b>'+(p.age==null?'–':n(p.age))+'</b></td><td class="n">'+(p.tg?n(p.tg):'–')+'</td><td>'+(p.pct==null?'<span class="sub">no target</span>':'<div style="display:flex;align-items:center;gap:6px"><div class="mbar" style="flex:1;margin:0"><i style="width:'+Math.min(100,p.pct*100)+'%;background:'+c+'"></i></div><b style="width:42px;text-align:right">'+Math.round(p.pct*100)+'%</b></div>')+'</td><td><span class="pill" style="background:'+c+'">'+esc(p.st)+'</span></td><td class="n">'+(p.avg==null?'<span class="sub">–</span>':n(p.avg)+' <span class="sub">('+p.nr+'×)</span>')+'</td></tr>'}).join('')+'</table></div>'}
+   sel.onchange=show;show()})();
+  (function(){var P=D.pl||{},hu=$('#hu'),hs=$('#hs'),tb=$('#ht'),bx=$('#hk');
+   if(!P.has){hu.style.display=hs.style.display='none';bx.innerHTML='';tb.innerHTML='<tr><td class="sub" style="padding:10px 0">Add rows to the sheet Tyre_Fit_Log to build the replacement history.</td></tr>';return}
+   hu.style.display=hs.style.display='';
+   var H=(P.hist||[]).filter(function(x){return x.td>=c.lo&&x.td<=c.hi}),us={};H.forEach(function(x){us[x.u]=1});var ul=Object.keys(us).sort();if(st.hu&&!us[st.hu])st.hu='';
+   hu.innerHTML='<option value="">All units ('+ul.length+')</option>'+ul.map(function(u){return'<option'+(st.hu==u?' selected':'')+'>'+esc(u)+'</option>'}).join('');
+   hs.innerHTML=[['','All results'],['Below','Below target'],['Met','Met target']].map(function(x){return'<option value="'+x[0]+'"'+(st.hs==x[0]?' selected':'')+'>'+x[1]+'</option>'}).join('');
+   var U=H.filter(function(x){return!st.hu||x.u==st.hu}),T=U.filter(function(x){return x.rs!='No target'}),be=T.filter(function(x){return x.rs=='Below'}).length,me=T.length-be,
+    avg=U.length?Math.round(U.reduce(function(s,x){return s+x.life},0)/U.length):null,mn=U.length?U.reduce(function(a,x){return x.life<a.life?x:a}):null,pp=function(v){return T.length?Math.round(v/T.length*100)+'%':'–'};
+   bx.innerHTML=card('Tyres Removed',U.length,'with known life','#2f6fe4')+card('Met Target',me,pp(me)+' of tyres with a target','#1f9d55',me?'var(--green)':'')+card('Below Target',be,pp(be)+' replaced before target','#d64545',be?'var(--red)':'var(--green)')+card('Average Life',avg==null?'–':n(avg),'HM / KM per tyre','#7c4dcc')+card('Shortest Life',mn?n(mn.life):'–',mn?esc(mn.u)+' pos '+esc(mn.p):'','#c9810a');
+   var R=U.filter(function(x){return!st.hs||x.rs==st.hs}).sort(function(a,b){return a.td<b.td?1:a.td>b.td?-1:b.life-a.life}),CO={'Met':'var(--green)','Below':'var(--red)','No target':'#8795ab'},LB={'Met':'Met target','Below':'Below target','No target':'No target'};
+   tb.innerHTML='<tr><th>No</th><th>Unit</th><th>Pos</th><th>Fitted</th><th>Removed</th><th class="n">Fit meter</th><th class="n">Removed at</th><th class="n">Life</th><th class="n">Target</th><th style="width:16%">% of target</th><th>Result</th><th>Reason / remark</th></tr>'+(R.length?R.map(function(x,j){var cl=CO[x.rs];return'<tr><td>'+(j+1)+'</td><td class="u">'+esc(x.u)+'</td><td>'+esc(x.p)+'</td><td>'+esc(x.fd)+'</td><td>'+esc(x.td)+'</td><td class="n">'+n(x.fm)+'</td><td class="n">'+n(x.tm)+'</td><td class="n"><b>'+n(x.life)+'</b> <span class="sub">'+esc(x.mt)+'</span></td><td class="n">'+(x.tg?n(x.tg):'–')+'</td><td>'+(x.pct==null?'<span class="sub">–</span>':'<div style="display:flex;align-items:center;gap:6px"><div class="mbar" style="flex:1;margin:0"><i style="width:'+Math.min(100,x.pct*100)+'%;background:'+cl+'"></i></div><b style="width:40px;text-align:right">'+Math.round(x.pct*100)+'%</b></div>')+'</td><td><span class="pill" style="background:'+cl+'">'+LB[x.rs]+'</span></td><td>'+esc(x.rm)+'</td></tr>'}).join(''):'<tr><td colspan="12" class="sub" style="padding:14px;text-align:center">No tyre removed in this period (a tyre needs a later replacement row on the same position)</td></tr>')+(P.bad?'<tr><td colspan="12" class="sub">'+P.bad+' pair(s) of rows with the same meter on one position were ignored</td></tr>':'');
+   hu.onchange=function(e){st.hu=e.target.value;draw()};hs.onchange=function(e){st.hs=e.target.value;draw()}})();
+  var tot=c.iss.reduce(function(a,b){return a+b[1]},0)||1,cum=0;
+  $('#pr').innerHTML='<tr><th>No</th><th>Problem type</th><th></th><th class="n">Events</th><th class="n">Hours</th><th class="n">%</th><th class="n">Cum %</th></tr>'+(c.iss.length?c.iss.map(function(r,j){cum+=r[1];return'<tr><td>'+(j+1)+'</td><td>'+esc(r[0])+'</td><td style="width:26%"><div class="bb" style="width:'+r[1]/(c.iss[0][1]||1)*100+'%;background:'+(r[0]=='Puncture / Leak'?'var(--red)':'var(--blue)')+'"></div></td><td class="n"><b>'+r[1]+'×</b></td><td class="n">'+n(r[2])+'</td><td class="n">'+(r[1]/tot*100).toFixed(0)+'%</td><td class="n">'+(cum/tot*100).toFixed(0)+'%</td></tr>'}).join(''):'<tr><td colspan="7" style="color:var(--mut)">No tyre events in this period</td></tr>');
+  $('#tr').innerHTML=trend(D.trend,st.mode=='M'?st.per:null);$('#s1').innerHTML=stack(D.ck);$('#s2').innerHTML=stack(D.lf);
+  $('#od').innerHTML='<tr><th>Unit</th><th>Check</th><th class="n">Days</th><th class="n">Life</th><th>Status</th></tr>'+(D.od.length?D.od.map(function(r){return'<tr><td>'+esc(r.u)+'</td><td>'+pl(r.ck)+'</td><td class="n">'+(r.od?r.od+' d':'–')+'</td><td class="n">'+(r.li!=null?Math.round(r.li*100)+'%':'–')+'</td><td>'+pl(r.ls)+'</td></tr>'}).join(''):'<tr><td colspan="5" style="color:var(--mut)">Nothing overdue (or schedule not filled yet)</td></tr>');
+  $('#tu').innerHTML='<tr><th>No</th><th>Unit</th><th></th><th class="n">Events</th><th class="n">Leak</th><th class="n">Hrs</th></tr>'+(c.tu.length?c.tu.map(function(r,j){return'<tr><td>'+(j+1)+'</td><td>'+esc(r[0])+'</td><td style="width:24%"><div class="bb" style="width:'+r[2]/c.tu[0][2]*100+'%;background:var(--blue)"></div></td><td class="n"><b>'+r[2]+'×</b></td><td class="n">'+r[3]+'</td><td class="n">'+n(r[4])+'</td></tr>'}).join(''):'<tr><td colspan="6" style="color:var(--mut)">No tyre events in this period</td></tr>');
+  $('#rc').innerHTML='<tr><th>Date</th><th>Unit</th><th>Problem</th><th>Type</th><th class="n">Hrs</th><th>Status</th></tr>'+D.rec.map(function(r){return'<tr><td>'+esc(r.d)+'</td><td>'+esc(r.u)+'</td><td>'+esc(r.p)+'</td><td>'+esc(r.i)+'</td><td class="n">'+n(r.h,1)+'</td><td>'+pl(r.st)+'</td></tr>'}).join('')}
+ draw()}
+
+/* ================= SHARED: pie chart ================= */
+var DLB=['D0 Repair in Progress','D1 Vendor Repair Progress','D2 Waiting Vendor Manpower','D3 Waiting Part & Material','D4 Waiting Access / Unit Movement','D5 Bad Weather','D6 Waiting Mechanic Manpower','D7 Waiting Tools','D8 Rest Time','D9 Operation / Maintenance Error','D10 Scheduled Opportunity','D11 Waiting Decision','D12 Other (undefined)'],
+ DTC={'D0 Repair in Progress':'#2f6fe4','D1 Vendor Repair Progress':'#7c4dcc','D2 Waiting Vendor Manpower':'#0e8a8f','D3 Waiting Part & Material':'#c9810a','D4 Waiting Access / Unit Movement':'#8a5a2b','D5 Bad Weather':'#9aa5b8','D6 Waiting Mechanic Manpower':'#d6479b','D7 Waiting Tools':'#6a9a1f','D8 Rest Time':'#5b6b88','D9 Operation / Maintenance Error':'#d64545','D10 Scheduled Opportunity':'#3d5a99','D11 Waiting Decision':'#e07b39','D12 Other (undefined)':'#b6c0d1','USM':'#2f6fe4','SCM':'#1f9d55','PRE':'#c9810a','MISS':'#7c4dcc'},
+ PIEPAL=['#2f6fe4','#c9810a','#1f9d55','#7c4dcc','#d64545','#0e8a8f','#d6479b','#8a5a2b','#5b6b88','#6a9a1f'];
+function pie(list,unit){var tot=list.reduce(function(a,b){return a+b.v},0);if(!tot)return'<div class="note">No data in this period.</div>';
+ var R=84,cx=90,cy=90,a0=-Math.PI/2,s='<svg viewBox="0 0 180 180" width="190" height="190" style="flex:none">';
+ list.forEach(function(x,i){x.c=x.c||DTC[x.k]||PIEPAL[i%PIEPAL.length];var f=x.v/tot,a1=a0+f*2*Math.PI,tip='<title>'+esc(x.k)+' – '+n(x.v,1)+' '+unit+' ('+(f*100).toFixed(1)+'%)</title>';
+  if(f>.9999)s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+R+'" fill="'+x.c+'">'+tip+'</circle>';
+  else s+='<path d="M'+cx+','+cy+' L'+(cx+R*Math.cos(a0))+','+(cy+R*Math.sin(a0))+' A'+R+','+R+' 0 '+(f>.5?1:0)+' 1 '+(cx+R*Math.cos(a1))+','+(cy+R*Math.sin(a1))+' Z" fill="'+x.c+'" stroke="var(--card)" stroke-width="2">'+tip+'</path>';
+  if(f>.07){var am=(a0+a1)/2;s+='<text x="'+(cx+R*.62*Math.cos(am))+'" y="'+(cy+R*.62*Math.sin(am)+4)+'" text-anchor="middle" style="fill:#fff;font-weight:700;font-size:11px;pointer-events:none">'+Math.round(f*100)+'%</text>'}a0=a1});
+ return'<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">'+s+'</svg><div style="flex:1;min-width:170px">'+list.map(function(x){return'<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;padding:3px 0"><i style="width:10px;height:10px;border-radius:3px;background:'+x.c+';flex:none"></i><span style="flex:1">'+esc(x.k)+'</span><b>'+n(x.v,1)+' '+unit+'</b><span class="sub" style="width:38px;text-align:right">'+(x.v/tot*100).toFixed(0)+'%</span></div>'}).join('')+'<div style="border-top:1px solid var(--line);margin-top:6px;padding-top:6px;font-size:12.5px;display:flex;justify-content:space-between"><span class="sub">Total</span><b>'+n(tot,1)+' '+unit+'</b></div></div></div>'}
+function hbars(list,col,unit){var mx=Math.max.apply(null,list.map(function(x){return x[1]}).concat([1]));return list.map(function(x){return'<div style="display:flex;align-items:center;gap:8px;font-size:12px;margin:0 0 6px"><span style="width:168px;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+esc(x[0])+'">'+esc(x[0])+'</span><span style="flex:1;background:var(--grid);border-radius:5px;height:14px"><i style="display:block;height:14px;border-radius:5px;width:'+x[1]/mx*100+'%;background:'+col+'"></i></span><b style="width:'+(unit?92:34)+'px;white-space:nowrap">'+x[1]+'×'+(unit&&x[2]!=null?' <span class="sub" style="font-weight:400">'+n(x[2],0)+' h</span>':'')+'</b></div>'}).join('')}
+
+/* ================= COMPONENT FAILURE ================= */
+function pComp(D){var R=D.rows,ys={};R.forEach(function(r){ys[r.y]=1});var yl=Object.keys(ys).map(Number).sort();if(!yl.length)yl=[+D.asof.slice(0,4)];
+ var st={y:yl[yl.length-1],mo:0,w:0,g:'',u:'',q:'',f:'',t:'',sel:'',pm:0,v:D.hasMap?'s':'c'},MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+ if(!R.length){$('#view').innerHTML=hero('Component Failure','Which components fail most often',D.asof)+'<div class="card" style="padding:26px;text-align:center"><b>No component data yet.</b><div class="note">Fill Component_1 in INPUT_DBR for breakdown rows.</div></div>';return}
+ $('#view').innerHTML=hero('Component Failure','Which components fail most often – by category and by unit ID',D.asof)+
+ '<div class="bar"><b style="color:var(--mut)">Period</b><select id="fy"></select><select id="fm"></select><select id="fw"></select><span class="sub">or dates</span><input type="date" id="df"><input type="date" id="dt"><button class="btn" id="dc" style="display:none">Clear dates</button><span class="rg" id="rg"></span></div>'+
+ '<div class="bar"><b style="color:var(--mut)">Scope</b><select id="fg"></select><select id="fu"></select><b style="color:var(--mut);margin-left:8px">Group by</b><select id="fv"><option value="s">System group</option><option value="c">Component (raw)</option></select><label class="sub" style="display:flex;gap:5px;align-items:center;cursor:pointer"><input type="checkbox" id="fp"> include service entries (PM, top-up)</label></div><div class="warn" id="wn" style="display:none"></div><div class="r6" id="k"></div>'+
+ '<div class="g2e"><div class="card"><div class="ct">Most Frequent Failures<span class="leg">top 15 • failures (×) &amp; downtime h</span></div><div id="c1"></div></div><div class="card"><div class="ct">Share of Failures<span class="leg">top 7 components + others</span></div><div id="c2"></div></div></div>'+
+ '<div class="g2e"><div class="card"><div class="ct">Failures by Category</div><div id="c3"></div></div><div class="card" id="c4box"><div class="ct">Units with Most Component Failures<span class="leg">top 10 unit IDs</span></div><div id="c4"></div></div></div>'+
+ '<div class="g2e"><div class="card"><div class="ct">Failures per Week</div><div id="c5"></div></div><div class="card"><div class="ct">Failure item × Category<span class="leg">failure count • period filter only</span></div><div class="scroll"><table id="hm"></table></div></div></div>'+
+ '<div class="card"><div class="ct">Component Ranking<span class="leg">click a row to see each failure</span></div><div class="bar" style="margin:0 0 8px"><input type="search" id="fq" placeholder="Search component…"></div><div class="scroll" style="max-height:420px"><table id="tb"></table></div></div>'+
+ '<div class="card" id="evb" style="display:none"><div class="ct" id="evt"></div><div class="scroll" style="max-height:340px"><table id="ev"></table></div></div>';
+ var dated=function(){return st.f||st.t},
+ base=function(ign){return R.filter(function(r){if(!st.pm&&r.nf)return false;if(dated()){if(st.f&&r.d<st.f)return false;if(st.t&&r.d>st.t)return false}else{if(r.y!=st.y)return false;if(st.mo&&r.mo!=st.mo)return false;if(st.w&&r.w!=st.w)return false}return ign||((!st.g||r.g==st.g)&&(!st.u||r.u==st.u))})},
+ cnt=function(a,kf){var m={};a.forEach(function(r){var k=kf(r);if(!k)return;var o=m[k]||(m[k]={k:k,n:0,h:0,us:{},sk:{},last:'',ev:[]});o.h+=r.h;if(r.d>o.last)o.last=r.d;if(r.ck&&!o.sk[r.ck]){o.sk[r.ck]=1;o.n++;o.us[r.u]=(o.us[r.u]||0)+1;o.ev.push(r)}});return Object.keys(m).map(function(k){return m[k]}).filter(function(o){return o.n>0}).sort(function(a,b){return b.n-a.n||b.h-a.h})};
+ function filters(){$('#fy').innerHTML=yl.map(function(y){return'<option'+(y==st.y?' selected':'')+'>'+y+'</option>'}).join('');
+  $('#fm').innerHTML='<option value="0">All months</option>'+MN.map(function(m,i){return'<option value="'+(i+1)+'"'+(st.mo==i+1?' selected':'')+'>'+m+'</option>'}).join('');
+  var wl={};D.cal.forEach(function(c){if(c.y==st.y&&(!st.mo||c.m==st.mo))wl[c.w]=1});wl=Object.keys(wl).map(Number).sort(function(a,b){return a-b});if(st.w&&wl.indexOf(st.w)<0)st.w=0;
+  $('#fw').innerHTML='<option value="0">All weeks</option>'+wl.map(function(w){return'<option value="'+w+'"'+(st.w==w?' selected':'')+'>Week '+w+'</option>'}).join('');
+  ['fy','fm','fw'].forEach(function(i){$('#'+i).disabled=!!dated()});$('#dc').style.display=dated()?'':'none';
+  $('#fg').innerHTML='<option value="">All categories</option>'+D.groups.map(function(g){return'<option'+(st.g==g?' selected':'')+'>'+esc(g)+'</option>'}).join('');
+  var us={};R.forEach(function(r){if(!st.g||r.g==st.g)us[r.u]=1});us=Object.keys(us).sort();if(st.u&&us.indexOf(st.u)<0)st.u='';
+  $('#fu').innerHTML='<option value="">All unit IDs ('+us.length+')</option>'+us.map(function(u){return'<option'+(st.u==u?' selected':'')+'>'+esc(u)+'</option>'}).join('')}
+ function draw(){filters();var kf=function(r){return st.v=='c'?r.c:r.s},NM=st.v=='c'?'Component':'System',a=base(),C=cnt(a,kf),F=(function(){var s={};a.forEach(function(r){if(r.ck)s[r.ck]=1});return Object.keys(s).length})(),Hh=a.reduce(function(s,r){return s+r.h},0),UL=cnt(a,function(r){return r.u}),GL=cnt(a,function(r){return r.g||'(none)'}),uset={};a.forEach(function(r){uset[r.u]=1});
+  $('#rg').textContent=dated()?((st.f||'…')+' → '+(st.t||'…')):((st.w?'Week '+st.w+' • ':'')+(st.mo?MN[st.mo-1]+' ':'')+st.y)+(st.g?' • '+st.g:'')+(st.u?' • '+st.u:'');
+  var um=a.filter(function(r){return r.s=='Unmapped'}),ums={};um.forEach(function(r){ums[r.c]=1});$('#wn').style.display=um.length?'':'none';$('#wn').innerHTML='<b>'+Object.keys(ums).length+' component name(s) not in Ref_ComponentSystem</b> (shown as "Unmapped"): '+esc(Object.keys(ums).slice(0,6).join(', '))+' – add them to that sheet.';
+  var cd=function(l,v,s,c,x){return card(l,v,s,c,x)};
+  $('#k').innerHTML=cd('Component Failures',F,'unique failure events','#d64545','var(--red)')+cd('Different '+NM+'s',C.length,'types that failed','#2f6fe4')+cd('Units Affected',Object.keys(uset).length,'unit IDs','#0e8a8f')+cd('Downtime',n(Hh)+' h',F?n(Hh/F,1)+' h per failure':'–','#c9810a')+cd('Most Frequent',C[0]?esc(C[0].k):'–',C[0]?C[0].n+'× • '+(F?Math.round(C[0].n/F*100):0)+'% of failures':'','#7c4dcc')+cd('Worst Unit',UL[0]?esc(UL[0].k):'–',UL[0]?UL[0].n+' failures':'','#d64545');
+  $('#c1').innerHTML=C.length?hbars(C.slice(0,15).map(function(o){return[o.k,o.n,o.h]}),'var(--red)',1):'<div class="note">No failures for this filter.</div>';
+  var top=C.slice(0,7).map(function(o){return{k:o.k,v:o.n}}),rest=C.slice(7).reduce(function(s,o){return s+o.n},0);if(rest)top.push({k:'Others ('+(C.length-7)+' types)',v:rest,c:'#9aa5b8'});$('#c2').innerHTML=pie(top,'×');
+  $('#c3').innerHTML=GL.length?hbars(GL.map(function(o){return[o.k,o.n,o.h]}),'var(--blue)',1):'<div class="note">–</div>';
+  $('#c4box').style.display=st.u?'none':'';$('#c4').innerHTML=UL.length?hbars(UL.slice(0,10).map(function(o){return[o.k,o.n,o.h]}),'var(--amber)',1):'<div class="note">–</div>';
+  // per week
+  var wk={},ws={};a.forEach(function(r){if(r.ck&&r.w){var k=r.y*100+r.w;ws[k]=ws[k]||{};if(!ws[k][r.ck]){ws[k][r.ck]=1;wk[k]=(wk[k]||0)+1}}});var wl=Object.keys(wk).map(Number).sort(),mx=Math.max.apply(null,wl.map(function(k){return wk[k]}).concat([4]));mx=Math.ceil(mx/4)*4;
+  if(!wl.length)$('#c5').innerHTML='<div class="note">–</div>';else{var W=520,H=200,p={l:30,r:6,t:14,b:24},iw=W-p.l-p.r,ih=H-p.t-p.b,gw=iw/wl.length,bw=Math.min(22,gw*.62),s='<svg viewBox="0 0 '+W+' '+H+'" width="100%">';
+   for(var q=0;q<=4;q++){var yy=p.t+ih-ih*q/4;s+='<line x1="'+p.l+'" x2="'+(W-p.r)+'" y1="'+yy+'" y2="'+yy+'" stroke="var(--grid)"/><text x="'+(p.l-5)+'" y="'+(yy+4)+'" text-anchor="end">'+Math.round(mx*q/4)+'</text>'}
+   var stp=Math.ceil(wl.length/14);wl.forEach(function(k,i){var cx=p.l+gw*i+gw/2,h=wk[k]/mx*ih,on=!st.w||st.w==k%100;s+='<g opacity="'+(on?1:.4)+'"><title>Week '+k%100+': '+wk[k]+' failures</title><path d="M'+(cx-bw/2)+','+(p.t+ih)+' v'+(-Math.max(h-4,0))+' q0,-4 4,-4 h'+(bw-8)+' q4,0 4,4 v'+Math.max(h-4,0)+'z" fill="var(--red)"/>'+(wl.length<=18?'<text class="v" x="'+cx+'" y="'+(p.t+ih-h-4)+'" text-anchor="middle">'+wk[k]+'</text>':'')+'</g>';if(i%stp==0)s+='<text x="'+cx+'" y="'+(H-7)+'" text-anchor="middle">W'+k%100+'</text>'});$('#c5').innerHTML=s+'</svg>'}
+  // heatmap: top 12 components x categories (period filter only)
+  var b2=base(1),C2=cnt(b2,kf).slice(0,12),gs=D.groups.filter(function(g){return b2.some(function(r){return r.g==g&&r.ck})}),hv={},hmx=1;var hs={};b2.forEach(function(r){if(r.ck){var k=kf(r)+'|'+r.g;hs[k]=hs[k]||{};if(!hs[k][r.ck]){hs[k][r.ck]=1;hv[k]=(hv[k]||0)+1;if(hv[k]>hmx)hmx=hv[k]}}});
+  $('#hm').innerHTML='<tr><th>'+NM+'</th>'+gs.map(function(g){return'<th class="n">'+esc(g)+'</th>'}).join('')+'<th class="n">Total</th></tr>'+(C2.length?C2.map(function(o){return'<tr><td>'+esc(o.k)+'</td>'+gs.map(function(g){var v=hv[o.k+'|'+g]||0;return'<td class="n" style="background:'+(v?'rgba(214,69,69,'+(.12+.78*v/hmx)+')':'transparent')+';color:'+(v/hmx>.55?'#fff':'inherit')+'">'+(v||'')+'</td>'}).join('')+'<td class="n"><b>'+o.n+'</b></td></tr>'}).join(''):'<tr><td class="sub" colspan="9">–</td></tr>');
+  // ranking table
+  var q=st.q.toLowerCase(),CL=C.filter(function(o){return!q||o.k.toLowerCase().indexOf(q)>=0}),mc=CL.length?CL[0].n:1;
+  $('#tb').innerHTML='<tr><th class="n">No</th><th>'+NM+'</th><th></th><th class="n">Failures</th><th class="n">Downtime h</th><th class="n">% of failures</th><th class="n">Units</th><th>Most affected unit</th><th>Last failure</th></tr>'+(CL.length?CL.map(function(o,i){var tu=Object.keys(o.us).sort(function(x,y){return o.us[y]-o.us[x]})[0];return'<tr class="cr" data-k="'+esc(o.k)+'" style="cursor:pointer;'+(st.sel==o.k?'background:var(--selbg)':'')+'"><td class="n">'+(i+1)+'</td><td><b>'+esc(o.k)+'</b></td><td style="width:20%"><div class="bb" style="width:'+o.n/mc*100+'%;background:var(--red)"></div></td><td class="n"><b>'+o.n+'×</b></td><td class="n">'+n(o.h)+'</td><td class="n">'+(F?(o.n/F*100).toFixed(1):0)+'%</td><td class="n">'+Object.keys(o.us).length+'</td><td class="u">'+esc(tu)+' <span class="sub">'+o.us[tu]+'×</span></td><td>'+o.last+'</td></tr>'}).join(''):'<tr><td colspan="9" class="sub" style="padding:14px;text-align:center">No components match.</td></tr>');
+  var sc=C.filter(function(o){return o.k==st.sel})[0];$('#evb').style.display=sc?'':'none';
+  if(sc){var cx={};sc.ev.forEach(function(r){cx[r.c]=(cx[r.c]||0)+1});$('#evt').innerHTML=esc(sc.k)+' – '+sc.n+' failure'+(sc.n>1?'s':'')+'<span class="leg">'+(st.v=='s'?Object.keys(cx).sort(function(a,b){return cx[b]-cx[a]}).slice(0,6).map(function(k){return esc(k)+' '+cx[k]+'×'}).join(' • '):'each failure event')+'</span>';$('#ev').innerHTML='<tr><th>Date</th><th>Week</th><th>Unit</th><th>Category</th><th>Component</th><th>Problem</th><th>Status</th></tr>'+sc.ev.slice().reverse().map(function(r){return'<tr><td>'+r.d+'</td><td>'+(r.w?'Week '+r.w:'–')+'</td><td class="u">'+esc(r.u)+'</td><td>'+esc(r.g)+'</td><td>'+esc(r.c)+'</td><td>'+esc(r.p)+'</td><td><span class="pill '+esc(r.st)+'">'+esc(r.st)+'</span></td></tr>'}).join('')}}
+ $('#fy').onchange=function(e){st.y=+e.target.value;st.w=0;draw()};$('#fm').onchange=function(e){st.mo=+e.target.value;st.w=0;draw()};$('#fw').onchange=function(e){st.w=+e.target.value;draw()};
+ $('#df').onchange=function(e){st.f=e.target.value;draw()};$('#dt').onchange=function(e){st.t=e.target.value;draw()};$('#dc').onclick=function(){st.f=st.t='';$('#df').value=$('#dt').value='';draw()};
+ $('#fg').onchange=function(e){st.g=e.target.value;st.u='';draw()};$('#fu').onchange=function(e){st.u=e.target.value;draw()};
+ if(!D.hasMap){$('#fv').innerHTML='<option value="c">Component (raw)</option>'}$('#fv').onchange=function(e){st.v=e.target.value;st.sel='';draw()};$('#fp').onchange=function(e){st.pm=e.target.checked?1:0;draw()};$('#fq').oninput=function(e){st.q=e.target.value;var p=e.target.selectionStart;draw();var f=$('#fq');f.focus();f.setSelectionRange(p,p)};
+ $('#tb').onclick=function(e){var r=e.target.closest('.cr');if(r){st.sel=st.sel==r.dataset.k?'':r.dataset.k;draw();if(st.sel)$('#evb').scrollIntoView({behavior:'smooth',block:'nearest'})}};
+ draw()}
+
+/* ================= PARETO PER UNIT ================= */
+function pPareto(D){var U=D.units,names=Object.keys(U).sort(),uni='*',per='ALL',met='h',grp='',gl={};names.forEach(function(u){if(U[u].g)gl[U[u].g]=1});gl=Object.keys(gl).sort();
+ $('#view').innerHTML='<div class="bar"><b style="color:var(--mut)">Category</b><select id="grp"></select><select id="uni"></select><select id="per"></select><select id="met"><option value="h">Hours: Downtime</option><option value="dh">Hours: Delay</option></select></div><div class="r5" id="cards" style="grid-template-columns:repeat(4,1fr)"></div><div class="g2e"><div class="card"><div class="ct">Component Pareto – events (×) &amp; hours</div><div id="c1"></div></div><div class="card"><div class="ct">Recorded Problems Pareto – events (×) &amp; hours</div><div id="c2"></div></div></div><div class="g2e" style="margin-bottom:12px"><div class="card" id="c3box"><div class="ct">Units in this category – events (×) &amp; hours</div><div id="c3"></div></div><div class="card"><div class="ct">Total Delay by Type<span class="leg">delay hours</span></div><div id="c4"></div></div></div><div class="card"><div class="ct">Recorded Event History</div><div class="scroll"><table id="tb"></table></div><div class="note">Events (×) = unique breakdown events; continuing days are not counted twice.</div></div>';
+ var inG=function(u){return!grp||U[u].g==grp},fillU=function(){var l=names.filter(inG);if(uni!='*'&&l.indexOf(uni)<0)uni='*';$('#uni').innerHTML='<option value="*">'+(grp?'All '+esc(grp)+' units ('+l.length+')':'All units ('+l.length+')')+'</option>'+l.map(function(u){return'<option value="'+esc(u)+'"'+(u==uni?' selected':'')+'>'+esc(u)+' ('+esc(U[u].g)+')</option>'}).join('')};
+ $('#grp').innerHTML='<option value="">All categories</option>'+gl.map(function(g){return'<option>'+esc(g)+'</option>'}).join('');fillU();
+ $('#grp').onchange=function(e){grp=e.target.value;fillU();draw()};
+ $('#per').innerHTML='<option value="ALL">All periods (YTD)</option>'+D.months.map(function(m){return'<option value="'+m[0]+'">Month '+m[1]+'</option>'}).join('');
+ $('#uni').onchange=function(e){uni=e.target.value;draw()};$('#per').onchange=function(e){per=e.target.value;draw()};$('#met').onchange=function(e){met=e.target.value;draw()};
+ function pareto(list,col){var W=520,rh=30,p={l:190,r:118,t:8},H=p.t+list.length*rh+6,tot=list.reduce(function(a,b){return a+b[1]},0)||1,mx=list[0]?list[0][1]||1:1,cum=0,s='<svg viewBox="0 0 '+W+' '+H+'" width="100%">';
+  list.forEach(function(x,i){cum+=x[1];var y=p.t+i*rh,bw=(W-p.l-p.r)*x[1]/mx;s+='<text x="'+(p.l-8)+'" y="'+(y+17)+'" text-anchor="end" style="fill:var(--tx)">'+esc(x[0].length>24?x[0].slice(0,23)+'…':x[0])+'</text><path d="M'+p.l+','+(y+4)+' h'+Math.max(bw-4,0)+' q4,0 4,4 v10 q0,4 -4,4 h'+(-Math.max(bw-4,0))+'z" fill="'+col+'"/><text class="v" x="'+(p.l+bw+6)+'" y="'+(y+17)+'">'+x[2]+'× · '+n(x[1],1)+' h</text><text x="'+(W-4)+'" y="'+(y+17)+'" text-anchor="end">'+(cum/tot*100).toFixed(0)+'%</text>'});return s+'</svg>'}
+ function draw(){var ag=uni=='*',us=ag?names.filter(inG):[uni],all=[];us.forEach(function(u){U[u].ev.forEach(function(x){all.push(Object.assign({u:u},x))})});all.sort(function(a,b){return a.d<b.d?-1:a.d>b.d?1:0});var e=all.filter(function(x){return per=='ALL'||x.d.slice(0,7)==per}),H=e.reduce(function(a,b){return a+b[met]},0),DH=e.reduce(function(a,b){return a+b.dh},0),RH=e.reduce(function(a,b){return a+b.rh},0),E=e.filter(function(x){return x.first}).length;
+  var agg=function(f,cmp){var m={},sn={};e.forEach(function(x){var k=f(x);if(!k)return;m[k]=m[k]||[0,0];sn[k]=sn[k]||{};m[k][0]+=x[met];var id=cmp?x.ck:x.ek;if(id&&!sn[k][id]){sn[k][id]=1;m[k][1]++}});return Object.keys(m).map(function(k){return[k,m[k][0],m[k][1]]}).sort(function(a,b){return b[1]-a[1]})};
+  var C=agg(function(x){return x.c},1),P=agg(function(x){return x.p}),op=all.length&&all[all.length-1].st=='BD',down=us.filter(function(u){var v=U[u].ev;return v.length&&v[v.length-1].st=='BD'}).length;
+  $('#cards').innerHTML=[[met=='dh'?'Total Delay Hours':'Total Downtime',n(H,1)+' hrs','Delay '+n(DH,0)+' h • Repair '+n(RH,0)+' h • '+e.length+' rows'],['Number of Events',E+'×','recorded BD events'],['Top Component',C[0]?esc(C[0][0]):'–',C[0]&&H?n(C[0][1],1)+' hrs ('+(C[0][1]/H*100).toFixed(0)+'%)':''],ag?['Units Down Now',down+' / '+us.length,down?'still in Backlog':'all units ready']:['Latest Status',op?'Still BD':'RFU',op?'unit is in Backlog':'unit ready']].map(function(c){return'<div class="card k" style="--c:var(--blue)"><div class="l">'+c[0]+'</div><div class="v" style="'+(c[1].length>9?'font-size:19px;padding:6px 0':'')+'">'+c[1]+'</div><div class="s" style="color:var(--mut)">'+c[2]+'</div></div>'}).join('');
+  var UL=function(){var m={},sn={};e.forEach(function(x){m[x.u]=m[x.u]||[0,0];sn[x.u]=sn[x.u]||{};m[x.u][0]+=x[met];if(x.ek&&!sn[x.u][x.ek]){sn[x.u][x.ek]=1;m[x.u][1]++}});return Object.keys(m).map(function(k){return[k,m[k][0],m[k][1]]}).sort(function(a,b){return b[1]-a[1]})}();$('#c3box').style.display=ag?'':'none';$('#c3').innerHTML=UL.length?pareto(UL.slice(0,10),'var(--violet)'):'<div class="note">No data.</div>';
+  var dtm={};e.forEach(function(x){x.dd.forEach(function(v,i){if(v){var k=DLB[i];dtm[k]=(dtm[k]||0)+v}})});$('#c4').innerHTML=pie(Object.keys(dtm).map(function(k){return{k:k,v:dtm[k]}}).sort(function(a,b){return b.v-a.v}),'h');
+  $('#c1').innerHTML=C.length?pareto(C.slice(0,8),'var(--blue)'):'<div class="note">No data.</div>';$('#c2').innerHTML=P.length?pareto(P.slice(0,8),'var(--amber)'):'<div class="note">No data.</div>';
+  $('#tb').innerHTML='<tr><th>Date</th>'+(ag?'<th>Unit</th>':'')+'<th>Problem</th><th>Component</th><th>Code</th><th>Delay by type (D0–D12, from INPUT_DBR)</th><th class="n">Delay h</th><th class="n">Hrs</th><th>Status</th></tr>'+e.slice().reverse().map(function(x){return'<tr><td>'+x.d+'</td>'+(ag?'<td class="u">'+esc(x.u)+'</td>':'')+'<td>'+esc(x.p)+'</td><td>'+esc(x.c||'–')+'</td><td>'+esc(x.code)+'</td><td>'+x.dd.map(function(v,i){return v?'<div><b>D'+i+'</b> '+esc(DLB[i].replace(/^D\d+ /,''))+' &ndash; '+n(v,1)+' h</div>':''}).join('')+'</td><td class="n">'+n(x.dh,1)+'</td><td class="n">'+n(x.h,1)+'</td><td><span class="pill '+esc(x.st)+'">'+esc(x.st)+'</span></td></tr>'}).join('')}
+ draw()}
+
+/* ================= BACKLOG ================= */
+function pBacklog(D){var R=D.rows,C={'In Progress':['s1','#2f6fe4'],'Waiting Part':['s2','#c9810a'],'Waiting Vendor':['s4','#7c4dcc'],'Repair by UT':['s3','#d64545'],'Waiting Manpower':['s5','#1f9d55'],'No delay data':['s2','#8a94a6'],'Waiting (Lainnya)':['s2','#c9810a']};
+ var cnt=function(k){return R.filter(function(r){return r.s==k}).length},cls=function(s){return(C[s]||['s2'])[0]};
+ $('#view').innerHTML='<div class="r5" id="cards"></div><div class="card"><div class="ct">Units pending (still breakdown)<span class="leg">Status = largest D0–D12 delay; hours = sum of the whole breakdown</span></div><div class="scroll"><table id="tb"></table></div></div>';
+ $('#cards').innerHTML=[['Total Unit Pending',R.length,'#13233f'],['In Progress',cnt('In Progress'),'#2f6fe4'],['Waiting Part',cnt('Waiting Part'),'#c9810a'],['Waiting Vendor / Manpower',cnt('Waiting Vendor')+cnt('Waiting Manpower'),'#7c4dcc'],['Other delay',R.filter(function(r){return ['In Progress','Waiting Part','Waiting Vendor','Waiting Manpower'].indexOf(r.s)<0}).length,'#d64545']].map(function(c){return'<div class="card k" style="--c:'+c[2]+'"><div class="l">'+c[0]+'</div><div class="v">'+c[1]+'</div></div>'}).join('');
+ $('#tb').innerHTML='<tr><th>Unit</th><th>What is broken</th><th>Component</th><th>Status</th><th>Last action</th><th>BD date</th><th class="n">Age (days)</th><th>Delay now (latest row)</th><th class="n">Delay hrs (total)</th></tr>'+(R.length?R.slice().sort(function(a,b){return b.age-a.age}).map(function(r){return'<tr><td><div class="u">'+esc(r.u)+'</div><div class="sub">'+esc(r.m)+' • '+esc(r.g)+'</div></td><td>'+esc(r.p)+'</td><td>'+esc(r.c)+'</td><td><span class="pill '+cls(r.s)+'">'+esc(r.s)+'</span></td><td>'+esc(r.a)+'</td><td>'+esc(r.d)+'</td><td class="n '+(r.age>60?'old':'')+'">'+r.age+'</td><td>'+r.now.map(function(v,i){return v?'<div><b>D'+i+'</b> '+esc(D.names[i])+' &ndash; '+n(v,1)+' h</div>':''}).join('')+'</td><td class="n"><b>'+(r.dh?n(r.dh,1):'–')+'</b>'+r.tot.map(function(v,i){return v?'<div class="sub">D'+i+' '+n(v,1)+'</div>':''}).join('')+'</td></tr>'}).join(''):'<tr><td colspan="9" style="color:var(--mut)">No pending units – all clear.</td></tr>')}
+
+
+/* ================= GREASING ACHIEVEMENT ================= */
+var GR={ym:'',t:'*'};
+function pGreasing(D){GR.ym=D.ym;var tl=[];D.rows.forEach(function(x){if(tl.indexOf(x.t)<0)tl.push(x.t)});if(GR.t!='*'&&tl.indexOf(GR.t)<0)GR.t='*';
+ var R=D.rows.filter(function(x){return GR.t=='*'||x.t==GR.t}).sort(function(a,b){return tl.indexOf(a.t)-tl.indexOf(b.t)||a.n-b.n}),sum=function(k){return R.reduce(function(s,x){return s+x[k]},0)},S=sum('sch'),Dn=sum('done'),Ov=sum('over'),pc=S?Dn/S:null;
+ var inj='<style>.gt{border-collapse:separate;border-spacing:0;font-size:11.5px}.gt th,.gt td{padding:3px 6px;border-bottom:1px solid var(--bd,#e6e9f0);white-space:nowrap}.gt td.c{width:22px;min-width:22px;padding:0;text-align:center;height:22px;border:1px solid #fff;font-weight:700}.gt th.c{padding:3px 0;text-align:center;min-width:22px}.gt .p1{background:#fde7a6}.gt .p2{background:#1f9d55;color:#fff}.gt .p3{background:#f6b8b8;color:#b02a2a}.gt .p4{background:#cfe9d9;color:#1f7a45}.gt .tb td{background:#13233f;color:#fff;font-weight:700;letter-spacing:.04em}.gt .asof{box-shadow:inset 0 0 0 2px #2f6fe4}.gt td.pc{text-align:right;font-weight:700}.gt .bad{background:#fde0e0;color:#b02a2a}.gt .ok{background:#dff3e6;color:#1a7a43}.glg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin-top:8px}.glg i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-3px;margin-right:5px}</style>';
+ $('#view').innerHTML=inj+'<div class="bar"><b style="color:var(--mut)">Month</b><select id="gm"></select><select id="gt"></select><span style="flex:1"></span><button class="btn" id="glog">Greasing_Log</button><button class="btn" id="gpl">Greasing_Plan</button></div><div class="r5" id="gc"></div><div class="card"><div class="ct">Greasing Achievement &ndash; '+esc((D.months.filter(function(m){return m[0]==D.ym})[0]||['',D.ym])[1])+'<span class="leg">Done = within &plusmn;'+D.tol+' day of the planned day</span></div><div class="scroll"><table class="gt" id="gtb"></table></div><div class="glg"><span><i style="background:#fde7a6"></i>Planned</span><span><i style="background:#1f9d55"></i>Done &#10003;</span><span><i style="background:#f6b8b8"></i>Overdue (not done)</span><span><i style="background:#cfe9d9"></i>Done, unscheduled</span><span><i style="box-shadow:inset 0 0 0 2px #2f6fe4"></i>Last data day</span></div></div>';
+ $('#gm').innerHTML=D.months.slice().reverse().map(function(m){return'<option value="'+m[0]+'"'+(m[0]==D.ym?' selected':'')+'>'+esc(m[1])+'</option>'}).join('');
+ $('#gt').innerHTML='<option value="*">All tables</option>'+tl.map(function(t){return'<option'+(t==GR.t?' selected':'')+'>'+esc(t)+'</option>'}).join('');
+ $('#gm').onchange=function(){GR.ym=this.value;go('greasing','Greasing')};$('#gt').onchange=function(){GR.t=this.value;pGreasing(D)};
+ $('#glog').onclick=function(){go('sheet:Greasing_Log','Greasing Log')};$('#gpl').onclick=function(){go('sheet:Greasing_Plan','Greasing Plan')};
+ var kp=sum('pk'),ku=sum('uk');
+ $('#gc').innerHTML=[card('Scheduled',S,R.length+' units','#13233f'),card('Done',Dn,'completed','#1f9d55'),card('Complete',pc==null?'–':Math.round(pc*100)+'%','of schedule','#2f6fe4'),card('Overdue',Ov,'past due, not done','#d64545',Ov?'var(--red)':''),card('Grease Used',n(ku,1)+' kg','plan '+n(kp,1)+' kg','#c9810a')].join('');
+ var hd='<tr><th>No</th><th>Unit</th>',i;for(i=1;i<=D.dim;i++)hd+='<th class="c">'+i+'</th>';hd+='<th class="n">Sched.</th><th class="n">Done</th><th class="n">Complete</th><th class="n">Missing</th><th class="n">Plan kg</th><th class="n">Used kg</th></tr>';
+ var body='',lt=null;R.forEach(function(x){if(x.t!=lt){lt=x.t;body+='<tr class="tb"><td colspan="'+(D.dim+8)+'">'+esc(x.t)+'</td></tr>'}
+  body+='<tr><td class="n">'+x.n+'</td><td class="u">'+esc(x.u)+'</td>'+x.days.map(function(s,j){var c=['','p1','p2','p3','p4'][s];return'<td class="c '+c+(j+1==D.asd?' asof':'')+'">'+(s==2||s==4?'&#10003;':'')+'</td>'}).join('')+'<td class="n">'+x.sch+'</td><td class="n">'+x.done+'</td><td class="pc '+(x.pct==null?'':x.pct>=1?'ok':'bad')+'">'+(x.pct==null?'–':n(x.pct*100,1)+'%')+'</td><td class="pc '+(x.pct==null?'':x.pct>=1?'ok':'bad')+'">'+(x.pct==null?'–':n((1-x.pct)*100,1)+'%')+'</td><td class="n">'+n(x.pk,1)+'</td><td class="n">'+(x.uk?n(x.uk,1):'–')+'</td></tr>'});
+ $('#gtb').innerHTML=hd+(R.length?body:'<tr><td colspan="9" style="color:var(--mut)">No units in Greasing_Plan.</td></tr>')}
+
+/* ================= FUEL ================= */
+function pFuel(D){var mode='unit',idx=-1;
+ $('#view').innerHTML='<div class="bar"><div class="seg"><button id="fU" class="on">Month / YTD</button><button id="fW">Weekly</button></div><select id="fp"></select><span class="rg" id="rg"></span></div><div class="r5" id="cards" style="grid-template-columns:repeat(4,1fr)"></div><div class="g2e"><div class="card"><div class="ct">Fuel ratio per unit<span class="leg">liter per HM (or per KM)</span></div><div id="ch"></div></div><div class="card"><div class="ct">Units</div><div class="scroll"><table id="tb"></table></div></div></div><div class="note" id="fn"></div>';
+ var MN={Mei:'May',Agu:'Aug',Okt:'Oct',Des:'Dec'};
+ function opts(){var S=D[mode];$('#fp').innerHTML=(mode=='unit'?'<option value="-1">Year to Date</option>':'')+S.labels.map(function(l,i){return'<option value="'+i+'">'+(mode=='unit'?(MN[l]||l):'Week '+l.replace('W',''))+'</option>'}).join('');
+  if(mode=='unit')idx=-1;else{var last=-1;S.rows.forEach(function(r){r.r.forEach(function(v,i){if(v!=null&&i>last)last=i})});idx=last<0?0:last}$('#fp').value=idx}
+ function draw(){var S=D[mode],rows=S.rows.filter(function(r){return r.inc==1||r.inc==='1'||r.inc===true}).map(function(r){return{u:r.u,g:r.g,s:r.s,v:mode=='unit'&&idx==-1?r.ytd:r.r[idx],fuel:r.fuel,work:r.work}}),has=rows.filter(function(r){return r.v!=null}).sort(function(a,b){return b.v-a.v});
+  var avg=has.length?has.reduce(function(s,r){return s+r.v},0)/has.length:null;
+  $('#rg').textContent=mode=='unit'?(idx==-1?'Year to Date':MN[S.labels[idx]]||S.labels[idx]):'Week '+S.labels[idx].replace('W','');
+  $('#cards').innerHTML=card('Units with fuel data',has.length,'of '+rows.length+' HM/KM units','#2f6fe4')+card('Average ratio',avg==null?'–':avg.toFixed(2),'unit average (not weighted)','#1f9d55')+card('Highest',has.length?has[0].v.toFixed(2):'–',has.length?esc(has[0].u):'','#d64545','var(--red)')+card('Lowest',has.length?has[has.length-1].v.toFixed(2):'–',has.length?esc(has[has.length-1].u):'','#c9810a');
+  var top=has.slice(0,15),mx=top.length?top[0].v:1;$('#ch').innerHTML=top.length?'<svg viewBox="0 0 520 '+(top.length*26+8)+'" width="100%">'+top.map(function(r,i){var y=4+i*26,bw=300*r.v/mx;return'<text x="108" y="'+(y+15)+'" text-anchor="end" style="fill:var(--tx)">'+esc(r.u)+'</text><rect x="116" y="'+(y+3)+'" width="'+bw+'" height="14" rx="4" fill="var(--blue)"/><text class="v" x="'+(122+bw)+'" y="'+(y+15)+'">'+r.v.toFixed(2)+' '+esc(r.s.replace('L/',''))+'</text>'}).join('')+'</svg>':'<div class="note">No fuel data in this period yet.</div>';
+  $('#tb').innerHTML='<tr><th>Unit</th><th>Category</th><th class="n">Ratio</th><th>Per</th></tr>'+rows.sort(function(a,b){return(b.v==null?-1:b.v)-(a.v==null?-1:a.v)}).map(function(r){return'<tr><td>'+esc(r.u)+'</td><td>'+esc(r.g)+'</td><td class="n">'+(r.v==null?'–':r.v.toFixed(2))+'</td><td>'+esc(r.s)+'</td></tr>'}).join('');
+  $('#fn').textContent=has.length?'Ratio = total fuel (liters) / working hours (HM) or km for the same rows. Per unit, not per category.':'No ratio yet: fill HM_Log column Fuel_Liter (next to Working_Hrs) and the ratios appear here automatically.'}
+ $('#fp').onchange=function(e){idx=+e.target.value;draw()};
+ $('#fU').onclick=function(){mode='unit';$('#fU').className='on';$('#fW').className='';opts();draw()};$('#fW').onclick=function(){mode='week';$('#fW').className='on';$('#fU').className='';opts();draw()};opts();draw()}
+
+
+/* ================= UNIT PERFORMANCE (Unit History) ================= */
+function pUnit(D){var st={mode:'M',per:null},cat='ALL',sortBy='pa',view='cards',q='';var M={};D.units.forEach(function(u){M[u.u]=u});
+ var cats=['ALL'].concat(D.groups.filter(function(g){return D.units.some(function(u){return u.g==g})}));
+ $('#view').innerHTML=barHtml()+'<div class="chips" id="ch"></div><div class="bar"><select id="so" style="min-width:170px"><option value="pa">Sort: lowest PA first</option><option value="dt">Sort: most downtime</option><option value="ev">Sort: most events</option><option value="mttr">Sort: highest MTTR</option><option value="mtbf">Sort: lowest MTBF</option><option value="name">Sort: unit name</option></select><input type="search" id="q" placeholder="Search unit&hellip;" style="min-width:150px"><div class="tgl" style="margin-left:auto"><button id="vC" class="on">Cards</button><button id="vT">Table</button></div></div><div class="r6" id="sm"></div><div id="body"></div>';
+ var sel=wireBar(st,function(){draw()},D);var L=function(){return st.mode=='D'?D.days:st.mode=='W'?D.weeks:D.months};
+ var tg=function(g){return D.tgt[g]||0.9},col=function(pa,g){return pa==null?'#8795ab':pa>=tg(g)?'var(--green)':pa>=tg(g)-.05?'var(--amber)':'var(--red)'};
+ var ring=function(v,c){var r=32,C=2*Math.PI*r;return'<svg viewBox="0 0 78 78" width="78" height="78"><circle cx="39" cy="39" r="'+r+'" fill="none" stroke="var(--grid)" stroke-width="8"/><circle cx="39" cy="39" r="'+r+'" fill="none" stroke="'+c+'" stroke-width="8" stroke-linecap="round" stroke-dasharray="'+C*Math.max(0,Math.min(1,v))+' '+C+'" transform="rotate(-90 39 39)"/></svg>'};
+ var mbar=function(v,c){return v==null?'<div class="mbar"></div>':'<div class="mbar"><i style="width:'+Math.max(0,Math.min(100,(v-.5)/.5*100))+'%;background:'+c+'"></i></div>'};
+ function cur(){var l=L(),w=st.mode=='Y'?D.ytd:l.find(function(x){return x.k==st.per});return w}
+ function rows(w){return D.units.filter(function(u){return(cat=='ALL'||u.g==cat)&&(!q||u.u.toLowerCase().indexOf(q)>=0)}).map(function(u){var p=w.pu[u.u];return{u:u,pa:p[0],ma:p[1],ua:p[2],mtbf:p[3],mttr:p[4],dt:p[5],ev:p[6],usm:p[7],wh:p[8]}})}
+ function sortR(a){var f={pa:function(x,y){return(x.pa==null?9:x.pa)-(y.pa==null?9:y.pa)},dt:function(x,y){return y.dt-x.dt},ev:function(x,y){return y.ev-x.ev||y.dt-x.dt},mttr:function(x,y){return(y.mttr==null?-1:y.mttr)-(x.mttr==null?-1:x.mttr)},mtbf:function(x,y){return(x.mtbf==null?1e9:x.mtbf)-(y.mtbf==null?1e9:y.mtbf)},name:function(x,y){return x.u.u<y.u.u?-1:1}}[sortBy];return a.slice().sort(f)}
+ function avg(a,k){var v=a.filter(function(x){return x[k]!=null}).map(function(x){return x[k]});return v.length?v.reduce(function(s,x){return s+x},0)/v.length:null}
+ function draw(){sel();var w=cur(),R=rows(w);$('#rg').textContent=(st.mode=='D'?'Daily':st.mode=='W'?'Weekly':st.mode=='M'?'Monthly':'Year to date')+' • '+w.rng;
+  $('#ch').innerHTML=cats.map(function(c){return'<span class="chip'+(c==cat?' on':'')+'" data-c="'+esc(c)+'">'+(c=='ALL'?'All units':esc(c))+'</span>'}).join('');
+  var below=R.filter(function(r){return r.pa!=null&&r.pa<tg(r.u.g)}).length,bd=R.filter(function(r){return r.u.bd}).length,ev=R.reduce(function(s,r){return s+r.ev},0),dt=R.reduce(function(s,r){return s+r.dt},0);
+  $('#sm').innerHTML=card('Units shown',R.length,bd+' still in breakdown now','#2f6fe4')+card('Average PA',pc(avg(R,'pa')),below+' unit(s) below target','#2f6fe4',below?'var(--red)':'var(--green)')+card('Average MA',pc(avg(R,'ma')),'HM units only','#1f9d55')+card('Avg MTBF (hrs)',hh(avg(R,'mtbf')),'higher is better','#2f6fe4')+card('Avg MTTR (hrs)',hh(avg(R,'mttr')),'lower is better','#d64545')+card('Events • Downtime',ev+'×',n(dt)+' hrs total','#c9810a');
+  var S=sortR(R);
+  if(view=='cards')$('#body').innerHTML='<div class="uc">'+S.map(function(r){var c=col(r.pa,r.u.g);return'<div class="ucard" data-u="'+esc(r.u.u)+'" style="--c:'+c+'"><div class="uh"><div><b>'+esc(r.u.u)+'</b><div class="um">'+esc(r.u.m)+' • '+esc(r.u.g)+'</div></div><span class="pill '+(r.u.bd?'BD':'RFU')+'">'+(r.u.bd?'BD':'RFU')+'</span></div>'+
+   '<div class="ub"><div class="ring">'+ring(r.pa==null?0:r.pa,c)+'<b>'+(r.pa==null?'–':(r.pa*100).toFixed(1)+'%')+'</b></div><div class="mini"><div>MA'+mbar(r.ma,'var(--green)')+'<b>'+(r.u.km?'KM unit':pc(r.ma))+'</b></div><div>UA'+mbar(r.ua,'var(--amber)')+'<b>'+(r.u.km?'–':pc(r.ua))+'</b></div><div>MTBF (hrs)<b>'+(r.u.km?'–':hh(r.mtbf))+'</b></div><div>MTTR (hrs)<b>'+hh(r.mttr)+'</b></div></div></div>'+
+   '<div class="uf"><span>PA '+(r.pa==null?'–':'')+'<span style="color:'+c+';font-weight:700">'+(r.pa==null?'':r.pa>=tg(r.u.g)?'on target':'below '+Math.round(tg(r.u.g)*100)+'%')+'</span></span><span><b style="color:var(--tx)">'+r.ev+'×</b> • '+n(r.dt,1)+' h down</span></div></div>'}).join('')+'</div>'+(S.length?'':'<div class="card note">No unit matches the filter.</div>');
+  else $('#body').innerHTML='<div class="card"><div class="scroll"><table><tr><th>Unit</th><th>Model</th><th>Category</th><th>Now</th><th style="width:18%">PA</th><th class="n">MA</th><th class="n">UA</th><th class="n">MTBF</th><th class="n">MTTR</th><th class="n">Events</th><th class="n">Downtime (h)</th></tr>'+S.map(function(r){var c=col(r.pa,r.u.g);return'<tr class="ucard-r" data-u="'+esc(r.u.u)+'" style="cursor:pointer"><td><b>'+esc(r.u.u)+'</b></td><td>'+esc(r.u.m)+'</td><td>'+esc(r.u.g)+'</td><td><span class="pill '+(r.u.bd?'BD':'RFU')+'">'+(r.u.bd?'BD':'RFU')+'</span></td><td><div style="display:flex;gap:6px;align-items:center"><div class="mbar" style="flex:1;margin:0"><i style="width:'+(r.pa==null?0:Math.max(0,(r.pa-.5)/.5*100))+'%;background:'+c+'"></i></div><b style="width:46px;text-align:right">'+pc(r.pa)+'</b></div></td><td class="n">'+(r.u.km?'KM':pc(r.ma))+'</td><td class="n">'+(r.u.km?'–':pc(r.ua))+'</td><td class="n">'+(r.u.km?'–':hh(r.mtbf))+'</td><td class="n">'+hh(r.mttr)+'</td><td class="n">'+r.ev+'×</td><td class="n">'+n(r.dt,1)+'</td></tr>'}).join('')+'</table></div></div>'}
+ function detail(u){var m=M[u],ms=D.months.concat([D.ytd]),y=D.ytd.pu[u],lab=D.months.map(function(x){return x.k});
+  var line=function(ser){var W=560,H=210,p={l:40,r:20,t:16,b:24},iw=W-p.l-p.r,ih=H-p.t-p.b,k=lab.length,x=function(i){return p.l+(k==1?iw/2:i*iw/(k-1))},yy=function(v){return p.t+ih-(Math.max(.5,v)-.5)/.5*ih},s='<svg viewBox="0 0 '+W+' '+H+'" width="100%">';
+   for(var qq=0;qq<=4;qq++){var v=.5+.5*qq/4;s+='<line x1="'+p.l+'" x2="'+(W-p.r)+'" y1="'+yy(v)+'" y2="'+yy(v)+'" stroke="var(--grid)"/><text x="'+(p.l-6)+'" y="'+(yy(v)+4)+'" text-anchor="end">'+Math.round(v*100)+'%</text>'}
+   lab.forEach(function(l,i){s+='<text x="'+x(i)+'" y="'+(H-7)+'" text-anchor="middle">'+l+'</text>'});
+   ser.forEach(function(se){var pts=[];se.v.forEach(function(v,i){if(v!=null)pts.push([x(i),yy(v)])});s+='<polyline fill="none" stroke="'+se.c+'" stroke-width="2.4" points="'+pts.map(function(a){return a.join(',')}).join(' ')+'"/>'+pts.map(function(a,i){return'<circle cx="'+a[0]+'" cy="'+a[1]+'" r="3.6" fill="'+se.c+'" stroke="var(--card)" stroke-width="2"/>'}).join('')});return s+'</svg>'};
+  var rowsH=D.months.map(function(w){var p=w.pu[u];return'<tr><td>'+w.k+'</td><td class="n">'+pc(p[0])+'</td><td class="n">'+(m.km?'KM':pc(p[1]))+'</td><td class="n">'+(m.km?'–':hh(p[3]))+'</td><td class="n">'+hh(p[4])+'</td><td class="n">'+p[6]+'×</td><td class="n">'+n(p[5],1)+'</td></tr>'}).join('');
+  var el=document.createElement('div');el.className='modal';el.innerHTML='<div class="mbox"><button class="x">&times;</button><h3>'+esc(u)+' <span class="pill '+(m.bd?'BD':'RFU')+'">'+(m.bd?'BD':'RFU')+'</span></h3><div class="um" style="margin-bottom:10px">'+esc(m.m)+' • '+esc(m.g)+(m.km?' • KM unit':'')+'</div>'+
+   '<div class="r5" style="grid-template-columns:repeat(5,1fr)">'+card('PA (YTD)',pc(y[0]),'target '+Math.round(tg(m.g)*100)+'%',col(y[0],m.g),'var(--mut)')+card('MA (YTD)',m.km?'KM':pc(y[1]),'','#1f9d55')+card('MTBF (hrs)',m.km?'–':hh(y[3]),'','#2f6fe4')+card('MTTR (hrs)',hh(y[4]),'','#d64545')+card('Events • Hours',y[6]+'×',n(y[5],1)+' hrs down','#c9810a')+'</div>'+
+   '<div class="ct">PA &amp; MA per month<span class="leg"><span><i style="background:var(--blue)"></i>PA</span><span><i style="background:var(--green)"></i>MA</span></span></div>'+line([{c:'var(--blue)',v:D.months.map(function(w){return w.pu[u][0]})},{c:'var(--green)',v:D.months.map(function(w){return w.pu[u][1]})}])+
+   '<table style="margin-top:8px"><tr><th>Month</th><th class="n">PA</th><th class="n">MA</th><th class="n">MTBF</th><th class="n">MTTR</th><th class="n">Events</th><th class="n">Downtime (h)</th></tr>'+rowsH+'</table></div>';
+  var close=function(){el.remove();document.removeEventListener('keydown',kd)},kd=function(e){if(e.key=='Escape')close()};el.onclick=function(e){if(e.target==el||e.target.className=='x')close()};document.addEventListener('keydown',kd);document.body.appendChild(el)}
+ $('#view').onclick=function(e){var c=e.target.closest('.chip');if(c){cat=c.dataset.c;draw();return}var k=e.target.closest('[data-u]');if(k)detail(k.dataset.u)};
+ $('#so').onchange=function(e){sortBy=e.target.value;draw()};$('#q').oninput=function(e){q=e.target.value.toLowerCase();draw()};
+ $('#vC').onclick=function(){view='cards';$('#vC').className='on';$('#vT').className='';draw()};$('#vT').onclick=function(){view='table';$('#vT').className='on';$('#vC').className='';draw()};
+ draw()}
+
+/* ================= GENERIC SHEET TABLE ================= */
+function pSheet(D){var q='',lim=300;
+ $('#view').innerHTML='<div class="bar"><input type="search" id="q" placeholder="Search in '+esc(D.name)+'&hellip;"><span class="rg" id="cnt"></span></div><div class="card"><div class="scroll"><table id="tb"></table></div><div class="note" id="more"></div></div>';
+ function draw(){var f=q?D.rows.filter(function(r){return r.some(function(c){return String(c).toLowerCase().indexOf(q)>=0})}):D.rows,show=f.slice(0,lim);
+  $('#cnt').textContent=f.length+' of '+D.total+' rows';
+  $('#tb').innerHTML='<tr>'+D.h.map(function(h){return'<th>'+esc(h)+'</th>'}).join('')+'</tr>'+(show.length?show.map(function(r){return'<tr>'+r.map(function(c){return'<td>'+esc(c)+'</td>'}).join('')+'</tr>'}).join(''):'<tr><td colspan="'+D.h.length+'" style="color:var(--mut)">No data yet in this sheet.</td></tr>');
+  $('#more').innerHTML=f.length>lim?'Showing first '+lim+' rows – refine the search to see more. <a style="color:var(--acc);cursor:pointer" id="sm">Show 300 more</a>':'';var sm=$('#sm');if(sm)sm.onclick=function(){lim+=300;draw()}}
+ $('#q').oninput=function(e){q=e.target.value.toLowerCase();lim=300;draw()};draw()}
+
+$('#mb').onclick=function(){$('#side').classList.toggle('open')};
+$('#sclose').onclick=function(){$('#side').classList.remove('open')};
+document.addEventListener('click',function(e){var s=$('#side');if(s.classList.contains('open')&&!s.contains(e.target)&&!$('#mb').contains(e.target))s.classList.remove('open')});
+$('#rf').onclick=function(){cache={};if(window.PMS_RESET)PMS_RESET();var a=document.querySelector('#nav a.on');go(page,a?a.textContent:'Dashboard')};
+
+function applyTheme(t){var d=document.documentElement;if(t==='dark')d.setAttribute('data-theme','dark');else d.removeAttribute('data-theme');var b=document.getElementById('th');if(b){b.innerHTML=t==='dark'?'&#9728;&#65039;':'&#127769;';b.title=t==='dark'?'Light mode':'Night mode'}var m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content',t==='dark'?'#0a1120':'#0f172a')}
+$('#th').onclick=function(){var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';applyTheme(t);try{localStorage.setItem('theme',t)}catch(e){}};
+(function(){var t=null;try{t=localStorage.getItem('theme')}catch(e){}applyTheme(t==='dark'?'dark':'light')})();
+
+/* ===== Equipment picture style (added): foto / ilustrasi / blueprint / siluet / none =====
+   The sidebar (PC200) and banner (GD705) pictures are CSS variables --img-pc / --img-gd.
+   "foto" keeps your PNG files from GitHub; the other styles are drawn here as SVG. */
+var IMG_DEFAULT='foto';
+(function(){
+ var W=function(x,y,r){return'<circle class="d" cx="'+x+'" cy="'+y+'" r="'+r+'"/><circle class="m" cx="'+x+'" cy="'+y+'" r="'+Math.round(r/2.6)+'"/>'};
+ var ART={
+  pc:'<rect class="d" x="40" y="96" width="116" height="26" rx="13"/><circle class="m" cx="58" cy="109" r="7"/><circle class="m" cx="98" cy="109" r="6"/><circle class="m" cx="138" cy="109" r="7"/><rect class="b" x="54" y="68" width="92" height="30" rx="4"/><rect class="b2" x="38" y="72" width="20" height="26" rx="4"/><path class="b2" d="M62 68V42h34l10 26z"/><path class="g" d="M68 64V47h24l8 17z"/><path class="arm" d="M128 74 176 36 212 82"/><path class="b2" d="M204 78l26 12-10 18-20-8z"/><path class="ln" d="M136 66 172 50"/>',
+  gd:'<rect class="b" x="40" y="82" width="166" height="10" rx="3"/><path class="b2" d="M46 82V50h52v32z"/><path class="g" d="M52 78V56h40v22z"/><path class="m" d="M44 44h60v6H44z"/><path class="b" d="M102 62h36v20h-36z"/><path class="m" d="M122 104h62v9H122z"/><path class="ln" d="M130 92l-4 12M176 92l6 12"/>'+W(54,108,16)+W(90,108,16)+W(204,110,14)
+ };
+ var CSS={
+  ilustrasi:'.b{fill:#f2b705;stroke:#0b0f16;stroke-width:.9}.b2{fill:#d99a00;stroke:#0b0f16;stroke-width:.9}.g{fill:#cfe8f3;stroke:#0b0f16;stroke-width:.9}.d{fill:#5b6573;stroke:#0b0f16;stroke-width:.9}.m{fill:#aab4c2;stroke:#0b0f16;stroke-width:.9}.ln{fill:none;stroke:#0b0f16;stroke-width:.9;opacity:.7}.arm{fill:none;stroke:#aab4c2;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}',
+  blueprint:'.b,.b2,.d,.m{fill:rgba(143,181,255,.10);stroke:#8fb5ff;stroke-width:1.6}.g{fill:rgba(143,181,255,.30);stroke:#8fb5ff;stroke-width:1.4}.ln{fill:none;stroke:#8fb5ff;stroke-width:1;opacity:.6}.arm{fill:none;stroke:#8fb5ff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}',
+  siluet:'.b,.b2,.d,.m{fill:#dfe8fb;stroke:none}.g{fill:#13233f;opacity:.55;stroke:none}.ln{fill:none;stroke:#13233f;stroke-width:1.4;opacity:.55}.arm{fill:none;stroke:#dfe8fb;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}.d+.m,circle.m{fill:#13233f;opacity:.55}'
+ };
+ function uri(art,style){var s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 140"><style>'+CSS[style]+'</style>'+art+'</svg>';return'url("data:image/svg+xml;utf8,'+encodeURIComponent(s)+'")'}
+ window.applyImg=function(m){var r=document.documentElement.style;
+  if(m=='foto'){r.removeProperty('--img-pc');r.removeProperty('--img-gd')}
+  else if(m=='none'){r.setProperty('--img-pc','none');r.setProperty('--img-gd','none')}
+  else{r.setProperty('--img-pc',uri(ART.pc,m));r.setProperty('--img-gd',uri(ART.gd,m))}
+  var s=document.getElementById('imsel');if(s)s.value=m;if(m=='foto'||m=='none')document.documentElement.removeAttribute('data-img');else document.documentElement.setAttribute('data-img',m);try{localStorage.setItem('pms-img',m)}catch(e){}};
+ var m=IMG_DEFAULT;try{var q=localStorage.getItem('pms-img');if(q&&CSS[q]||q=='foto'||q=='none')m=q}catch(e){}
+ var sel=document.getElementById('imsel');if(!sel.querySelector('option[value="'+m+'"]'))m=IMG_DEFAULT;
+ sel.onchange=function(){applyImg(sel.value)};applyImg(m);
+})();
+
+buildNav();go('dash','Dashboard');
+</script>
+<style>.a2hs{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:12px;width:min(560px,calc(100vw - 24px));box-sizing:border-box;background:#13233f;color:#fff;border:1px solid #2a4a8a;border-radius:14px;padding:10px 12px 10px 14px;box-shadow:0 8px 28px rgba(8,18,40,.35);font-size:12.5px}.a2hs span{flex:1;line-height:1.35}.a2hs button{border:0;border-radius:9px;cursor:pointer;font:inherit;font-weight:700}.a2hs .go{background:#2f6fe4;color:#fff;padding:7px 16px}.a2hs .x{background:transparent;color:#9db4e6;font-size:18px;padding:0 4px}.a2m{position:fixed;inset:0;z-index:70;background:rgba(8,18,40,.55);display:grid;place-items:center;padding:16px}.a2m div{background:#fff;color:#1b2740;border-radius:14px;max-width:340px;padding:20px 22px;text-align:center;box-shadow:0 12px 40px rgba(8,18,40,.4)}.a2m b{display:block;font-size:15px;margin-bottom:8px}.a2m p{margin:0 0 14px;font-size:13.5px;line-height:1.5}.a2m button{background:#13233f;color:#fff;border:0;border-radius:9px;padding:8px 22px;font:inherit;font-weight:700;cursor:pointer}</style>
+<div class="a2hs" id="a2hs" style="display:none"><span>Simpan halaman ini di layar utama HP untuk akses cepat.</span><button class="go" id="a2go">Simpan</button><button class="x" id="a2x" aria-label="Close">&times;</button></div>
+<script>(function(){var b=document.getElementById('a2hs'),ok=true;try{ok=localStorage.getItem('a2hs_off')!=='1'}catch(e){}
+if(ok)b.style.display='flex';
+document.getElementById('a2x').onclick=function(){b.style.display='none';try{localStorage.setItem('a2hs_off','1')}catch(e){}};
+document.getElementById('a2go').onclick=function(){var ios=/iPhone|iPad|iPod/i.test(navigator.userAgent),m=document.createElement('div');m.className='a2m';
+m.innerHTML='<div><b>Simpan di Layar Utama</b><p>'+(ios?'Klik tombol Share &gt; Add to Home Screen':'Klik titik 3 di Chrome &gt; Tambahkan ke Layar Utama (atau Instal dan buat pintasan) &gt; Buat pintasan / Tambah')+'</p><button>OK</button></div>';
+m.onclick=function(e){if(e.target===m||e.target.tagName==='BUTTON')m.remove()};document.body.appendChild(m)}})();</script>
+</body></html>
