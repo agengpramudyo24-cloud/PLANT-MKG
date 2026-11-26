@@ -858,11 +858,20 @@ function sheet(name){
 var SA={getActiveSpreadsheet:function(){return {getSpreadsheetTimeZone:function(){return 'Asia/Makassar'},getSheetByName:function(n){return sheet(n)}}}};
 var UT={formatDate:fmt};
 
+function pmFrom(S){
+  var over=S.filter(function(r){return r.reminder==='OVERDUE'}),due=S.filter(function(r){return r.reminder==='BESOK'||r.reminder==='MINGGU INI'});
+  var items=over.concat(due).sort(function(a,b){return (a.remaining_days==null?1e9:a.remaining_days)-(b.remaining_days==null?1e9:b.remaining_days)}).slice(0,5).map(function(r){
+    return {u:r.unit_id,t:(r.next_service_type||'Service')+' '+Number(r.next_service_meter).toLocaleString('id-ID')+' '+(r.meter_type==='KM'?'KM':'HM'),s:r.reminder==='OVERDUE'?'Overdue':'Due',rem:r.remaining==null?null:Math.round(r.remaining),d:r.est_plan_date}});
+  return {due:due.length,over:over.length,planned:S.length-over.length-due.length,rows:S.length,items:items};
+}
 window.PMS_BACKEND=function(fn,arg){
   return ensure().then(function(){
     var api=CODE_FN(SA,UT,{log:function(){}},{});
     if(typeof api[fn]!=='function')throw new Error('Fungsi tidak ada: '+fn);
-    return arg===undefined?api[fn]():api[fn](arg);
+    var res=arg===undefined?api[fn]():api[fn](arg);
+    if(fn!=='apiDashboard')return res;
+    /* Kartu PM Due / PM Overdue + Key Information di dashboard utama: dari jadwal service baru (v_service_status) */
+    return PMS_QUERY('v_service_status','unit_id.asc').then(function(S){res.pm=pmFrom(S);return res},function(){return res});
   });
 };
 })();
