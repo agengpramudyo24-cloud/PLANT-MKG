@@ -972,20 +972,31 @@ function draw(ST,FC,AC,PF){
     f.onchange=function(){st.cls=f.value;t()};q.oninput=function(){st.aq=q.value.toLowerCase();t()};t();
   }
 
-  /* ---------- Tab 4: Forecast part (= FORECAST 1) ---------- */
+  /* ---------- Tab 4: Forecast part (= FORECAST 1) : per bulan / 3 / 6 / 12 bulan ---------- */
   function tPrt(){
-    var ym={},mods={};PF.forEach(function(x){ym[x.plan_year+'-'+('0'+x.plan_month).slice(-2)]=1;mods[x.model]=1});
-    var yl=Object.keys(ym).sort().filter(function(k){return k>=today.slice(0,7)}),ml=Object.keys(mods).sort();
-    if(!st.pm||yl.indexOf(st.pm)<0)st.pm=yl[0]||'';
-    $('#pg').innerHTML='<div class="card"><div class="ct">Forecast Kebutuhan Part Service<span style="float:right"><button class="btn" id="cp">Salin daftar</button></span></div><div class="bar" style="margin:0 0 8px"><select id="fm">'+yl.map(function(k){return'<option value="'+k+'">'+BLN[+k.slice(5,7)-1]+' '+k.slice(0,4)+'</option>'}).join('')+'</select><select id="fo"><option value="">Semua model</option>'+ml.map(function(m){return'<option>'+esc(m)+'</option>'}).join('')+'</select><input type="search" id="fq" placeholder="Cari part number / deskripsi\u2026"><span class="rg" id="rg"></span></div><div class="scroll"><table id="tb"></table></div><div class="note">Kebutuhan = jumlah service yang jatuh pada bulan itu (menurut estimasi tanggal) \u00d7 qty part per jenis PS.</div></div>';
-    var m=$('#fm'),o=$('#fo'),q=$('#fq');m.value=st.pm;o.value=st.pmod;q.value=st.q;var cur=[];
-    function t(){var by={};PF.forEach(function(x){if(x.plan_year+'-'+('0'+x.plan_month).slice(-2)!=st.pm||(st.pmod&&x.model!=st.pmod))return;
-        var k=x.part_number+'|'+(x.description||'');var r=by[k]||(by[k]={pn:x.part_number,d:x.description,uom:x.uom,qty:0,det:{}});r.qty+=Number(x.qty_total);var dk=x.model+' '+x.ps_type;r.det[dk]=(r.det[dk]||0)+Number(x.services)});
-      cur=Object.keys(by).map(function(k){return by[k]}).filter(function(r){return!st.q||(r.pn+' '+(r.d||'')).toLowerCase().indexOf(st.q)>=0}).sort(function(a,b){return a.d>b.d?1:-1});
+    var mods={};PF.forEach(function(x){mods[x.model]=1});var ml=Object.keys(mods).sort();
+    var cy=now.getFullYear(),cm=now.getMonth(),opts=[];
+    for(var i=0;i<13;i++){var d=new Date(cy,cm+i,1);opts.push(d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2))}
+    if(!st.pm||opts.indexOf(st.pm)<0)st.pm=opts[0];if(!st.pn)st.pn=1;
+    var lab=function(k){return BLN[+k.slice(5,7)-1]+' '+k.slice(0,4)},sl=function(k){return BS[+k.slice(5,7)-1]+' '+k.slice(2,4)};
+    $('#pg').innerHTML='<div class="card"><div class="ct">Forecast Kebutuhan Part Service<span style="float:right"><button class="btn" id="cp">Salin daftar</button></span></div>'+
+     '<div class="bar" style="margin:0 0 8px"><select id="fn"><option value="1">Per bulan</option><option value="3">3 bulan</option><option value="6">6 bulan</option><option value="12">1 tahun</option></select>'+
+     '<select id="fm">'+opts.map(function(k){return'<option value="'+k+'">Mulai '+lab(k)+'</option>'}).join('')+'</select>'+
+     '<select id="fo"><option value="">Semua model</option>'+ml.map(function(m){return'<option>'+esc(m)+'</option>'}).join('')+'</select>'+
+     '<input type="search" id="fq" placeholder="Cari part number / deskripsi\u2026"><span class="rg" id="rg"></span></div><div id="prd" class="note" style="margin:0 0 6px"></div><div class="scroll"><table id="tb"></table></div>'+
+     '<div class="note">Kebutuhan = jumlah service yang jatuh pada bulan itu (menurut estimasi tanggal) \u00d7 qty part per jenis PS. Service yang sudah lewat jadwal dihitung di bulan berjalan.</div></div>';
+    var n=$('#fn'),m=$('#fm'),o=$('#fo'),q=$('#fq');n.value=st.pn;m.value=st.pm;o.value=st.pmod;q.value=st.q;var cur=[],mon=[];
+    function t(){var N=+st.pn,si=opts.indexOf(st.pm);mon=[];for(var i=0;i<N;i++){var d=new Date(+st.pm.slice(0,4),+st.pm.slice(5,7)-1+i,1);mon.push(d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2))}
+      $('#prd').textContent='Periode: '+lab(mon[0])+(N>1?' \u2013 '+lab(mon[N-1]):'');
+      var by={};PF.forEach(function(x){var k=x.plan_year+'-'+('0'+x.plan_month).slice(-2);var mi=mon.indexOf(k);if(mi<0||(st.pmod&&x.model!=st.pmod))return;
+        var key=x.part_number+'|'+(x.description||'');var r=by[key]||(by[key]={pn:x.part_number,d:x.description,qty:0,mo:mon.map(function(){return 0}),det:{}});var qv=Number(x.qty_total);r.qty+=qv;r.mo[mi]+=qv;var dk=x.model+' '+x.ps_type;r.det[dk]=(r.det[dk]||0)+Number(x.services)});
+      cur=Object.keys(by).map(function(k){return by[k]}).filter(function(r){return!st.q||(r.pn+' '+(r.d||'')).toLowerCase().indexOf(st.q)>=0}).sort(function(a,b){return(a.d||'')>(b.d||'')?1:-1});
       $('#rg').textContent=cur.length+' part';
-      $('#tb').innerHTML='<tr><th>Part number</th><th>Deskripsi</th><th>Qty</th><th>Untuk service</th></tr>'+(cur.map(function(r){return'<tr><td>'+esc(r.pn)+'</td><td>'+esc(r.d||'')+'</td><td style="text-align:right"><b>'+N0(r.qty)+'</b></td><td style="color:var(--mut)">'+esc(Object.keys(r.det).map(function(k){return k+' \u00d7'+r.det[k]}).join(', '))+'</td></tr>'}).join('')||'<tr><td colspan="4" style="color:var(--mut)">Tidak ada kebutuhan part pada bulan ini.</td></tr>')}
-    m.onchange=function(){st.pm=m.value;t()};o.onchange=function(){st.pmod=o.value;t()};q.oninput=function(){st.q=q.value.toLowerCase();t()};
-    $('#cp').onclick=function(){copy('KEBUTUHAN PART '+(m.options[m.selectedIndex]||{text:''}).text+'\n'+cur.map(function(r){return r.pn+'\t'+(r.d||'')+'\t'+N0(r.qty)}).join('\n'),$('#cp'))};
+      var head='<tr><th>Part number</th><th>Deskripsi</th><th style="text-align:right">'+(N>1?'Total':'Qty')+'</th>'+(N>1?mon.map(function(k){return'<th style="text-align:right">'+sl(k)+'</th>'}).join(''):'<th>Untuk service</th>')+'</tr>';
+      $('#tb').innerHTML=head+(cur.map(function(r){return'<tr><td>'+esc(r.pn)+'</td><td>'+esc(r.d||'')+'</td><td style="text-align:right"><b>'+N0(r.qty)+'</b></td>'+
+        (N>1?r.mo.map(function(v){return'<td style="text-align:right;color:'+(v?'inherit':'var(--mut)')+'">'+(v?N0(v):'\u00b7')+'</td>'}).join(''):'<td style="color:var(--mut)">'+esc(Object.keys(r.det).map(function(k){return k+' \u00d7'+r.det[k]}).join(', '))+'</td>')+'</tr>'}).join('')||'<tr><td colspan="'+(N>1?3+N:4)+'" style="color:var(--mut)">Tidak ada kebutuhan part pada periode ini.</td></tr>')}
+    n.onchange=function(){st.pn=n.value;t()};m.onchange=function(){st.pm=m.value;t()};o.onchange=function(){st.pmod=o.value;t()};q.oninput=function(){st.q=q.value.toLowerCase();t()};
+    $('#cp').onclick=function(){var N=mon.length;copy('KEBUTUHAN PART '+$('#prd').textContent.replace('Periode: ','').toUpperCase()+'\nPart number\tDeskripsi\tTotal'+(N>1?'\t'+mon.map(sl).join('\t'):'')+'\n'+cur.map(function(r){return r.pn+'\t'+(r.d||'')+'\t'+N0(r.qty)+(N>1?'\t'+r.mo.join('\t'):'')}).join('\n'),$('#cp'))};
     t();
   }
   show();
