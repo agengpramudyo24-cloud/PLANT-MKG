@@ -800,16 +800,20 @@ function refresh(){
 window.PMS_LOGOUT=function(){C.access=C.refresh='';save({url:C.url,key:C.key,email:C.email});DB=null;loading=null;location.reload()};
 
 /* ---------- REST ---------- */
-function page(view,from,retry){
-  return fetch(C.url+'/rest/v1/'+view+'?select=*&order=_id.asc',{headers:{apikey:C.key,Authorization:'Bearer '+C.access,'Range-Unit':'items',Range:from+'-'+(from+999)}})
+function page(view,from,retry,order){
+  return fetch(C.url+'/rest/v1/'+view+'?select=*&order='+(order||'_id.asc'),{headers:{apikey:C.key,Authorization:'Bearer '+C.access,'Range-Unit':'items',Range:from+'-'+(from+999)}})
    .then(function(r){
-     if(r.status===401&&!retry)return refresh().catch(function(){return login('Sesi habis, silakan masuk lagi.')}).then(function(){return page(view,from,1)});
+     if(r.status===401&&!retry)return recover().then(function(){return page(view,from,1,order)});
      if(!r.ok)return r.text().then(function(t){throw new Error('Supabase '+r.status+' pada '+view+': '+t.slice(0,160))});
      return r.json()});
 }
-function fetchAll(view){
+var recP=null;
+function recover(){if(!recP){recP=refresh().catch(function(){C.access='';return authed('Sesi habis, silakan masuk lagi.')}).then(function(){recP=null},function(e){recP=null;throw e})}return recP}
+var authP=null;
+function authed(msg){if(C.access)return Promise.resolve();if(!authP){authP=login(msg).then(function(){authP=null},function(e){authP=null;throw e})}return authP}
+function fetchAll(view,order){
   var out=[];
-  return (function go(from){return page(view,from).then(function(rows){out=out.concat(rows);if(rows.length===1000)return go(from+1000)})})(0).then(function(){return out});
+  return (function go(from){return page(view,from,0,order).then(function(rows){out=out.concat(rows);if(rows.length===1000)return go(from+1000)})})(0).then(function(){return out});
 }
 function ensure(){
   if(DB)return Promise.resolve();
@@ -821,10 +825,12 @@ function ensure(){
       rows.forEach(function(r){t.push(m.c.map(function(c,i){var x=r[c];if(x===null||x===undefined)return '';return x}))});
       return [n,t]})})).then(function(a){DB={};a.forEach(function(p){DB[p[0]]=p[1]})});
   };
-  loading=(C.access?go().catch(function(e){if(String(e.message||e).indexOf('401')>=0)return login().then(go);throw e}):login().then(go)).then(function(){loading=null},function(e){loading=null;throw e});
+  loading=authed().then(go).then(function(){loading=null},function(e){loading=null;throw e});
   return loading;
 }
-window.PMS_RESET=function(){DB=null;loading=null};
+var QC={};
+window.PMS_RESET=function(){DB=null;loading=null;QC={}};
+window.PMS_QUERY=function(view,order){var k=view+'|'+order;if(QC[k])return Promise.resolve(QC[k]);return authed().then(function(){return fetchAll(view,order)}).then(function(rows){QC[k]=rows;return rows})};
 
 /* ---------- Pengganti SpreadsheetApp / Utilities ---------- */
 var MONN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -861,6 +867,122 @@ window.PMS_BACKEND=function(fn,arg){
 };
 })();
 
+/* ===== Halaman "Service Schedule & Achievement" (pengganti Preventive Maintenance) ===== */
+(function(){
+var BLN=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'],BS=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+var RC={OVERDUE:'var(--red)',BESOK:'var(--red)','MINGGU INI':'var(--amber)','MINGGU DEPAN':'var(--blue)','MINGGU DEPAN LUSA':'var(--green)'};
+var CC={'IN RANGE':'var(--green)','OUT RANGE':'var(--amber)','OUT STANDING':'var(--red)'};
+var N0=function(x){return x==null||x===''?'-':Number(x).toLocaleString('id-ID',{maximumFractionDigits:0})};
+var N1=function(x){return x==null?'-':Number(x).toLocaleString('id-ID',{maximumFractionDigits:1})};
+var D8=function(s){return s?s.slice(8,10)+' '+BS[+s.slice(5,7)-1]+' '+s.slice(0,4):'-'};
+var pill=function(t,c){return t?'<span class="pill" style="background:'+(c||'#8795ab')+'">'+esc(t)+'</span>':''};
+var iso=function(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)};
+function copy(t,btn){var ok=function(){var o=btn.textContent;btn.textContent='Tersalin \u2713';setTimeout(function(){btn.textContent=o},1500)};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){fb()})}else fb();
+  function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');ok()}catch(e){}a.remove()}}
+
+window.svcPage=function(){
+  $('#view').innerHTML='<div class="card" style="padding:18px;color:var(--mut)">Memuat data service\u2026</div>';
+  return Promise.all([PMS_QUERY('v_service_status','unit_id.asc'),PMS_QUERY('v_service_forecast','unit_id.asc,seq.asc'),PMS_QUERY('v_service_achievement','service_id.asc'),PMS_QUERY('v_part_forecast','model.asc,part_number.asc,ps_type.asc,plan_year.asc,plan_month.asc')])
+   .then(function(r){draw(r[0],r[1],r[2],r[3])});
+};
+
+function draw(ST,FC,AC,PF){
+  var asof=ST.reduce(function(m,r){return r.update_date&&r.update_date>m?r.update_date:m},'');
+  var now=new Date(),today=iso(now),tom=iso(new Date(now.getTime()+864e5));
+  var st={tab:'jad',g:'',q:'',rm:'',span:3,cls:'',aq:'',pm:'',pmod:''};
+  var groups=Object.keys(ST.reduce(function(o,r){if(r.group_name)o[r.group_name]=1;return o},{})).sort();
+  $('#view').innerHTML=hero('Service Schedule &amp; Achievement','Jadwal service dari HM/KM terinput, forecast part, dan pencapaian',asof||today)+
+   '<div class="bar"><div class="seg" id="tabs"><button data-t="jad">Jadwal Unit</button><button data-t="kal">Kalender</button><button data-t="ach">Achievement</button><button data-t="prt">Forecast Part</button></div></div><div id="pg"></div>';
+  $('#tabs').onclick=function(e){var b=e.target.closest('button');if(b){st.tab=b.dataset.t;show()}};
+
+  function show(){
+    var bs=document.querySelectorAll('#tabs button');for(var i=0;i<bs.length;i++)bs[i].className=bs[i].dataset.t==st.tab?'on':'';
+    ({jad:tJad,kal:tKal,ach:tAch,prt:tPrt})[st.tab]();
+  }
+
+  /* ---------- Tab 1: Jadwal unit (= DATA SVC) ---------- */
+  function tJad(){
+    var cnt=function(f){return ST.filter(f).length};
+    var od=cnt(function(r){return r.reminder=='OVERDUE'}),wk=cnt(function(r){return r.reminder=='BESOK'||r.reminder=='MINGGU INI'}),nx=cnt(function(r){return r.reminder=='MINGGU DEPAN'}),
+        lt=cnt(function(r){return r.reminder=='MINGGU DEPAN LUSA'}),nd=cnt(function(r){return r.next_service_meter==null||r.current_meter==null||r.no_service_history});
+    $('#pg').innerHTML='<div class="r6">'+card('Unit terjadwal',ST.length,'punya interval service','var(--blue)')+card('Overdue',od,'sudah lewat jadwal','var(--red)',od?'var(--red)':'')+card('Minggu ini',wk,'besok &amp; &lt; 7 hari','var(--amber)')+card('Minggu depan',nx,'7\u201314 hari','var(--blue)')+card('Masih lama',lt,'&gt; 14 hari','var(--green)')+card('Perlu dicek',nd,'belum ada riwayat / meter','#8795ab')+'</div>'+
+     '<div class="card"><div class="ct">Status Service per Unit<span style="float:right"><button class="btn" id="wa">Salin rencana WA</button></span></div>'+
+     '<div class="bar" style="margin:0 0 8px"><select id="fg"><option value="">Semua grup</option>'+groups.map(function(g){return'<option>'+esc(g)+'</option>'}).join('')+'</select><select id="fr"><option value="">Semua pengingat</option>'+Object.keys(RC).map(function(k){return'<option>'+k+'</option>'}).join('')+'</select><input type="search" id="fq" placeholder="Cari unit / model\u2026"><span class="rg" id="rg"></span></div>'+
+     '<div class="scroll"><table id="tb"></table></div><div class="note">Sisa = HM/KM service berikutnya \u2212 HM/KM terakhir terinput. Estimasi tanggal memakai rata-rata HM/KM per hari tiap unit.</div></div>';
+    var g=$('#fg'),r=$('#fr'),q=$('#fq');g.value=st.g;r.value=st.rm;q.value=st.q;
+    function rows(){return ST.filter(function(x){return(!st.g||x.group_name==st.g)&&(!st.rm||x.reminder==st.rm)&&(!st.q||(x.unit_id+' '+(x.model||'')).toLowerCase().indexOf(st.q)>=0)})
+      .sort(function(a,b){var x=a.remaining_days==null?1e9:a.remaining_days,y=b.remaining_days==null?1e9:b.remaining_days;return x-y})}
+    function t(){var R=rows();$('#rg').textContent=R.length+' unit';
+      $('#tb').innerHTML='<tr><th>Unit</th><th>Model</th><th>Grup</th><th>HM/KM sekarang</th><th>Service terakhir</th><th>Berikutnya</th><th>Sisa</th><th>Hari</th><th>Pengingat</th><th>Estimasi</th></tr>'+
+       R.map(function(x){var u=x.meter_type=='KM'?'KM':'HM';
+        return'<tr><td><b>'+esc(x.unit_id)+'</b></td><td>'+esc(x.model||'')+'</td><td>'+esc(x.group_name||'')+'</td>'+
+         '<td>'+N0(x.current_meter)+' '+u+'<div class="note" style="margin:0">'+D8(x.update_date)+'</div></td>'+
+         '<td>'+(x.no_service_history?'<span style="color:var(--mut)">belum ada</span>':N0(x.last_service_meter)+' <span style="color:var(--mut)">\u00b7 '+esc(x.last_service_type||'')+'</span>')+'<div class="note" style="margin:0">'+D8(x.last_service_date)+'</div></td>'+
+         '<td><b>'+N0(x.next_service_meter)+' '+u+'</b> '+pill(x.next_service_type,'var(--blue)')+'</td>'+
+         '<td style="text-align:right;color:'+(x.remaining<0?'var(--red)':'inherit')+'">'+N0(x.remaining)+'</td><td style="text-align:right">'+N1(x.remaining_days)+'</td>'+
+         '<td>'+pill(x.reminder,RC[x.reminder])+'</td><td>'+D8(x.est_plan_date)+'</td></tr>'}).join('')||'<tr><td colspan="10" style="color:var(--mut)">Tidak ada data.</td></tr>'}
+    g.onchange=function(){st.g=g.value;t()};r.onchange=function(){st.rm=r.value;t()};q.oninput=function(){st.q=q.value.toLowerCase();t()};
+    $('#wa').onclick=function(){var L=ST.filter(function(x){return x.reminder=='OVERDUE'||x.reminder=='BESOK'}).sort(function(a,b){return a.remaining_days-b.remaining_days});
+      var s='*PLAN SERVICE '+D8(tom).toUpperCase()+'*\n'+(L.length?L.map(function(x,i){return(i+1)+'. '+x.unit_id+' \u2013 '+(x.next_service_type||'')+' ('+N0(x.next_service_meter)+' '+(x.meter_type=='KM'?'KM':'HM')+')'+(x.remaining<0?' \u2013 OVERDUE '+N0(-x.remaining):' \u2013 sisa '+N0(x.remaining))}).join('\n'):'Tidak ada service jatuh tempo.');
+      copy(s,$('#wa'))};
+    t();
+  }
+
+  /* ---------- Tab 2: Kalender ke depan (= PMS MONITORING) ---------- */
+  function tKal(){
+    $('#pg').innerHTML='<div class="card"><div class="ct">Kalender Service ke Depan</div><div class="bar" style="margin:0 0 8px"><select id="sp"><option value="1">1 bulan</option><option value="3">3 bulan</option><option value="6">6 bulan</option><option value="12">12 bulan</option></select><select id="fg"><option value="">Semua grup</option>'+groups.map(function(g){return'<option>'+esc(g)+'</option>'}).join('')+'</select><input type="search" id="fq" placeholder="Cari unit\u2026"><span class="rg" id="rg"></span></div><div id="cal"></div></div>';
+    var sp=$('#sp'),g=$('#fg'),q=$('#fq');sp.value=st.span;g.value=st.g;q.value=st.q;
+    function c(){var end=new Date(now.getFullYear(),now.getMonth()+(+st.span)+1,0);end=iso(end);
+      var R=FC.filter(function(x){return x.est_plan_date&&x.est_plan_date<=end&&(!st.g||x.group_name==st.g)&&(!st.q||x.unit_id.toLowerCase().indexOf(st.q)>=0)&&(x.remaining<0||x.est_plan_date>=today)}).sort(function(a,b){return a.est_plan_date<b.est_plan_date?-1:a.est_plan_date>b.est_plan_date?1:a.unit_id<b.unit_id?-1:1});
+      $('#rg').textContent=R.length+' service';var by={},ord=[];
+      R.forEach(function(x){var k=x.remaining<0&&x.est_plan_date<today?'OVERDUE':x.est_plan_date.slice(0,7);if(!by[k]){by[k]=[];ord.push(k)}by[k].push(x)});
+      $('#cal').innerHTML=ord.length?ord.map(function(k){var t=k=='OVERDUE'?'Overdue (sudah lewat jadwal)':BLN[+k.slice(5,7)-1]+' '+k.slice(0,4);
+        return'<div class="ct" style="margin-top:12px">'+t+' <span class="rg">'+by[k].length+' service</span></div><div class="scroll"><table><tr><th>Estimasi</th><th>Unit</th><th>Model</th><th>Service</th><th>Meter rencana</th><th>Sisa</th></tr>'+
+         by[k].map(function(x){return'<tr><td>'+D8(x.est_plan_date)+'</td><td><b>'+esc(x.unit_id)+'</b></td><td>'+esc(x.model||'')+'</td><td>'+pill(x.ps_type,'var(--blue)')+'</td><td>'+N0(x.plan_meter)+'</td><td style="text-align:right;color:'+(x.remaining<0?'var(--red)':'inherit')+'">'+N0(x.remaining)+'</td></tr>'}).join('')+'</table></div>'}).join(''):'<div style="color:var(--mut);padding:12px">Tidak ada service pada rentang ini.</div>'}
+    sp.onchange=function(){st.span=sp.value;c()};g.onchange=function(){st.g=g.value;c()};q.oninput=function(){st.q=q.value.toLowerCase();c()};c();
+  }
+
+  /* ---------- Tab 3: Achievement (= MONITOR SVC) ---------- */
+  function tAch(){
+    var n=AC.length,i1=AC.filter(function(x){return x.classification=='IN RANGE'}).length,o1=AC.filter(function(x){return x.classification=='OUT RANGE'}).length,s1=AC.filter(function(x){return x.classification=='OUT STANDING'}).length;
+    var ac=AC.filter(function(x){return x.accuracy!=null}),acc=ac.length?ac.reduce(function(a,x){return a+Number(x.accuracy)},0)/ac.length*100:0;
+    var wk={},wo=[];AC.forEach(function(x){var k=x.week_plan||'-';if(!wk[k]){wk[k]={IN:0,OR:0,OS:0};wo.push(k)}wk[k][x.classification=='IN RANGE'?'IN':x.classification=='OUT RANGE'?'OR':'OS']++});
+    wo.sort(function(a,b){return(parseInt(a.replace(/\D/g,''))||0)-(parseInt(b.replace(/\D/g,''))||0)});
+    var mx=Math.max.apply(null,wo.map(function(k){return wk[k].IN+wk[k].OR+wk[k].OS}).concat([1]));
+    var chart=wo.map(function(k){var w=wk[k],t=w.IN+w.OR+w.OS,h=function(v){return(v/mx*120)+'px'};
+      return'<div style="flex:1;min-width:26px;text-align:center"><div style="height:124px;display:flex;flex-direction:column-reverse;align-items:center"><div title="In range '+w.IN+'" style="width:70%;height:'+h(w.IN)+';background:var(--green)"></div><div title="Out range '+w.OR+'" style="width:70%;height:'+h(w.OR)+';background:var(--amber)"></div><div title="Out standing '+w.OS+'" style="width:70%;height:'+h(w.OS)+';background:var(--red)"></div></div><div class="note" style="margin:2px 0 0">'+esc(k.replace('WEEK ','W'))+'</div><div style="font-size:11px"><b>'+t+'</b></div></div>'}).join('');
+    $('#pg').innerHTML='<div class="r6">'+card('Total service',n,'rencana tercatat','var(--blue)')+card('In range',i1,(n?Math.round(i1/n*100):0)+'% dari total','var(--green)')+card('Out range',o1,'selisih \u2265 toleransi','var(--amber)')+card('Out standing',s1,'belum dikerjakan','var(--red)',s1?'var(--red)':'')+card('Akurasi',N1(acc)+'%','rata-rata ketepatan HM/KM','var(--violet)')+card('Unit',Object.keys(AC.reduce(function(o,x){o[x.unit_id]=1;return o},{})).length,'pernah service','#8795ab')+'</div>'+
+     '<div class="card"><div class="ct">Achievement per Minggu<span class="leg"><span><i style="background:var(--green)"></i>In range</span><span><i style="background:var(--amber)"></i>Out range</span><span><i style="background:var(--red)"></i>Out standing</span></span></div><div style="display:flex;gap:2px;overflow-x:auto;padding-bottom:4px">'+(chart||'<div style="color:var(--mut)">Belum ada data.</div>')+'</div></div>'+
+     '<div class="card"><div class="ct">Rencana vs Aktual</div><div class="bar" style="margin:0 0 8px"><select id="fc"><option value="">Semua status</option><option>IN RANGE</option><option>OUT RANGE</option><option>OUT STANDING</option></select><input type="search" id="fq" placeholder="Cari unit\u2026"><span class="rg" id="rg"></span></div><div class="scroll"><table id="tb"></table></div></div>';
+    var f=$('#fc'),q=$('#fq');f.value=st.cls;q.value=st.aq;
+    function t(){var R=AC.filter(function(x){return(!st.cls||x.classification==st.cls)&&(!st.aq||x.unit_id.toLowerCase().indexOf(st.aq)>=0)}).sort(function(a,b){return(a.plan_date||'')<(b.plan_date||'')?1:-1});
+      $('#rg').textContent=R.length+' catatan';
+      $('#tb').innerHTML='<tr><th>Minggu</th><th>Unit</th><th>Service</th><th>Tgl rencana</th><th>Meter rencana</th><th>Tgl aktual</th><th>Meter aktual</th><th>Selisih</th><th>Status</th><th>Akurasi</th><th>Foreman / alasan</th></tr>'+
+       R.slice(0,400).map(function(x){return'<tr><td>'+esc((x.week_plan||'').replace('WEEK ','W'))+'</td><td><b>'+esc(x.unit_id)+'</b></td><td>'+esc(x.ps_type||'')+'</td><td>'+D8(x.plan_date)+'</td><td>'+N0(x.plan_meter)+'</td><td>'+D8(x.actual_date)+'</td><td>'+N0(x.actual_meter)+'</td><td>'+(x.deviation==null?'-':(x.deviation>0?'+':'')+N0(x.deviation))+'</td><td>'+pill(x.classification,CC[x.classification])+'</td><td>'+(x.accuracy==null?'-':N0(x.accuracy*100)+'%')+'</td><td>'+esc([x.foreman,x.reason].filter(Boolean).join(' \u2013 '))+'</td></tr>'}).join('')}
+    f.onchange=function(){st.cls=f.value;t()};q.oninput=function(){st.aq=q.value.toLowerCase();t()};t();
+  }
+
+  /* ---------- Tab 4: Forecast part (= FORECAST 1) ---------- */
+  function tPrt(){
+    var ym={},mods={};PF.forEach(function(x){ym[x.plan_year+'-'+('0'+x.plan_month).slice(-2)]=1;mods[x.model]=1});
+    var yl=Object.keys(ym).sort().filter(function(k){return k>=today.slice(0,7)}),ml=Object.keys(mods).sort();
+    if(!st.pm||yl.indexOf(st.pm)<0)st.pm=yl[0]||'';
+    $('#pg').innerHTML='<div class="card"><div class="ct">Forecast Kebutuhan Part Service<span style="float:right"><button class="btn" id="cp">Salin daftar</button></span></div><div class="bar" style="margin:0 0 8px"><select id="fm">'+yl.map(function(k){return'<option value="'+k+'">'+BLN[+k.slice(5,7)-1]+' '+k.slice(0,4)+'</option>'}).join('')+'</select><select id="fo"><option value="">Semua model</option>'+ml.map(function(m){return'<option>'+esc(m)+'</option>'}).join('')+'</select><input type="search" id="fq" placeholder="Cari part number / deskripsi\u2026"><span class="rg" id="rg"></span></div><div class="scroll"><table id="tb"></table></div><div class="note">Kebutuhan = jumlah service yang jatuh pada bulan itu (menurut estimasi tanggal) \u00d7 qty part per jenis PS. Unit KM (LV, WT KM) belum punya daftar part, jadi belum ikut terhitung.</div></div>';
+    var m=$('#fm'),o=$('#fo'),q=$('#fq');m.value=st.pm;o.value=st.pmod;q.value=st.q;var cur=[];
+    function t(){var by={};PF.forEach(function(x){if(x.plan_year+'-'+('0'+x.plan_month).slice(-2)!=st.pm||(st.pmod&&x.model!=st.pmod))return;
+        var k=x.part_number+'|'+(x.description||'');var r=by[k]||(by[k]={pn:x.part_number,d:x.description,uom:x.uom,qty:0,det:{}});r.qty+=Number(x.qty_total);var dk=x.model+' '+x.ps_type;r.det[dk]=(r.det[dk]||0)+Number(x.services)});
+      cur=Object.keys(by).map(function(k){return by[k]}).filter(function(r){return!st.q||(r.pn+' '+(r.d||'')).toLowerCase().indexOf(st.q)>=0}).sort(function(a,b){return a.d>b.d?1:-1});
+      $('#rg').textContent=cur.length+' part';
+      $('#tb').innerHTML='<tr><th>Part number</th><th>Deskripsi</th><th>Qty</th><th>Untuk service</th></tr>'+(cur.map(function(r){return'<tr><td>'+esc(r.pn)+'</td><td>'+esc(r.d||'')+'</td><td style="text-align:right"><b>'+N0(r.qty)+'</b></td><td style="color:var(--mut)">'+esc(Object.keys(r.det).map(function(k){return k+' \u00d7'+r.det[k]}).join(', '))+'</td></tr>'}).join('')||'<tr><td colspan="4" style="color:var(--mut)">Tidak ada kebutuhan part pada bulan ini.</td></tr>')}
+    m.onchange=function(){st.pm=m.value;t()};o.onchange=function(){st.pmod=o.value;t()};q.oninput=function(){st.q=q.value.toLowerCase();t()};
+    $('#cp').onclick=function(){copy('KEBUTUHAN PART '+(m.options[m.selectedIndex]||{text:''}).text+'\n'+cur.map(function(r){return r.pn+'\t'+(r.d||'')+'\t'+N0(r.qty)}).join('\n'),$('#cp'))};
+    t();
+  }
+  show();
+}
+})();
+
 </script>
 <script>
 /* === LOGO: put your logo image URL here (see PANDUAN) – empty = placeholder === */
@@ -872,7 +994,7 @@ var $=function(s,r){return(r||document).querySelector(s)},n=function(v,d){return
 (function(){if(LOGO_URL){var l=document.getElementById('logo');l.className='logo has';l.innerHTML='<img src="'+LOGO_URL+'" alt="logo">'}})();
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
 var MENU=[['Dashboard','dash'],['EQUIPMENT'],['Indicator Equipment Health','unit'],
-['MAINTENANCE'],['Preventive Maintenance','pm'],['Tyre Maintenance','tyre'],['Tyre Schedule','sheet:Tyre_Schedule'],['Work Order','sheet:Work_Order'],['Daily Activity','act'],['Backlog Monitoring','backlog'],
+['MAINTENANCE'],['Service Schedule','pm'],['Tyre Maintenance','tyre'],['Tyre Schedule','sheet:Tyre_Schedule'],['Work Order','sheet:Work_Order'],['Daily Activity','act'],['Backlog Monitoring','backlog'],
 ['COMPONENT'],['Oil Sampling (SOS)','sheet:Oil_Sampling'],['Greasing','greasing'],['Component Failure','comp'],
 ['REPORT & ANALYTICS'],['Pareto Breakdown','pareto'],['Fuel Ratio','fuel'],
 ['MASTER DATA'],['Unit Master','sheet:Unit_Master'],['Service Interval','sheet:Service_Interval']];
@@ -882,7 +1004,7 @@ function get(key,fn,arg){return cache[key]?Promise.resolve(cache[key]):api(fn,ar
 function buildNav(){var h='';MENU.forEach(function(m){if(m.length==1)h+='<div class="sec">'+esc(m[0])+'</div>';else h+='<a data-p="'+m[1]+'">'+esc(m[0])+'</a>'});$('#nav').innerHTML=h;
  $('#nav').onclick=function(e){var a=e.target.closest('a');if(a){go(a.dataset.p,a.textContent);$('#side').classList.remove('open')}}}
 function go(p,t){page=p;document.querySelectorAll('#nav a').forEach(function(a){a.className=a.dataset.p==p?'on':''});$('#ttl').textContent=t||'Dashboard';$('#hh').innerHTML='';$('#view').innerHTML='<div class="load">Loading&hellip;</div>';window.scrollTo(0,0);
- var f=p=='dash'?function(){return get('dash','apiDashboard').then(pDash)}:p=='comp'?function(){return get('comp','apiCompFail').then(pComp)}:p=='act'?function(){return get('act','apiActivity').then(pAct)}:p=='pm'?function(){return get('pm','apiPM').then(pPM)}:p=='tyre'?function(){return get('tyre','apiTyre').then(pTyre)}:p=='pareto'?function(){return get('pareto','apiPareto').then(pPareto)}:p=='backlog'?function(){return get('backlog','apiBacklog').then(pBacklog)}:p=='fuel'?function(){return get('fuel','apiFuel').then(pFuel)}:p=='greasing'?function(){var q=GR.ym||'';return get('gr:'+q,'apiGreasing',q).then(pGreasing)}:p=='unit'?function(){return get('unit','apiUnits').then(pUnit)}:function(){var nm=p.split(':')[1];return get(p,'apiSheet',nm).then(pSheet)};
+ var f=p=='dash'?function(){return get('dash','apiDashboard').then(pDash)}:p=='comp'?function(){return get('comp','apiCompFail').then(pComp)}:p=='act'?function(){return get('act','apiActivity').then(pAct)}:p=='pm'?function(){return window.PMS_QUERY?svcPage():get('pm','apiPM').then(pPM)}:p=='tyre'?function(){return get('tyre','apiTyre').then(pTyre)}:p=='pareto'?function(){return get('pareto','apiPareto').then(pPareto)}:p=='backlog'?function(){return get('backlog','apiBacklog').then(pBacklog)}:p=='fuel'?function(){return get('fuel','apiFuel').then(pFuel)}:p=='greasing'?function(){var q=GR.ym||'';return get('gr:'+q,'apiGreasing',q).then(pGreasing)}:p=='unit'?function(){return get('unit','apiUnits').then(pUnit)}:function(){var nm=p.split(':')[1];return get(p,'apiSheet',nm).then(pSheet)};
  f().then(function(){if(page!=p||$('#view').querySelector('.hero'))return;var sb={pareto:'Breakdown analysis by category and unit',backlog:'Units still under breakdown',fuel:'Fuel consumption ratio',greasing:'Greasing plan vs achievement',unit:'Unit health and performance'};var s=sb[p]||(p.indexOf('sheet:')==0?'Data sheet':'Monitor &bull; Maintain &bull; Maximize Performance');
   var put=function(as){if(page==p&&!$('#view').querySelector('.hero'))$('#hh').innerHTML=hero(esc(t||'Dashboard'),s,as||'')};get('dash','apiDashboard').then(function(d){put(d&&d.asof)},function(){put('')})}).catch(function(e){$('#view').innerHTML='<div class="err"><b>Could not load this page.</b>\n'+esc(e&&e.message?e.message:e)+'</div>'})}
 var card=function(l,v,s,c,sc){return'<div class="card k" style="--c:'+c+'"><div class="l">'+l+'</div><div class="v">'+v+'</div><div class="s" style="color:'+(sc||'var(--mut)')+'">'+s+'</div></div>'};
