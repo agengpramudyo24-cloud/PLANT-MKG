@@ -74,7 +74,7 @@ html[data-theme=dark] .logo{background:transparent}
 @media(max-width:700px){.top{gap:8px;padding:10px 12px}#imsel{max-width:92px;font-size:11px;padding:5px 4px}.usr{display:none}html[data-img] .hero::before{opacity:.3}}
 @media(max-width:1000px){.r7{grid-template-columns:repeat(2,1fr)}}
 </style></head><body><div class="app"><aside class="side" id="side"><button class="sclose" id="sclose" aria-label="Close menu">&#10005; Close</button><div class="brand"><div class="logo" id="logo">LOGO</div></div><nav id="nav"></nav></aside>
-<div class="main"><div class="top"><button class="menu" id="mb">&#9776;</button><h1 id="ttl">Dashboard</h1><div class="sp"></div><select id="imsel" class="btn" title="Gambar alat berat" aria-label="Gambar alat berat"><option value="foto">Foto asli</option><option value="ilustrasi">Ilustrasi</option><option value="blueprint">Blueprint</option><option value="siluet">Siluet</option><option value="none">Tanpa gambar</option></select><button class="btn" id="th" title="Night mode">&#127769;</button><button class="btn" id="rf" title="Muat ulang data dari Supabase">&#8635; Refresh</button><button class="btn" id="lo" title="Keluar" onclick="PMS_LOGOUT()">Keluar</button><span class="usr">&#128276;</span></div><div class="wrap" id="hh"></div><div class="wrap" id="view"><div class="load">Loading&hellip;</div></div></div></div>
+<div class="main"><div class="top"><button class="menu" id="mb">&#9776;</button><h1 id="ttl">Dashboard</h1><div class="sp"></div><button class="btn" id="th" title="Night mode">&#127769;</button><button class="btn" id="rf" title="Muat ulang data dari Supabase">&#8635; Refresh</button><button class="btn" id="lo" title="Keluar" onclick="PMS_LOGOUT()">Keluar</button><span class="usr">&#128276;</span></div><div class="wrap" id="hh"></div><div class="wrap" id="view"><div class="load">Loading&hellip;</div></div></div></div>
 <script>
 /* ===== Adapter Supabase untuk DASHBOARD PLANT =====
    Menggantikan google.script.run: membaca view api_* lewat REST Supabase, lalu menjalankan
@@ -323,12 +323,13 @@ function calc_(D, Rb, Hb, lo, hi) {
       var vals = us.filter(function (u) { return k in PU[u]; }).map(function (u) { return PU[u][k]; });
       o[k] = vals.length ? r4_(vals.reduce(function (a, b) { return a + b; }, 0) / vals.length) : null;
     });
+    o.w = us.some(function (u) { return !D.U[u].km; }) ? Math.round(us.reduce(function (a, u) { return a + (PU[u].w || 0); }, 0)) : null;
     GR[g] = o;
   });
   var au = {}, uc = {}, dtTot = 0;
-  D.ulist.forEach(function (u) { dtTot += dt[u]; if (dt[u] > 0 || uev[u]) au[u] = [Math.round(dt[u]), uev[u]]; if (UC[u].length) uc[u] = UC[u]; });
+  D.ulist.forEach(function (u) { dtTot += dt[u]; if (dt[u] > 0 || uev[u]) au[u] = [Math.round(dt[u]), uev[u], Math.round(PU[u].w || 0)]; if (UC[u].length) uc[u] = UC[u]; });
   var tu = sortDesc_(D.ulist.map(function (u) { return [u, dt[u]]; }), function (e) { return e[1]; }).filter(function (e) { return e[1] > 0; }).slice(0, 10)
-    .map(function (e) { return [e[0], Math.round(e[1]), Math.round(e[1] / tot * 1000) / 1000, uev[e[0]]]; });
+    .map(function (e) { return [e[0], Math.round(e[1]), Math.round(e[1] / tot * 1000) / 1000, uev[e[0]], Math.round(PU[e[0]].w || 0)]; });
   var tc = sortDesc_(compOrder.map(function (k) { return [k, comp[k]]; }), function (e) { return e[1]; }).slice(0, 10)
     .map(function (e) { return [e[0], Math.round(e[1]), Math.round(e[1] / ct * 1000) / 1000, cev[e[0]] || 0]; });
   return { pu: PU, au: au, uc: uc, g: GR, pa: av(pas), ma: av(mas), ua: av(uas), mtbf: av(mtbf), mttr: av(mttr), dt: Math.round(dtTot), usm: Math.round(usmT), scm: Math.round(scmT), ev: evT, tu: tu, tc: tc };
@@ -1025,62 +1026,83 @@ var num=function(v){v=String(v==null?'':v).trim().replace(',','.');return v===''
 var txt=function(v){v=String(v==null?'':v).trim();return v===''?null:v};
 var tm=function(v){v=txt(v);return v?(v.length===5?v+':00':v):null};
 var opt=function(a,sel,blank){return (blank?'<option value="">'+blank+'</option>':'')+a.map(function(x){var v=typeof x==='object'?x.v:x,l=typeof x==='object'?x.l:x;return'<option value="'+esc(v)+'"'+(v===sel?' selected':'')+'>'+esc(l)+'</option>'}).join('')};
-var CSS='<style>.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:10px 12px}.fg label{font-size:12px;color:var(--mut);display:flex;flex-direction:column;gap:4px}.fg label.w2{grid-column:span 2}.fg label.w3{grid-column:1/-1}'+
- '.fg input,.fg select,.fg textarea{padding:8px 9px;border:1px solid var(--line);border-radius:8px;font:inherit;color:var(--tx);background:var(--card);min-width:0}.fg textarea{min-height:54px;resize:vertical}'+
- '.fs{border-top:1px dashed var(--line);margin-top:12px;padding-top:10px}.fs h4{margin:0 0 8px;font-size:13px}.fs .tg{display:flex;gap:8px;align-items:center;font-size:13px;cursor:pointer;margin:0 0 8px}'+
- '.ok{color:var(--green)}.er{color:var(--red)}.fm{min-height:20px;font-size:13px;margin-top:8px}.btn.pri{background:var(--acc);color:#fff;border-color:var(--acc);font-weight:600;padding:8px 18px}.btn.sm{padding:2px 8px;font-size:11px}.hint{font-size:12px;color:var(--mut);margin:6px 0 0}'+
- '.rt td,.rt th{padding:4px 8px;font-size:12px;white-space:nowrap}.pg2{display:grid;grid-template-columns:1fr;gap:12px}</style>';
+var CSS='<style>.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px 14px}.fg label{font-size:12px;font-weight:600;color:var(--tx);display:flex;flex-direction:column;gap:5px}.fg label.w2{grid-column:span 2}.fg label.w3{grid-column:1/-1}'+
+ '#ipg .card{border:1.5px solid #9aa6ba;box-shadow:0 1px 3px rgba(20,35,63,.12)}#ipg .ct{border-bottom:2px solid #9aa6ba;padding-bottom:8px;margin-bottom:12px}'+
+ '#ipg input:not([type=checkbox]),#ipg select,#ipg textarea{padding:8px 10px;border:1.5px solid #7d8aa3;border-radius:8px;font:inherit;font-weight:400;color:var(--tx);background:var(--card);min-width:0}#ipg input:focus,#ipg select:focus,#ipg textarea:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px rgba(47,111,228,.25)}.fg textarea{min-height:54px;resize:vertical}'+
+ '.fs{border:1.5px solid #b9c2d2;border-radius:10px;margin-top:14px;padding:12px 14px;background:rgba(125,138,163,.07)}.fs h4{margin:0 0 10px;font-size:13px}.fs .tg{display:flex;gap:8px;align-items:center;font-size:13px;cursor:pointer;margin:0 0 10px}'+
+ '.ok{color:var(--green)}.er{color:var(--red)}.fm{min-height:20px;font-size:13px;margin-top:8px;font-weight:600}.btn.pri{background:var(--acc);color:#fff;border-color:var(--acc);font-weight:600;padding:8px 18px}.btn.sm{padding:2px 8px;font-size:11px}.hint{font-size:12px;color:var(--mut);margin:8px 0 0}'+
+ '.rt,.bt{border-collapse:collapse;border:1.5px solid #9aa6ba}.rt th,.rt td,.bt th,.bt td{padding:5px 9px;font-size:12px;white-space:nowrap;border:1px solid #c3cbd9}.rt th,.bt th{background:rgba(125,138,163,.18);font-weight:700;position:sticky;top:0}.bt td.n,.rt td.n{text-align:right}#ipg .bt input:not([type=checkbox]){width:100%;min-width:90px;padding:3px 7px;text-align:right;border-radius:6px}.bt tr:hover td{background:rgba(47,111,228,.07)}.bt .df{font-weight:700}'+
+ '.seg button{border-width:1.5px}</style>';
 
 window.inputPage=function(){
   if(!window.PMS_EDITOR){$('#view').innerHTML='<div class="card" style="padding:18px">Halaman ini hanya untuk Admin Plant dan Planner.</div>';return Promise.resolve()}
   $('#view').innerHTML='<div class="card" style="padding:18px;color:var(--mut)">Memuat form…</div>';
   return Promise.all([
     R('GET','units?select=unit_id,model,group_name,meter_type,hours_per_day,meter_per_day,service_interval,service_visible,status&order=sort_order.asc'),
-    R('GET','mechanics?select=mechanic,role&active=eq.true&order=sort_order.asc'),
+    R('GET','mechanics?select=mechanic,active&order=sort_order.asc').catch(function(){return[]}),
     R('GET','ref_code?select=category,code,description&category=in.(DELAY,DOWNTIME)&order=code.asc'),
     R('GET','ref_component?select=component&order=component.asc'),
-    R('GET','ref_list?select=list_name,value&list_name=in.(Oil_Compartment,Act_Category,Act_Status)&order=sort_order.asc')
-  ]).then(function(r){draw(r[0].filter(function(u){return u.status!=='Disposed'}),r[1],r[2],r[3],r[4])});
+    R('GET','ref_list?select=list_name,value&list_name=in.(Oil_Compartment,Act_Category,Act_Status)&order=sort_order.asc'),
+    R('GET','activity_log?select=mechanic&order=act_id.desc&limit=1000').catch(function(){return[]}),
+    R('GET','greasing_log?select=mechanic&order=greasing_id.desc&limit=500').catch(function(){return[]}),
+    R('GET','v_last_meter?select=unit_id,last_meter,last_date,src').catch(function(){return null})
+  ]).then(function(r){var seen={},names=[];[r[1].filter(function(m){return m.active!==false}),r[5],r[6]].forEach(function(a){a.forEach(function(m){var n=(m.mechanic||'').trim();if(n&&!seen[n.toUpperCase()]){seen[n.toUpperCase()]=1;names.push(n)}})});names.sort();
+    draw(r[0].filter(function(u){return u.status!=='Disposed'}),names,r[2],r[3],r[4],r[7])});
 };
 
-function draw(U,MECH,RC,COMP,RL){
+function draw(U,MECH,RC,COMP,RL,LAST){
   var today=iso(new Date()),st={tab:'f1',pre:null};
   var uid=U.map(function(u){return {v:u.unit_id,l:u.unit_id+' – '+(u.model||'')}});
-  var mech=MECH.map(function(m){return m.mechanic});
+  var mech=MECH.slice();
+  var mi=function(id,lab,cls){return'<label'+(cls?' class="'+cls+'"':'')+'>'+lab+'<input id="'+id+'" list="dl_m" autocomplete="off" placeholder="pilih / ketik nama"></label>'};
+  function dlm(){var d=document.getElementById('dl_m');if(d)d.innerHTML=mech.map(function(n){return'<option value="'+esc(n)+'">'}).join('')}
+  function learn(a){a=a.map(function(x){return(x||'').trim()}).filter(function(x){return x&&mech.map(function(y){return y.toUpperCase()}).indexOf(x.toUpperCase())<0});if(!a.length)return;R('POST','mechanics',a.map(function(n){return{mechanic:n,role:'Mechanic',active:true}})).then(function(){a.forEach(function(n){mech.push(n)});mech.sort();dlm()},function(){})}
   var dl=RC.filter(function(x){return x.category==='DELAY'}).map(function(x){return {v:x.code,l:x.code+' – '+x.description}});
   var dt=RC.filter(function(x){return x.category==='DOWNTIME'}).map(function(x){return {v:x.code,l:x.code+' – '+x.description}});
   var comp=COMP.map(function(x){return x.component});
   var lst=function(n){return RL.filter(function(x){return x.list_name===n}).map(function(x){return x.value})};
   var byU={};U.forEach(function(u){byU[u.unit_id]=u});
-  $('#view').innerHTML=CSS+'<div class="bar" style="margin-bottom:10px"><div class="seg" id="itabs"><button data-t="f1">Form 1 · Harian (HM/KM/BBM/P2H)</button><button data-t="f2">Form 2 · Breakdown / WO</button><button data-t="f3">Form 3 · Service &amp; Komponen</button><button data-t="f4">Form 4 · Aktivitas Mekanik</button><button data-t="cfg">Pengaturan HM/KM per hari</button></div></div><div id="ipg"></div>';
+  $('#view').innerHTML=CSS+'<div class="bar" style="margin-bottom:10px"><div class="seg" id="itabs"><button data-t="f1">Form 1 · Harian (HM/KM/BBM/P2H)</button><button data-t="f2">Form 2 · Breakdown / WO</button><button data-t="f3">Form 3 · Service &amp; Komponen</button><button data-t="f4">Form 4 · Aktivitas Mekanik</button><button data-t="gp">Plan Greasing</button><button data-t="cfg">Pengaturan HM/KM per hari</button></div></div><div id="ipg"></div><datalist id="dl_m"></datalist>';
+  dlm();
   $('#itabs').onclick=function(e){var b=e.target.closest('button');if(b){st.tab=b.dataset.t;show()}};
-  function show(){document.querySelectorAll('#itabs button').forEach(function(b){b.className=b.dataset.t===st.tab?'on':''});({f1:f1,f2:f2,f3:f3,f4:f4,cfg:cfg})[st.tab]()}
+  function show(){document.querySelectorAll('#itabs button').forEach(function(b){b.className=b.dataset.t===st.tab?'on':''});({f1:f1w,f2:f2,f3:f3,f4:f4,cfg:cfg,gp:gp})[st.tab]()}
 
   /* ---- util form ---- */
   function msg(t,ok){var m=$('#fm');if(m){m.className='fm '+(ok?'ok':'er');m.textContent=t}}
   function val(id){var e=document.getElementById(id);return e?e.value:''}
   function run(btn,fn){var o=btn.textContent;btn.disabled=true;btn.textContent='Menyimpan…';msg('');
     Promise.resolve().then(fn).then(function(t){msg(t||'Tersimpan ✓',true)},function(e){msg('Gagal: '+(e&&e.message||e),false)}).then(function(){btn.disabled=false;btn.textContent=o})}
-  function recent(host,title,path,cols,idc,table,after){
+  function recent(host,title,path,cols,idc,table,after,edit){
     host.innerHTML='<div class="ct" style="margin-top:14px">'+title+'</div><div class="scroll"><table class="rt"><tr><td style="color:var(--mut)">Memuat…</td></tr></table></div>';
     R('GET',path).then(function(rows){
+      var byId={};rows.forEach(function(r){byId[r[idc]]=r});
       host.innerHTML='<div class="ct" style="margin-top:14px">'+title+'</div><div class="scroll"><table class="rt"><tr>'+cols.map(function(c){return'<th>'+c[0]+'</th>'}).join('')+'<th></th></tr>'+
-       (rows.map(function(r){return'<tr>'+cols.map(function(c){var v=r[c[1]];return'<td>'+(c[2]==='d'?D8(v):c[2]==='n'?NF(v):esc(v==null?'':String(v).slice(0,c[2]==='s'?60:40)))+'</td>'}).join('')+'<td><button class="btn sm" data-id="'+r[idc]+'">Hapus</button></td></tr>'}).join('')||'<tr><td colspan="'+(cols.length+1)+'" style="color:var(--mut)">Belum ada data.</td></tr>')+'</table></div>';
-      host.onclick=function(e){var b=e.target.closest('button[data-id]');if(!b||!confirm('Hapus baris ini?'))return;
-        R('DELETE',table+'?'+idc+'=eq.'+b.dataset.id).then(function(){return after?after(b.dataset.id):0}).then(function(){recent(host,title,path,cols,idc,table,after)},function(er){alert('Gagal hapus: '+er.message)})}
+       (rows.map(function(r){return'<tr>'+cols.map(function(c){var v=r[c[1]];return'<td>'+(c[2]==='d'?D8(v):c[2]==='n'?NF(v):esc(v==null?'':String(v).slice(0,c[2]==='s'?60:40)))+'</td>'}).join('')+'<td>'+(edit?'<button class="btn sm" data-ed="'+r[idc]+'" style="margin-right:4px">Ubah</button>':'')+'<button class="btn sm" data-id="'+r[idc]+'">Hapus</button></td></tr>'}).join('')||'<tr><td colspan="'+(cols.length+1)+'" style="color:var(--mut)">Belum ada data.</td></tr>')+'</table></div>';
+      host.onclick=function(e){var eb=e.target.closest('button[data-ed]');if(eb&&edit){var row=byId[eb.dataset.ed],body={};for(var k=0;k<edit.length;k++){var f=edit[k],cur=row[f[0]]==null?'':row[f[0]],v=prompt(f[1],cur);if(v===null)return;v=v.trim();
+          if(f[2]==='n'){v=v===''?null:Number(v.replace(',','.'));if(v!==null&&isNaN(v)){alert('Harus berupa angka');return}}else if(f[2]==='d'){if(!/^\d{4}-\d{2}-\d{2}$/.test(v)){alert('Format tanggal: YYYY-MM-DD');return}}else v=v===''?null:v;body[f[0]]=v}
+        R('PATCH',table+'?'+idc+'=eq.'+eb.dataset.ed,body).then(function(){recent(host,title,path,cols,idc,table,after,edit)},function(er){alert('Gagal ubah: '+er.message)});return}
+      var b=e.target.closest('button[data-id]');if(!b||!confirm('Hapus baris ini?'))return;
+        R('DELETE',table+'?'+idc+'=eq.'+b.dataset.id).then(function(){return after?after(b.dataset.id):0}).then(function(){recent(host,title,path,cols,idc,table,after,edit)},function(er){alert('Gagal hapus: '+er.message)})}
     },function(er){host.innerHTML='<div class="fm er">'+esc(er.message)+'</div>'})}
 
   /* ================= FORM 1 : harian ================= */
+  function f1w(){
+    $('#ipg').innerHTML='<div class="bar" style="margin-bottom:10px"><div class="seg" id="f1m"><button data-m="bulk">Semua unit sekaligus (cepat)</button><button data-m="one">Satu unit + P2H</button></div></div><div id="f1b"></div>';
+    var mm=st.m1||'bulk';document.querySelectorAll('#f1m button').forEach(function(b){b.className=b.dataset.m===mm?'on':''});
+    $('#f1m').onclick=function(e){var b=e.target.closest('button');if(b){st.m1=b.dataset.m;f1w()}};
+    if(st.pre&&st.pre.f1){st.m1=mm='one'}
+    mm==='one'?f1():f1bulk();
+  }
   function f1(){
     var pre=st.pre&&st.pre.f1||{};
-    $('#ipg').innerHTML='<div class="card"><div class="ct">Form 1 – Laporan Harian Unit</div><div class="fg">'+
+    $('#f1b').innerHTML='<div class="card"><div class="ct">Form 1 – Laporan Harian Satu Unit + P2H</div><div class="fg">'+
      '<label>Tanggal<input type="date" id="a_d" value="'+today+'"></label><label>Shift<select id="a_sh">'+opt(['1','2'],'1')+'</select></label>'+
      '<label class="w2">Unit<select id="a_u">'+opt(uid,pre.unit,'— pilih unit —')+'</select></label>'+
      '<label id="l_s"><span id="t_s">HM awal</span><input id="a_s" inputmode="decimal"></label><label id="l_e"><span id="t_e">HM akhir</span><input id="a_e" inputmode="decimal"></label>'+
      '<label>BBM (liter)<input id="a_f" inputmode="decimal"></label><label>Operator<input id="a_o"></label><label class="w3">Keterangan<input id="a_r"></label></div>'+
      '<div class="hint" id="a_h">Pilih unit: HM/KM awal otomatis terisi dari data terakhir.</div>'+
      '<div class="fs"><h4>P2H (pemeriksaan harian unit)</h4><label class="tg"><input type="checkbox" id="p_on" checked> P2H dilakukan hari ini</label><div class="fg" id="p_f">'+
-     '<label>Hasil<select id="p_st">'+opt(['OK – layak operasi','Ada temuan'],'OK – layak operasi')+'</select></label><label>Pemeriksa<select id="p_m">'+opt(mech,'','— pilih —')+'</select></label>'+
+     '<label>Hasil<select id="p_st">'+opt(['OK – layak operasi','Ada temuan'],'OK – layak operasi')+'</select></label>'+mi('p_m','Pemeriksa')+''+
      '<label class="w3" id="p_tl" style="display:none">Temuan<input id="p_t" placeholder="mis. oli rembes, ban kempis, lampu mati"></label></div><div class="hint" id="p_bd" style="display:none">Temuan yang butuh perbaikan: <button class="btn sm" id="p_go">Buat laporan breakdown (Form 2)</button></div></div>'+
      '<div style="margin-top:14px"><button class="btn pri" id="a_sv">Simpan</button></div><div class="fm" id="fm"></div></div><div id="rc1"></div><div id="rc1k"></div>';
     var cur=null;
@@ -1097,7 +1119,7 @@ function draw(U,MECH,RC,COMP,RL){
       if(!d)throw new Error('Isi tanggal.');var did=[];var jobs=[];
       if(e!=null||s!=null||f!=null){if(s==null||e==null)throw new Error('Isi '+(km?'KM':'HM')+' awal dan akhir.');if(e<s)throw new Error('Akhir lebih kecil dari awal.');if(!km&&e-s>24)throw new Error('HM sehari lebih dari 24 jam – cek angkanya.');
         jobs.push(km?R('POST','km_log',[{log_date:d,unit_id:u.unit_id,km_start:s,km_end:e,fuel_liter:f,remark:txt(val('a_r'))}]):R('POST','hm_log',[{log_date:d,shift:+val('a_sh'),unit_id:u.unit_id,hm_start:s,hm_finish:e,fuel_liter:f,operator:txt(val('a_o')),remark:txt(val('a_r'))}]));did.push((km?'KM':'HM')+' '+NF(e))}
-      if($('#p_on').checked){var tem=val('p_st')==='Ada temuan';if(!val('p_m'))throw new Error('Pilih pemeriksa P2H.');if(tem&&!txt(val('p_t')))throw new Error('Isi temuan P2H.');
+      if($('#p_on').checked){learn([val('p_m')]);var tem=val('p_st')==='Ada temuan';if(!val('p_m'))throw new Error('Isi nama pemeriksa P2H.');if(tem&&!txt(val('p_t')))throw new Error('Isi temuan P2H.');
         jobs.push(R('POST','activity_log',[{act_date:d,shift:+val('a_sh'),mechanic:val('p_m'),unit:u.unit_id,category:'Inspection / P2H',description:tem?'P2H temuan: '+txt(val('p_t')):'P2H OK',status:'Done',hours_manual:0.25}]));did.push('P2H')}
       if(!jobs.length)throw new Error('Tidak ada yang diisi.');
       return Promise.all(jobs).then(function(){$('#a_e').value='';$('#a_f').value='';$('#a_o').value='';$('#a_r').value='';unitCh();rl();return 'Tersimpan ✓ ('+did.join(', ')+') untuk '+u.unit_id})})};
@@ -1107,10 +1129,65 @@ function draw(U,MECH,RC,COMP,RL){
     rl();
   }
 
+
+  /* ---- Form 1 : semua unit sekaligus ---- */
+  function f1bulk(){
+    var meterOf={},dateOf={};
+    function fillLast(rows){meterOf={};dateOf={};(rows||[]).forEach(function(r){meterOf[r.unit_id]=r.last_meter;dateOf[r.unit_id]=r.last_date})}
+    fillLast(LAST);
+    var list=U.filter(function(u){return u.status==null||u.status==='Active'||u.status===''});
+    $('#f1b').innerHTML='<div class="card"><div class="ct">Form 1 – Input HM / KM semua unit sekaligus</div><div class="fg" style="grid-template-columns:repeat(auto-fill,minmax(150px,210px))">'+
+     '<label>Tanggal<input type="date" id="a_d" value="'+today+'"></label><label>Shift<select id="a_sh">'+opt(['1','2'],'1')+'</select></label><label>Cari unit<input id="a_q" placeholder="ketik untuk menyaring"></label></div>'+
+     '<div class="hint">Isi hanya <b>HM/KM akhir</b> dan <b>BBM</b>. Kolom awal terisi otomatis dari data terakhir. Unit yang dikosongkan dilewati. <b>Enter</b> = pindah kolom berikutnya.'+(LAST===null?' <span class="er">Data terakhir belum bisa dibaca – jalankan pms_forms.sql terbaru di Supabase.</span>':'')+'</div>'+
+     '<div class="scroll" style="max-height:60vh;margin-top:10px"><table class="bt" id="bt"></table></div>'+
+     '<div style="margin-top:14px"><button class="btn pri" id="bk_sv">Simpan semua</button> <span class="note" id="bk_n"></span></div><div class="fm" id="fm"></div></div><div id="rc1"></div><div id="rc1k"></div>';
+    function table(){
+      $('#bt').innerHTML='<tr><th>Unit</th><th>Model</th><th>Satuan</th><th>Awal (terakhir)</th><th>Tgl terakhir</th><th style="min-width:130px">HM/KM akhir</th><th>Selisih</th><th style="min-width:100px">BBM (L)</th></tr>'+
+        list.map(function(u){var a=meterOf[u.unit_id];return'<tr data-u="'+esc(u.unit_id)+'" data-q="'+esc((u.unit_id+' '+(u.model||'')).toLowerCase())+'"><td><b>'+esc(u.unit_id)+'</b></td><td>'+esc(u.model||'')+'</td><td>'+esc(u.meter_type||'HM')+'</td><td class="n">'+NF(a)+'</td><td>'+D8(dateOf[u.unit_id])+'</td><td><input data-k="e" inputmode="decimal" autocomplete="off"></td><td class="n df"></td><td><input data-k="f" inputmode="decimal" autocomplete="off"></td></tr>'}).join('')}
+    table();
+    $('#a_q').oninput=function(){var q=this.value.toLowerCase();document.querySelectorAll('#bt tr[data-u]').forEach(function(r){r.style.display=!q||r.dataset.q.indexOf(q)>=0?'':'none'})};
+    $('#bt').oninput=function(e){var i=e.target;if(i.dataset.k!=='e')return;var tr=i.closest('tr'),u=byU[tr.dataset.u],a=meterOf[u.unit_id],e_=num(i.value),c=tr.querySelector('.df');
+      if(e_==null||a==null){c.textContent='';c.style.color='';return}var d=e_-a,days=Math.max(1,Math.round((new Date(val('a_d'))-new Date(dateOf[u.unit_id]))/864e5)||1),lim=u.meter_type==='KM'?1e9:24*days;
+      c.textContent=NF(d);c.style.color=d<0?'var(--red)':d>lim?'#c9810a':'var(--green)';c.title=d<0?'Akhir lebih kecil dari awal':d>lim?'Selisih lebih dari '+lim+' jam sejak data terakhir – cek angkanya':''};
+    $('#bt').onkeyup=function(){var n=0;document.querySelectorAll('#bt input[data-k=e]').forEach(function(i){if(i.value.trim())n++});$('#bk_n').textContent=n+' unit terisi'};
+    $('#bk_sv').onclick=function(){run(this,function(){
+      var d=val('a_d');if(!d)throw new Error('Isi tanggal.');var hm=[],km=[],err=[],names=[];
+      document.querySelectorAll('#bt tr[data-u]').forEach(function(tr){var u=byU[tr.dataset.u],ei=tr.querySelector('[data-k=e]'),fi=tr.querySelector('[data-k=f]'),e=num(ei.value),f=num(fi.value);
+        if(e==null&&f==null)return;if(e==null){err.push(u.unit_id+': isi HM/KM akhir');return}
+        var s=meterOf[u.unit_id];if(s==null)s=e;if(e<s){err.push(u.unit_id+': akhir ('+e+') lebih kecil dari awal ('+s+')');return}
+        if(u.meter_type==='KM')km.push({log_date:d,unit_id:u.unit_id,km_start:s,km_end:e,fuel_liter:f});else hm.push({log_date:d,shift:+val('a_sh'),unit_id:u.unit_id,hm_start:s,hm_finish:e,fuel_liter:f})});
+      if(err.length)throw new Error(err.slice(0,4).join(' | ')+(err.length>4?' … (+'+(err.length-4)+')':''));
+      if(!hm.length&&!km.length)throw new Error('Belum ada unit yang diisi.');
+      var jobs=[];if(hm.length)jobs.push(R('POST','hm_log',hm));if(km.length)jobs.push(R('POST','km_log',km));
+      return Promise.all(jobs).then(function(){return R('GET','v_last_meter?select=unit_id,last_meter,last_date,src').catch(function(){return null})}).then(function(r){
+        if(r)fillLast(r);else{hm.concat(km).forEach(function(x){meterOf[x.unit_id]=x.hm_finish!=null?x.hm_finish:x.km_end;dateOf[x.unit_id]=d})}
+        table();$('#a_q').value='';$('#bk_n').textContent='';rl();return 'Tersimpan ✓ '+(hm.length+km.length)+' unit ('+hm.length+' HM, '+km.length+' KM)'})})};
+    function rl(){
+      recent($('#rc1'),'Input HM terakhir','hm_log?select=hm_id,log_date,unit_id,hm_start,hm_finish,fuel_liter,operator&order=hm_id.desc&limit=10',[['Tgl','log_date','d'],['Unit','unit_id'],['HM awal','hm_start','n'],['HM akhir','hm_finish','n'],['BBM','fuel_liter','n'],['Operator','operator']],'hm_id','hm_log');
+      recent($('#rc1k'),'Input KM terakhir','km_log?select=km_id,log_date,unit_id,km_start,km_end,fuel_liter&order=km_id.desc&limit=5',[['Tgl','log_date','d'],['Unit','unit_id'],['KM awal','km_start','n'],['KM akhir','km_end','n'],['BBM','fuel_liter','n']],'km_id','km_log')}
+    rl();
+  }
+
+  /* ================= PLAN GREASING ================= */
+  function gp(){
+    $('#ipg').innerHTML='<div class="card"><div class="ct">Plan Greasing (jadwal untuk sidebar Greasing)</div><div class="note" style="margin:0 0 10px">Hari mulai + interval (hari) menentukan tanggal greasing tiap bulan. Untuk tanggal khusus isi <b>Tanggal tertentu</b> (mis. 2,9,16,23). Perubahan tersimpan otomatis.</div>'+
+     '<div class="scroll" style="max-height:55vh"><table class="bt" id="gtb"></table></div>'+
+     '<div class="fs"><h4>Tambah unit ke plan</h4><div class="fg"><label class="w2">Unit<select id="g_u">'+opt(uid,'','— pilih unit —')+'</select></label><label>Tabel / grup<input id="g_t" placeholder="mis. LOADER"></label><label>Mulai tanggal<input id="g_s" inputmode="numeric" value="1"></label><label>Interval (hari)<input id="g_i" inputmode="numeric" value="7"></label><label>Kg / greasing<input id="g_k" inputmode="decimal" value="3"></label></div><div style="margin-top:12px"><button class="btn pri" id="g_add">Tambah</button></div></div><div class="fm" id="fm"></div></div>';
+    function load(){R('GET','greasing_plan?select=plan_id,unit_id,plan_table,start_day,interval_days,kg_per_greasing,active,plan_days&order=plan_table.asc,unit_id.asc').then(function(rows){
+      $('#gtb').innerHTML='<tr><th>Unit</th><th>Tabel</th><th>Mulai tgl</th><th>Interval</th><th>Kg</th><th>Tanggal tertentu</th><th>Aktif</th><th></th></tr>'+(rows.map(function(r){var I=function(f,v,w){return'<td><input data-id="'+r.plan_id+'" data-f="'+f+'" value="'+esc(v==null?'':v)+'" style="width:'+w+'px;text-align:left"></td>'};
+        return'<tr><td><b>'+esc(r.unit_id)+'</b></td>'+I('plan_table',r.plan_table,110)+I('start_day',r.start_day,60)+I('interval_days',r.interval_days,60)+I('kg_per_greasing',r.kg_per_greasing,60)+I('plan_days',r.plan_days,120)+'<td><input type="checkbox" data-id="'+r.plan_id+'" data-f="active"'+(r.active?' checked':'')+'></td><td><button class="btn sm" data-del="'+r.plan_id+'">Hapus</button></td></tr>'}).join('')||'<tr><td colspan="8" style="color:var(--mut)">Plan masih kosong.</td></tr>')},function(e){msg('Gagal membaca: '+e.message)})}
+    load();
+    $('#gtb').onchange=function(e){var i=e.target,f=i.dataset.f;if(!f)return;var v=f==='active'?i.checked:(f==='plan_table'||f==='plan_days')?txt(i.value):num(i.value);if(f==='interval_days'&&!(v>0)){msg('Interval harus lebih dari 0',false);return}
+      var b={};b[f]=v;R('PATCH','greasing_plan?plan_id=eq.'+i.dataset.id,b).then(function(){msg('Tersimpan ✓',true)},function(er){msg('Gagal: '+er.message,false)})};
+    $('#gtb').onclick=function(e){var b=e.target.closest('[data-del]');if(!b||!confirm('Hapus unit dari plan greasing?'))return;R('DELETE','greasing_plan?plan_id=eq.'+b.dataset.del).then(load,function(er){msg('Gagal: '+er.message,false)})};
+    $('#g_add').onclick=function(){run(this,function(){if(!val('g_u'))throw new Error('Pilih unit.');if(!txt(val('g_t')))throw new Error('Isi tabel / grup.');if(!(num(val('g_i'))>0))throw new Error('Interval harus lebih dari 0.');
+      return R('POST','greasing_plan',[{unit_id:val('g_u'),plan_table:txt(val('g_t')),start_day:num(val('g_s')),interval_days:num(val('g_i')),kg_per_greasing:num(val('g_k')),active:true}]).then(function(){load();return 'Ditambahkan ✓ '+val('g_u')})})};
+  }
+
   /* ================= FORM 2 : breakdown ================= */
   function f2(){
     var pre=st.pre&&st.pre.f2||{};st.pre=null;
-    var mrow=function(i){return'<label>Mekanik '+i+'<select id="m'+i+'">'+opt(mech,'','—')+'</select></label>'};
+    var mrow=function(i){return mi('m'+i,'Mekanik '+i)};
     $('#ipg').innerHTML='<div class="card"><div class="ct">Form 2 – Breakdown / Work Order</div><div class="fg">'+
      '<label>Tanggal laporan<input type="date" id="b_rd" value="'+(pre.d||today)+'"></label><label>Shift<select id="b_sh">'+opt(['1','2'],pre.sh||'1')+'</select></label>'+
      '<label class="w2">Unit<select id="b_u">'+opt(uid,pre.unit,'— pilih unit —')+'</select></label>'+
@@ -1127,7 +1204,7 @@ function draw(U,MECH,RC,COMP,RL){
      '<div id="rc2o"></div><div id="rc2"></div>';
     $('#b_sv').onclick=function(){run(this,function(){
       if(!val('b_u'))throw new Error('Pilih unit.');if(!txt(val('b_pb')))throw new Error('Isi problem.');if(!val('b_bd'))throw new Error('Isi tanggal BD.');
-      var js=val('b_js');if(js==='RFU'&&!val('b_ft'))throw new Error('Status RFU: isi jam unit RFU.');
+      learn([val('m1'),val('m2'),val('m3'),val('m4')]);var js=val('b_js');if(js==='RFU'&&!val('b_ft'))throw new Error('Status RFU: isi jam unit RFU.');
       var row={report_date:val('b_rd'),shift:+val('b_sh'),unit_id:val('b_u'),bd_date:val('b_bd'),bd_time:tm(val('b_bt')),work_start:tm(val('b_ws')),work_finish:tm(val('b_wf')),finish_time:tm(val('b_ft')),location:txt(val('b_loc')),hm_meter:num(val('b_hm')),problem:txt(val('b_pb')),action_progress:txt(val('b_ac')),job_status:js,downtime_code:val('b_dt'),mol_no:txt(val('b_mol')),component_1:txt(val('b_cp')),pr_no:txt(val('b_pr')),tyre_pos:txt(val('b_tp')),tyre_brand:txt(val('b_tb'))};
       return R('POST','breakdown_report',[row]).then(function(r){var id=r[0].bd_id,jobs=[],k=0;
         [1,2,3,4].forEach(function(i){if(val('m'+i))jobs.push({bd_id:id,slot:++k,mechanic:val('m'+i)})});
@@ -1148,7 +1225,7 @@ function draw(U,MECH,RC,COMP,RL){
     var svU=U.filter(function(u){return u.service_interval}),oc=lst('Oil_Compartment');
     $('#ipg').innerHTML='<div class="card"><div class="ct">Form 3 – Service Selesai &amp; Komponen (greasing, oil sampling, tyre)</div><div class="fg">'+
      '<label>Tanggal<input type="date" id="c_d" value="'+today+'"></label><label>Shift<select id="c_sh">'+opt(['1','2'],'1')+'</select></label>'+
-     '<label class="w2">Unit<select id="c_u">'+opt(uid,'','— pilih unit —')+'</select></label><label>Mekanik / foreman<select id="c_m">'+opt(mech,'','— pilih —')+'</select></label><label>Meter unit saat ini<input id="c_mt" inputmode="decimal"></label></div>'+
+     '<label class="w2">Unit<select id="c_u">'+opt(uid,'','— pilih unit —')+'</select></label>'+mi('c_m','Mekanik / foreman')+'<label>Meter unit saat ini<input id="c_mt" inputmode="decimal"></label></div>'+
      '<div class="hint" id="c_h">Pilih unit. Isi hanya bagian yang dikerjakan, bagian lain biarkan tidak dicentang.</div>'+
      '<div class="fs"><label class="tg"><input type="checkbox" id="s_on"> <b>Service berkala selesai (PS)</b></label><div class="fg" id="s_f">'+
      '<label>Jenis PS<select id="s_ps">'+opt(['PS 1','PS 2','PS 3','PS 4'],'','—')+'</select></label><label>Meter rencana<input id="s_pm" inputmode="decimal"></label><label>Tanggal rencana<input type="date" id="s_pd"></label><label>Meter aktual service<input id="s_am" inputmode="decimal"></label>'+
@@ -1166,7 +1243,7 @@ function draw(U,MECH,RC,COMP,RL){
           t='Service berikutnya: '+(s.next_service_type||'-')+' @ '+NF(s.next_service_meter)+' '+u.meter_type+' (meter sekarang '+NF(s.current_meter)+'). '}else t=(u.service_interval?'':'Unit ini belum punya interval service. ');
         if(l)t+='Service terakhir: '+l.ps_type+' @ '+NF(l.actual_meter)+' ('+D8(l.actual_date)+').';$('#c_h').textContent=t},function(e){$('#c_h').textContent='Gagal membaca: '+e.message})};
     $('#c_sv').onclick=function(){run(this,function(){
-      var u=cur;if(!u)throw new Error('Pilih unit dulu.');var d=val('c_d'),m=val('c_m'),mt=num(val('c_mt')),jobs=[],did=[];
+      var u=cur;if(!u)throw new Error('Pilih unit dulu.');var d=val('c_d'),m=val('c_m'),mt=num(val('c_mt')),jobs=[],did=[];learn([m]);
       if(!d)throw new Error('Isi tanggal.');
       if($('#s_on').checked){var ps=val('s_ps'),pm=num(val('s_pm')),am=num(val('s_am'));if(!ps)throw new Error('Pilih jenis PS.');if(pm==null)throw new Error('Isi meter rencana.');if(am==null)throw new Error('Isi meter aktual service.');if(!m)throw new Error('Pilih mekanik / foreman.');
         jobs.push(R('POST','service_log',[{unit_id:u.unit_id,plan_date:txt(val('s_pd'))||d,plan_meter:pm,ps_type:ps,actual_date:d,actual_meter:am,foreman:m,reason:txt(val('s_rs')),remark:txt(val('s_rm'))}]));
@@ -1180,7 +1257,7 @@ function draw(U,MECH,RC,COMP,RL){
       return Promise.all(jobs).then(function(){rl();return 'Tersimpan ✓ ('+did.join(', ')+') untuk '+u.unit_id+(did.indexOf('cek tyre')>=0?'':'')})})};
     function rl(){
       recent($('#rc3'),'Service terakhir','service_log?select=service_id,actual_date,unit_id,ps_type,actual_meter,foreman&actual_date=not.is.null&order=service_id.desc&limit=6',[['Tgl','actual_date','d'],['Unit','unit_id'],['PS','ps_type'],['Meter','actual_meter','n'],['Foreman','foreman']],'service_id','service_log');
-      recent($('#rc3g'),'Greasing terakhir','greasing_log?select=greasing_id,log_date,unit_id,point_area,qty_kg,mechanic&order=greasing_id.desc&limit=5',[['Tgl','log_date','d'],['Unit','unit_id'],['Area','point_area'],['Kg','qty_kg','n'],['Mekanik','mechanic']],'greasing_id','greasing_log');
+      recent($('#rc3g'),'Greasing terakhir','greasing_log?select=greasing_id,log_date,unit_id,point_area,qty_kg,mechanic&order=greasing_id.desc&limit=5',[['Tgl','log_date','d'],['Unit','unit_id'],['Area','point_area'],['Kg','qty_kg','n'],['Mekanik','mechanic']],'greasing_id','greasing_log',null,[['log_date','Tanggal greasing (YYYY-MM-DD)','d'],['qty_kg','Jumlah grease terpakai (kg)','n'],['point_area','Area / titik','t']]);
       recent($('#rc3o'),'Oil sampling terakhir','oil_sampling?select=sample_id,sample_date,unit_id,compartment,oil_meter,lab&order=sample_id.desc&limit=5',[['Tgl','sample_date','d'],['Unit','unit_id'],['Kompartemen','compartment'],['Umur oli','oil_meter','n'],['Lab','lab']],'sample_id','oil_sampling');
       recent($('#rc3t'),'Pasang ban terakhir','tyre_fit_log?select=fit_id,fit_date,unit_id,pos,fit_meter,tyre_brand&order=fit_id.desc&limit=5',[['Tgl','fit_date','d'],['Unit','unit_id'],['Posisi','pos'],['Meter','fit_meter','n'],['Merk','tyre_brand']],'fit_id','tyre_fit_log')}
     rl();
@@ -1189,12 +1266,12 @@ function draw(U,MECH,RC,COMP,RL){
   /* ================= FORM 4 : aktivitas ================= */
   function f4(){
     $('#ipg').innerHTML='<div class="card"><div class="ct">Form 4 – Aktivitas Mekanik (Daily Activity)</div><div class="fg">'+
-     '<label>Tanggal<input type="date" id="d_d" value="'+today+'"></label><label>Shift<select id="d_sh">'+opt(['1','2'],'1')+'</select></label><label>Mekanik<select id="d_m">'+opt(mech,'','— pilih —')+'</select></label>'+
+     '<label>Tanggal<input type="date" id="d_d" value="'+today+'"></label><label>Shift<select id="d_sh">'+opt(['1','2'],'1')+'</select></label>'+mi('d_m','Mekanik')+''+
      '<label class="w2">Unit (boleh kosong)<select id="d_u">'+opt(uid,'','— non-unit —')+'</select></label><label>Kategori<select id="d_c">'+opt(lst('Act_Category'),'')+'</select></label><label>Status<select id="d_s">'+opt(lst('Act_Status'),'Done')+'</select></label>'+
      '<label>Mulai<input type="time" id="d_t1"></label><label>Selesai<input type="time" id="d_t2"></label><label>Atau jam manual<input id="d_hm" inputmode="decimal"></label><label>No. ref (WO)<input id="d_rf"></label>'+
      '<label class="w3">Uraian pekerjaan<input id="d_ds"></label></div><div style="margin-top:14px"><button class="btn pri" id="d_sv">Simpan</button></div><div class="fm" id="fm"></div></div><div id="rc4"></div>';
     $('#d_sv').onclick=function(){run(this,function(){
-      if(!val('d_m'))throw new Error('Pilih mekanik.');if(!txt(val('d_ds')))throw new Error('Isi uraian pekerjaan.');if(!((val('d_t1')&&val('d_t2'))||num(val('d_hm'))!=null))throw new Error('Isi jam mulai & selesai, atau jam manual.');
+      if(!val('d_m'))throw new Error('Isi nama mekanik.');learn([val('d_m')]);if(!txt(val('d_ds')))throw new Error('Isi uraian pekerjaan.');if(!((val('d_t1')&&val('d_t2'))||num(val('d_hm'))!=null))throw new Error('Isi jam mulai & selesai, atau jam manual.');
       return R('POST','activity_log',[{act_date:val('d_d'),shift:+val('d_sh'),mechanic:val('d_m'),unit:txt(val('d_u')),category:val('d_c'),description:txt(val('d_ds')),start_time:tm(val('d_t1')),finish_time:tm(val('d_t2')),hours_manual:num(val('d_hm')),status:val('d_s'),ref_no:txt(val('d_rf'))}]).then(function(){$('#d_ds').value='';$('#d_t1').value='';$('#d_t2').value='';$('#d_hm').value='';rl()})})};
     function rl(){recent($('#rc4'),'Aktivitas terakhir','activity_log?select=act_id,act_date,mechanic,unit,category,description,hours&order=act_id.desc&limit=8',[['Tgl','act_date','d'],['Mekanik','mechanic'],['Unit','unit'],['Kategori','category'],['Uraian','description','s'],['Jam','hours','n']],'act_id','activity_log')}
     rl();
@@ -1216,6 +1293,15 @@ function draw(U,MECH,RC,COMP,RL){
     $('#k_ap').onclick=function(){var m=val('k_m'),v=num(val('k_v'));if(!m||!(v>0)){$('#k_msg').className='note er';$('#k_msg').textContent='Pilih model dan isi angka > 0.';return}
       R('PATCH','units?model=eq.'+encodeURIComponent(m),{meter_per_day:v}).then(function(rows){U.forEach(function(u){if(u.model===m)u.meter_per_day=v});tb();$('#k_msg').className='note ok';$('#k_msg').textContent='Tersimpan ✓ '+rows.length+' unit '+m+' = '+v+' per hari'},function(er){$('#k_msg').className='note er';$('#k_msg').textContent='Gagal: '+er.message})};
   }
+
+  /* ---- keyboard: Enter = kolom berikutnya, Ctrl+Panah atas/bawah = ganti pilihan ---- */
+  function focusables(){return Array.prototype.filter.call($('#ipg').querySelectorAll('input,select,textarea,button'),function(el){if(el.disabled||el.type==='hidden'||el.offsetParent===null)return false;if(el.tagName==='BUTTON'&&el.classList.contains('sm'))return false;var g=el.closest('.fg');return !(g&&getComputedStyle(g).pointerEvents==='none')})}
+  $('#ipg').addEventListener('keydown',function(e){var t=e.target;
+    if(e.key==='Enter'&&!e.ctrlKey&&!e.shiftKey&&!e.altKey&&(t.tagName==='INPUT'||t.tagName==='SELECT')){e.preventDefault();var f=focusables(),i=f.indexOf(t);if(i>=0&&i<f.length-1){var n=f[i+1];n.focus();if(n.select&&n.tagName==='INPUT'&&n.type!=='checkbox'&&n.type!=='date'&&n.type!=='time')try{n.select()}catch(x){}}return}
+    if(e.ctrlKey&&(e.key==='ArrowDown'||e.key==='ArrowUp')){var d=e.key==='ArrowDown'?1:-1;
+      if(t.tagName==='SELECT'){e.preventDefault();var j=Math.max(0,Math.min(t.options.length-1,t.selectedIndex+d));if(j!==t.selectedIndex){t.selectedIndex=j;t.dispatchEvent(new Event('change',{bubbles:true}))}}
+      else if(t.tagName==='INPUT'&&t.list){e.preventDefault();var os=Array.prototype.map.call(t.list.options,function(o){return o.value}),k=os.indexOf(t.value);k=k<0?(d>0?0:os.length-1):Math.max(0,Math.min(os.length-1,k+d));if(os.length){t.value=os[k];t.dispatchEvent(new Event('input',{bubbles:true}));t.dispatchEvent(new Event('change',{bubbles:true}))}}}
+  });
   show();
 }
 })();
@@ -1230,7 +1316,7 @@ var $=function(s,r){return(r||document).querySelector(s)},n=function(v,d){return
 (function(){if(HERO_BG_URL){var st=document.createElement('style');st.textContent='.hero{background:url("'+HERO_BG_URL+'") no-repeat right 180px center/auto 130%,linear-gradient(100deg,#13233f,#2a4a8a)}';document.head.appendChild(st)}})();
 (function(){if(LOGO_URL){var l=document.getElementById('logo');l.className='logo has';l.innerHTML='<img src="'+LOGO_URL+'" alt="logo">'}})();
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
-var MENU=[['Dashboard','dash'],['INPUT DATA'],['Form Input (1-5)','input'],['EQUIPMENT'],['Indicator Equipment Health','unit'],
+var MENU=[['Dashboard','dash'],['INPUT DATA'],['Form Input','input'],['EQUIPMENT'],['Indicator Equipment Health','unit'],
 ['MAINTENANCE'],['Service Schedule','pm'],['Tyre Maintenance','tyre'],['Tyre Schedule','sheet:Tyre_Schedule'],['Work Order','sheet:Work_Order'],['Daily Activity','act'],['Backlog Monitoring','backlog'],
 ['COMPONENT'],['Oil Sampling (SOS)','sheet:Oil_Sampling'],['Greasing','greasing'],['Component Failure','comp'],
 ['REPORT & ANALYTICS'],['Pareto Breakdown','pareto'],['Fuel Ratio','fuel'],
@@ -1284,8 +1370,8 @@ function pDash(D){var st={mode:'M',per:null},usel=[];
   $('#c1').innerHTML=line([{c:'var(--blue)',v:src.map(function(x){return x.pa})},{c:'var(--green)',v:src.map(function(x){return x.ma})}],labs,si);var dlo=(st.dm=='c'?cur.dl.c:cur.dl.t)||{};$('#c2').innerHTML=pie(Object.keys(dlo).map(function(k){return{k:k,v:dlo[k]}}).sort(function(a,b){return b.v-a.v}),'h');
   $('#inf').innerHTML=((D.pm&&D.pm.items)||[]).map(function(x){return'<li><span class="dot" style="background:'+(x.s=='Overdue'?'var(--red)':'var(--amber)')+'"></span>PM '+esc(x.u)+' – '+esc(x.t)+' ('+x.s+')<span class="t">'+(x.rem==null?'':x.rem<0?Math.abs(x.rem)+' over':x.rem+' left')+'</span></li>'}).join('')+'<li><span class="dot" style="background:var(--red)"></span>Units still down: '+D.bd+'<span class="t">backlog</span></li>'+D.info.slice(0,5).map(function(b){return'<li><span class="dot" style="background:'+(b[2]=='In Progress'?'var(--blue)':'var(--amber)')+'"></span>'+esc(b[0])+' – '+esc(b[1])+' ('+esc(b[2])+')<span class="t">'+b[3]+' days</span></li>'}).join('');
   var gb=function(v,c){return v==null?'<span style="color:var(--mut)">–</span>':'<div style="display:flex;align-items:center;gap:8px"><div style="flex:1;background:var(--grid);border-radius:5px;height:10px"><div style="width:'+Math.max(0,Math.min(100,(v-.5)/.5*100))+'%;height:10px;border-radius:5px;background:'+c+'"></div></div><b style="width:52px;text-align:right">'+(v*100).toFixed(1)+'%</b></div>'};
-  $('#tg').innerHTML='<tr><th>Category</th><th class="n">Units</th><th style="width:27%">PA</th><th style="width:27%">MA</th><th class="n">UA</th><th class="n">MTBF (hrs)</th><th class="n">MTTR (hrs)</th></tr>'+Object.keys(cur.g).map(function(g){var k=cur.g[g];return'<tr><td><b>'+esc(g)+'</b></td><td class="n">'+k.n+'</td><td>'+gb(k.pa,'var(--blue)')+'</td><td>'+gb(k.ma,'var(--green)')+'</td><td class="n">'+pc(k.ua)+'</td><td class="n">'+hh(k.mtbf)+'</td><td class="n">'+hh(k.mttr)+'</td></tr>'}).join('');
-  var tb=function(a,c,k){return'<tr><th>No</th><th>'+k+'</th><th></th><th class="n">Events</th><th class="n">Hours</th><th class="n">%</th></tr>'+(a.length?a.map(function(r,j){return'<tr><td>'+(j+1)+'</td><td>'+esc(r[0])+'</td><td style="width:30%"><div class="bb" style="width:'+r[1]/a[0][1]*100+'%;background:'+c+'"></div></td><td class="n"><b>'+r[3]+'×</b></td><td class="n">'+n(r[1])+'</td><td class="n">'+(r[2]*100).toFixed(1)+'%</td></tr>'}).join(''):'<tr><td colspan="6" style="color:var(--mut)">No breakdown in this period</td></tr>')};
+  $('#tg').innerHTML='<tr><th>Category</th><th class="n">Units</th><th class="n">Working Hrs</th><th style="width:27%">PA</th><th style="width:27%">MA</th><th class="n">UA</th><th class="n">MTBF (hrs)</th><th class="n">MTTR (hrs)</th></tr>'+Object.keys(cur.g).map(function(g){var k=cur.g[g];return'<tr><td><b>'+esc(g)+'</b></td><td class="n">'+k.n+'</td><td class="n">'+(k.w==null?'–':n(k.w))+'</td><td>'+gb(k.pa,'var(--blue)')+'</td><td>'+gb(k.ma,'var(--green)')+'</td><td class="n">'+pc(k.ua)+'</td><td class="n">'+hh(k.mtbf)+'</td><td class="n">'+hh(k.mttr)+'</td></tr>'}).join('');
+  var tb=function(a,c,k){var W=k=='Unit';return'<tr><th>No</th><th>'+k+'</th><th></th><th class="n">Events</th><th class="n">Hours</th>'+(W?'<th class="n">Working Hrs</th>':'')+'<th class="n">%</th></tr>'+(a.length?a.map(function(r,j){return'<tr><td>'+(j+1)+'</td><td>'+esc(r[0])+'</td><td style="width:30%"><div class="bb" style="width:'+r[1]/a[0][1]*100+'%;background:'+c+'"></div></td><td class="n"><b>'+r[3]+'×</b></td><td class="n">'+n(r[1])+'</td>'+(W?'<td class="n">'+n(r[4])+'</td>':'')+'<td class="n">'+(r[2]*100).toFixed(1)+'%</td></tr>'}).join(''):'<tr><td colspan="7" style="color:var(--mut)">No breakdown in this period</td></tr>')};
   $('#t1').innerHTML=tb(cur.tu,'var(--blue)','Unit');
   var allU=Object.keys(cur.au).map(function(u){return[u,cur.au[u]]}).sort(function(x,y){return y[1][0]-x[1][0]}),totU=allU.reduce(function(s,x){return s+x[1][0]},0)||1;
   if(!$('#dl').dataset.b){$('#dl').dataset.b=1;$('#dl').innerHTML='<div style="padding:3px 6px;color:var(--mut);font-size:11.5px">Tick up to 10 units <a id="clr" style="color:var(--acc);cursor:pointer;float:right">Clear</a></div>'+D.ul.map(function(u){return'<label style="display:flex;gap:7px;padding:3px 6px;font-size:12px;cursor:pointer"><input type="checkbox" value="'+esc(u[0])+'"> '+esc(u[0])+' <span style="color:var(--mut);margin-left:auto">'+esc(u[1])+'</span></label>'}).join('');
@@ -1294,7 +1380,7 @@ function pDash(D){var st={mode:'M',per:null},usel=[];
   $('#ds').textContent=usel.length?usel.length+' unit'+(usel.length>1?'s':'')+' selected ▾':'Top 10 – all units ▾';
   if(!usel.length){$('#ud').innerHTML='';$('#t1').style.display=''}else{$('#t1').style.display='none';
    var rows=usel.map(function(u){return[u].concat(cur.au[u]||[0,0])}).sort(function(x,y){return y[1]-x[1]}),mx=rows[0][1]||1;
-   var html='<table><tr><th>No</th><th>Unit</th><th></th><th class="n">Events</th><th class="n">Hours</th><th class="n">% fleet</th><th class="n">Rank</th></tr>'+rows.map(function(r,j){var rk=allU.findIndex(function(x){return x[0]==r[0]});return'<tr><td>'+(j+1)+'</td><td>'+esc(r[0])+'</td><td style="width:24%"><div class="bb" style="width:'+r[1]/mx*100+'%;background:var(--blue)"></div></td><td class="n"><b>'+r[2]+'×</b></td><td class="n">'+n(r[1])+'</td><td class="n">'+(r[1]/totU*100).toFixed(1)+'%</td><td class="n">'+(rk>=0&&r[1]>0?rk+1:'–')+'</td></tr>'}).join('')+'</table>';
+   var html='<table><tr><th>No</th><th>Unit</th><th></th><th class="n">Events</th><th class="n">Hours</th><th class="n">Working Hrs</th><th class="n">% fleet</th><th class="n">Rank</th></tr>'+rows.map(function(r,j){var rk=allU.findIndex(function(x){return x[0]==r[0]});return'<tr><td>'+(j+1)+'</td><td>'+esc(r[0])+'</td><td style="width:24%"><div class="bb" style="width:'+r[1]/mx*100+'%;background:var(--blue)"></div></td><td class="n"><b>'+r[2]+'×</b></td><td class="n">'+n(r[1])+'</td><td class="n">'+n(r[3]||0)+'</td><td class="n">'+(r[1]/totU*100).toFixed(1)+'%</td><td class="n">'+(rk>=0&&r[1]>0?rk+1:'–')+'</td></tr>'}).join('')+'</table>';
    if(rows.some(function(r){return r[2]==0&&r[1]>0}))html+='<div class="note">0× = the breakdown started in an earlier period and is still running; its hours are counted here, the event only in the period it started.</div>';
    if(usel.length==1){var u=usel[0],a=cur.au[u]||[0,0],uc=cur.uc[u]||[];html+='<div class="ct" style="margin-top:12px">Components – '+esc(u)+'</div><table><tr><th>No</th><th>Component</th><th></th><th class="n">Events</th><th class="n">Hours</th><th class="n">%</th></tr>'+(uc.length?uc.map(function(r,j){return'<tr><td>'+(j+1)+'</td><td>'+esc(r[0])+'</td><td style="width:26%"><div class="bb" style="width:'+r[1]/uc[0][1]*100+'%;background:var(--amber)"></div></td><td class="n"><b>'+r[2]+'×</b></td><td class="n">'+n(r[1])+'</td><td class="n">'+(a[0]?(r[1]/a[0]*100).toFixed(0):0)+'%</td></tr>'}).join(''):'<tr><td colspan="6" style="color:var(--mut)">No breakdown recorded in this period</td></tr>')+'</table>'}
    $('#ud').innerHTML=html}
@@ -1641,9 +1727,8 @@ var IMG_DEFAULT='foto';
   else if(m=='none'){r.setProperty('--img-pc','none');r.setProperty('--img-gd','none')}
   else{r.setProperty('--img-pc',uri(ART.pc,m));r.setProperty('--img-gd',uri(ART.gd,m))}
   var s=document.getElementById('imsel');if(s)s.value=m;if(m=='foto'||m=='none')document.documentElement.removeAttribute('data-img');else document.documentElement.setAttribute('data-img',m);try{localStorage.setItem('pms-img',m)}catch(e){}};
- var m=IMG_DEFAULT;try{var q=localStorage.getItem('pms-img');if(q&&CSS[q]||q=='foto'||q=='none')m=q}catch(e){}
- var sel=document.getElementById('imsel');if(!sel.querySelector('option[value="'+m+'"]'))m=IMG_DEFAULT;
- sel.onchange=function(){applyImg(sel.value)};applyImg(m);
+ var m='foto';
+ applyImg(m);
 })();
 
 buildNav();go('dash','Dashboard');
