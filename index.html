@@ -1060,7 +1060,7 @@ function draw(U,MECH,RC,COMP,RL,LAST){
   var mech=MECH.slice();
   var mi=function(id,lab,cls){return'<label'+(cls?' class="'+cls+'"':'')+'>'+lab+'<input id="'+id+'" list="dl_m" autocomplete="off" placeholder="pilih / ketik nama"></label>'};
   function dlm(){var d=document.getElementById('dl_m');if(d)d.innerHTML=mech.map(function(n){return'<option value="'+esc(n)+'">'}).join('')}
-  function learn(a){a=a.map(function(x){return(x||'').trim()}).filter(function(x){return x&&mech.map(function(y){return y.toUpperCase()}).indexOf(x.toUpperCase())<0});if(!a.length)return;R('POST','mechanics',a.map(function(n){return{mechanic:n,role:'Mechanic',active:true}})).then(function(){a.forEach(function(n){mech.push(n)});mech.sort();dlm()},function(){})}
+  function learn(a){a=a.map(function(x){return canon(x)}).filter(function(x){return x&&mech.map(function(y){return y.toUpperCase()}).indexOf(x.toUpperCase())<0});if(!a.length)return;R('POST','mechanics',a.map(function(n){return{mechanic:n,role:'Mechanic',active:true}})).then(function(){a.forEach(function(n){mech.push(n)});mech.sort();dlm()},function(){})}
   var dl=RC.filter(function(x){return x.category==='DELAY'}).map(function(x){return {v:x.code,l:x.code+' – '+x.description}});
   var dt=RC.filter(function(x){return x.category==='DOWNTIME'}).map(function(x){return {v:x.code,l:x.code+' – '+x.description}});
   var comp=COMP.map(function(x){return x.component});
@@ -1073,7 +1073,8 @@ function draw(U,MECH,RC,COMP,RL,LAST){
 
   /* ---- util form ---- */
   function msg(t,ok){var m=$('#fm');if(m){m.className='fm '+(ok?'ok':'er');m.textContent=t}}
-  function val(id){var e=document.getElementById(id);return e?e.value:''}
+  function canon(n){n=(n||'').trim();if(!n)return '';var m=mech.filter(function(x){return x.toUpperCase()===n.toUpperCase()})[0];return m||n.toUpperCase()}
+  function val(id){var e=document.getElementById(id);if(!e)return '';return e.getAttribute('list')==='dl_m'?canon(e.value):e.value}
   function run(btn,fn){var o=btn.textContent;btn.disabled=true;btn.textContent='Menyimpan…';msg('');
     Promise.resolve().then(fn).then(function(t){msg(t||'Tersimpan ✓',true)},function(e){msg('Gagal: '+(e&&e.message||e),false)}).then(function(){btn.disabled=false;btn.textContent=o})}
   var EDITS={
@@ -1281,6 +1282,8 @@ function draw(U,MECH,RC,COMP,RL,LAST){
           t='Service berikutnya: '+(s.next_service_type||'-')+' @ '+NF(s.next_service_meter)+' '+u.meter_type+' (meter sekarang '+NF(s.current_meter)+'). '}else t=(u.service_interval?'':'Unit ini belum punya interval service. ');
         if(l)t+='Service terakhir: '+l.ps_type+' @ '+NF(l.actual_meter)+' ('+D8(l.actual_date)+').';$('#c_h').textContent=t},function(e){$('#c_h').textContent='Gagal membaca: '+e.message})};
     $('#c_sv').onclick=function(){run(this,function(){
+      var chk=(!$('#s_on').checked||!cur)?Promise.resolve(false):R('GET','service_log?select=service_id&unit_id=eq.'+encodeURIComponent(cur.unit_id)+'&actual_date=eq.'+val('c_d')+'&ps_type=eq.'+encodeURIComponent(val('s_ps'))+'&actual_meter=eq.'+num(val('s_am'))).then(function(x){return x.length>0}).catch(function(){return false});
+      return chk.then(function(dup){if(dup&&!confirm('Service ini (unit, tanggal, PS dan meter yang sama) SUDAH tercatat. Simpan lagi akan membuat data dobel. Tetap simpan?'))throw new Error('Dibatalkan \u2013 service sudah tercatat. Hapus/ubah dari daftar Service terakhir bila perlu.');
       var u=cur;if(!u)throw new Error('Pilih unit dulu.');var d=val('c_d'),m=val('c_m'),mt=num(val('c_mt')),jobs=[],did=[];learn([m]);
       if(!d)throw new Error('Isi tanggal.');
       if($('#s_on').checked){var ps=val('s_ps'),pm=num(val('s_pm')),am=num(val('s_am'));if(!ps)throw new Error('Pilih jenis PS.');if(pm==null)throw new Error('Isi meter rencana.');if(am==null)throw new Error('Isi meter aktual service.');if(!m)throw new Error('Pilih mekanik / foreman.');
@@ -1292,7 +1295,7 @@ function draw(U,MECH,RC,COMP,RL,LAST){
           jobs.push(R('POST','tyre_fit_log',[{fit_date:d,unit_id:u.unit_id,pos:txt(val('t_p')),fit_meter:mt,tyre_brand:txt(val('t_b')),life_target:num(val('t_l'))}]));did.push('pasang ban')}
         else{jobs.push(R('PATCH','tyre_schedule?unit_id=eq.'+encodeURIComponent(u.unit_id),{last_check_date:d}));did.push('cek tyre')}}
       if(!jobs.length)throw new Error('Centang minimal satu bagian yang dikerjakan.');
-      return Promise.all(jobs).then(function(){rl();return 'Tersimpan ✓ ('+did.join(', ')+') untuk '+u.unit_id+(did.indexOf('cek tyre')>=0?'':'')})})};
+      return Promise.all(jobs).then(function(){rl();return 'Tersimpan ✓ ('+did.join(', ')+') untuk '+u.unit_id+(did.indexOf('cek tyre')>=0?'':'')})})})};
     function rl(){
       recent($('#rc3'),'Service terakhir','service_log?select=service_id,actual_date,unit_id,ps_type,actual_meter,foreman&actual_date=not.is.null&order=service_id.desc&limit=6',[['Tgl','actual_date','d'],['Unit','unit_id'],['PS','ps_type'],['Meter','actual_meter','n'],['Foreman','foreman'],['Alasan','reason','s'],['Catatan','remark','s']],'service_id','service_log');
       recent($('#rc3g'),'Greasing terakhir','greasing_log?select=greasing_id,log_date,unit_id,point_area,qty_kg,mechanic&order=greasing_id.desc&limit=5',[['Tgl','log_date','d'],['Unit','unit_id'],['Area','point_area'],['Kg','qty_kg','n'],['Mekanik','mechanic']],'greasing_id','greasing_log',null,[['log_date','Tanggal greasing (YYYY-MM-DD)','d'],['qty_kg','Jumlah grease terpakai (kg)','n'],['point_area','Area / titik','t']]);
@@ -1332,6 +1335,8 @@ function draw(U,MECH,RC,COMP,RL,LAST){
       RW('PATCH','units?model=eq.'+encodeURIComponent(m),{meter_per_day:v}).then(function(rows){U.forEach(function(u){if(u.model===m)u.meter_per_day=v});tb();$('#k_msg').className='note ok';$('#k_msg').textContent='Tersimpan ✓ '+rows.length+' unit '+m+' = '+v+' per hari'},function(er){$('#k_msg').className='note er';$('#k_msg').textContent='Gagal: '+er.message})};
   }
 
+  function fixMech(e){var t=e.target;if(t&&t.tagName==='INPUT'&&t.getAttribute('list')==='dl_m')t.value=canon(t.value)}
+  $('#ipg').addEventListener('change',fixMech);
   function fixTime(e){var t=e.target;if(!t||t.tagName!=='INPUT'||t.getAttribute('list')!=='dl_t')return;var n=normT(t.value);if(n===false){t.value='';t.style.borderColor='var(--red)';var m=document.getElementById('fm')||document.getElementById('ed_m');if(m){m.className='fm er';m.textContent='Format jam salah. Contoh: 17:30, 1730, atau 8'}}else{t.style.borderColor='';if(n)t.value=n}}
   $('#ipg').addEventListener('change',fixTime);document.addEventListener('change',function(e){if(e.target.closest&&e.target.closest('#ed_box'))fixTime(e)});
   /* ---- keyboard: Enter = kolom berikutnya, Ctrl+Panah atas/bawah = ganti pilihan ---- */
