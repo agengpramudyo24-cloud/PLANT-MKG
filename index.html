@@ -1018,6 +1018,7 @@ function draw(ST,FC,AC,PF){
 /* ===== Halaman "Form Input" : Form 1 Harian, Form 2 Breakdown, Form 3 Service & Komponen, Form 4 Aktivitas, Pengaturan ===== */
 (function(){
 var R=function(m,p,b){return PMS_REST(m,p,b)};
+var RW=function(m,p,b){return R(m,p,b).then(function(x){if(!x.length)throw new Error('Tidak ada baris yang berubah. Kemungkinan akun ini belum terdaftar sebagai Admin Plant / Planner, atau datanya sudah tidak ada.');return x})};
 var iso=function(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)};
 var BS=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
 var D8=function(s){return s?s.slice(8,10)+' '+BS[+s.slice(5,7)-1]+' '+s.slice(2,4):'-'};
@@ -1085,6 +1086,10 @@ function draw(U,MECH,RC,COMP,RL,LAST){
     tyre_fit_log:[['fit_date','Tanggal pasang','d'],['pos','Posisi ban','t'],['fit_meter','Meter pasang','n'],['tyre_brand','Merk','t']],
     activity_log:[['act_date','Tanggal','d'],['mechanic','Mekanik','t'],['category','Kategori','t'],['description','Uraian','t'],['hours_manual','Jam manual','n'],['status','Status','t']]
   };
+  /* service_log <-> activity_log (catatan jam kerja service dibuat otomatis oleh Form 3) */
+  function linkSvc(row,body){if(!row||!row.actual_date)return 0;var q='activity_log?unit=eq.'+encodeURIComponent(row.unit_id)+'&act_date=eq.'+row.actual_date+'&category=eq.'+encodeURIComponent('Preventive Service (PM)')+'&description=eq.'+encodeURIComponent(row.ps_type+' @ '+row.actual_meter);
+    if(!body)return R('DELETE',q).catch(function(){});
+    var n={act_date:body.actual_date||row.actual_date,description:(body.ps_type||row.ps_type)+' @ '+(body.actual_meter!=null?body.actual_meter:row.actual_meter)};return R('PATCH',q,n).catch(function(){})}
   function editDlg(title,fields,row){
     return new Promise(function(res){
       var ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;background:rgba(15,25,45,.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px';
@@ -1113,9 +1118,9 @@ function draw(U,MECH,RC,COMP,RL,LAST){
       host.onclick=function(e){var eb=e.target.closest('button[data-ed]');
         if(eb&&edit){var row=byId[eb.dataset.ed];editDlg('Ubah data – '+(row.unit_id||row.unit||('#'+eb.dataset.ed)),edit,row).then(function(body){if(!body)return;
             if(table==='breakdown_report'){var js=(body.job_status||'').toUpperCase();if(js&&js!=='BD'&&js!=='RFU'){alert('Status harus BD atau RFU');return}body.job_status=js||row.job_status;if(body.job_status==='RFU'&&!body.finish_time){alert('Status RFU: isi jam unit RFU');return}}
-            R('PATCH',table+'?'+idc+'=eq.'+eb.dataset.ed,body).then(function(){recent(host,title,path,cols,idc,table,after,edit)},function(er){alert('Gagal ubah: '+er.message)})});return}
+            RW('PATCH',table+'?'+idc+'=eq.'+eb.dataset.ed,body).then(function(){return table==='service_log'?linkSvc(row,body):0}).then(function(){recent(host,title,path,cols,idc,table,after,edit)},function(er){alert('Gagal ubah: '+er.message)})});return}
         var b=e.target.closest('button[data-id]');if(!b||!confirm('Hapus baris ini?'))return;
-        R('DELETE',table+'?'+idc+'=eq.'+b.dataset.id).then(function(){return after?after(b.dataset.id):0}).then(function(){recent(host,title,path,cols,idc,table,after,edit)},function(er){alert('Gagal hapus: '+er.message)})}
+        RW('DELETE',table+'?'+idc+'=eq.'+b.dataset.id).then(function(){return table==='service_log'?linkSvc(byId[b.dataset.id],null):after?after(b.dataset.id):0}).then(function(){recent(host,title,path,cols,idc,table,after,edit)},function(er){alert('Gagal hapus: '+er.message)})}
     },function(er){host.innerHTML='<div class="fm er">'+esc(er.message)+'</div>'})}
 
   /* ================= FORM 1 : harian ================= */
@@ -1211,8 +1216,8 @@ function draw(U,MECH,RC,COMP,RL,LAST){
         return'<tr><td><b>'+esc(r.unit_id)+'</b></td>'+I('plan_table',r.plan_table,110)+I('start_day',r.start_day,60)+I('interval_days',r.interval_days,60)+I('kg_per_greasing',r.kg_per_greasing,60)+I('plan_days',r.plan_days,120)+'<td><input type="checkbox" data-id="'+r.plan_id+'" data-f="active"'+(r.active?' checked':'')+'></td><td><button class="btn sm" data-del="'+r.plan_id+'">Hapus</button></td></tr>'}).join('')||'<tr><td colspan="8" style="color:var(--mut)">Plan masih kosong.</td></tr>')},function(e){msg('Gagal membaca: '+e.message)})}
     load();
     $('#gtb').onchange=function(e){var i=e.target,f=i.dataset.f;if(!f)return;var v=f==='active'?i.checked:(f==='plan_table'||f==='plan_days')?txt(i.value):num(i.value);if(f==='interval_days'&&!(v>0)){msg('Interval harus lebih dari 0',false);return}
-      var b={};b[f]=v;R('PATCH','greasing_plan?plan_id=eq.'+i.dataset.id,b).then(function(){msg('Tersimpan ✓',true)},function(er){msg('Gagal: '+er.message,false)})};
-    $('#gtb').onclick=function(e){var b=e.target.closest('[data-del]');if(!b||!confirm('Hapus unit dari plan greasing?'))return;R('DELETE','greasing_plan?plan_id=eq.'+b.dataset.del).then(load,function(er){msg('Gagal: '+er.message,false)})};
+      var b={};b[f]=v;RW('PATCH','greasing_plan?plan_id=eq.'+i.dataset.id,b).then(function(){msg('Tersimpan ✓',true)},function(er){msg('Gagal: '+er.message,false)})};
+    $('#gtb').onclick=function(e){var b=e.target.closest('[data-del]');if(!b||!confirm('Hapus unit dari plan greasing?'))return;RW('DELETE','greasing_plan?plan_id=eq.'+b.dataset.del).then(load,function(er){msg('Gagal: '+er.message,false)})};
     $('#g_add').onclick=function(){run(this,function(){if(!val('g_u'))throw new Error('Pilih unit.');if(!txt(val('g_t')))throw new Error('Isi tabel / grup.');if(!(num(val('g_i'))>0))throw new Error('Interval harus lebih dari 0.');
       return R('POST','greasing_plan',[{unit_id:val('g_u'),plan_table:txt(val('g_t')),start_day:num(val('g_s')),interval_days:num(val('g_i')),kg_per_greasing:num(val('g_k')),active:true}]).then(function(){load();return 'Ditambahkan ✓ '+val('g_u')})})};
   }
@@ -1248,7 +1253,7 @@ function draw(U,MECH,RC,COMP,RL,LAST){
       recent($('#rc2o'),'Breakdown masih terbuka (klik Selesaikan bila unit sudah RFU)','breakdown_report?select=bd_id,bd_date,unit_id,problem,action_progress&job_status=eq.BD&order=bd_date.desc&limit=30',[['ID','bd_id'],['Tgl BD','bd_date','d'],['Unit','unit_id'],['Problem','problem','s']],'bd_id','breakdown_report');
       var h=$('#rc2o');var old=h.onclick;
       new MutationObserver(function(){h.querySelectorAll('button[data-id]').forEach(function(b){if(b.dataset.done)return;b.dataset.done=1;var c=document.createElement('button');c.className='btn sm';c.textContent='Selesaikan';c.style.marginRight='4px';c.onclick=function(ev){ev.stopPropagation();var id=b.dataset.id;var t=prompt('Jam unit RFU (format HH:MM, mis. 17:30):');if(!t)return;if(!/^\d{1,2}:\d{2}$/.test(t)){alert('Format jam salah');return}var a=prompt('Tindakan perbaikan (boleh kosong):')||null;
-          R('PATCH','breakdown_report?bd_id=eq.'+id,{job_status:'RFU',finish_time:tm(t.length===4?'0'+t:t),action_progress:a}).then(rl,function(er){alert('Gagal: '+er.message)})};b.parentNode.insertBefore(c,b)})}).observe(h,{childList:true,subtree:true});
+          RW('PATCH','breakdown_report?bd_id=eq.'+id,{job_status:'RFU',finish_time:tm(t.length===4?'0'+t:t),action_progress:a}).then(rl,function(er){alert('Gagal: '+er.message)})};b.parentNode.insertBefore(c,b)})}).observe(h,{childList:true,subtree:true});
       recent($('#rc2'),'Breakdown terakhir','breakdown_report?select=bd_id,report_date,unit_id,job_status,downtime_code,problem&order=bd_id.desc&limit=8',[['ID','bd_id'],['Tgl lapor','report_date','d'],['Unit','unit_id'],['Status','job_status'],['Tipe','downtime_code'],['Problem','problem','s']],'bd_id','breakdown_report',function(id){return Promise.all([R('DELETE','breakdown_manpower?bd_id=eq.'+id),R('DELETE','breakdown_delay?bd_id=eq.'+id)])})}
     rl();
   }
@@ -1322,9 +1327,9 @@ function draw(U,MECH,RC,COMP,RL,LAST){
       '<td><input type="checkbox" data-un="'+esc(u.unit_id)+'" data-f="service_visible"'+(u.service_visible?' checked':'')+'></td></tr>'}).join('')}
     tb();
     $('#k_tb').onchange=function(e){var i=e.target,uid_=i.dataset.un,f=i.dataset.f;if(!uid_)return;var v=f==='service_visible'?i.checked:num(i.value);if(f!=='service_visible'&&(v==null||!(v>0))){$('#k_msg').textContent='Isi angka lebih dari 0.';$('#k_msg').className='note er';return}
-      var b={};b[f]=v;i.style.background='#fff8e1';R('PATCH','units?unit_id=eq.'+encodeURIComponent(uid_),b).then(function(){byU[uid_][f]=v;i.style.background='#e8f6ee';$('#k_msg').className='note ok';$('#k_msg').textContent='Tersimpan ✓ '+uid_},function(er){i.style.background='#fdeaea';$('#k_msg').className='note er';$('#k_msg').textContent='Gagal: '+er.message})};
+      var b={};b[f]=v;i.style.background='#fff8e1';RW('PATCH','units?unit_id=eq.'+encodeURIComponent(uid_),b).then(function(){byU[uid_][f]=v;i.style.background='#e8f6ee';$('#k_msg').className='note ok';$('#k_msg').textContent='Tersimpan ✓ '+uid_},function(er){i.style.background='#fdeaea';$('#k_msg').className='note er';$('#k_msg').textContent='Gagal: '+er.message})};
     $('#k_ap').onclick=function(){var m=val('k_m'),v=num(val('k_v'));if(!m||!(v>0)){$('#k_msg').className='note er';$('#k_msg').textContent='Pilih model dan isi angka > 0.';return}
-      R('PATCH','units?model=eq.'+encodeURIComponent(m),{meter_per_day:v}).then(function(rows){U.forEach(function(u){if(u.model===m)u.meter_per_day=v});tb();$('#k_msg').className='note ok';$('#k_msg').textContent='Tersimpan ✓ '+rows.length+' unit '+m+' = '+v+' per hari'},function(er){$('#k_msg').className='note er';$('#k_msg').textContent='Gagal: '+er.message})};
+      RW('PATCH','units?model=eq.'+encodeURIComponent(m),{meter_per_day:v}).then(function(rows){U.forEach(function(u){if(u.model===m)u.meter_per_day=v});tb();$('#k_msg').className='note ok';$('#k_msg').textContent='Tersimpan ✓ '+rows.length+' unit '+m+' = '+v+' per hari'},function(er){$('#k_msg').className='note er';$('#k_msg').textContent='Gagal: '+er.message})};
   }
 
   function fixTime(e){var t=e.target;if(!t||t.tagName!=='INPUT'||t.getAttribute('list')!=='dl_t')return;var n=normT(t.value);if(n===false){t.value='';t.style.borderColor='var(--red)';var m=document.getElementById('fm')||document.getElementById('ed_m');if(m){m.className='fm er';m.textContent='Format jam salah. Contoh: 17:30, 1730, atau 8'}}else{t.style.borderColor='';if(n)t.value=n}}
