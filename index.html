@@ -1024,7 +1024,10 @@ var D8=function(s){return s?s.slice(8,10)+' '+BS[+s.slice(5,7)-1]+' '+s.slice(2,
 var NF=function(x){return x==null||x===''?'-':Number(x).toLocaleString('id-ID',{maximumFractionDigits:1})};
 var num=function(v){v=String(v==null?'':v).trim().replace(',','.');return v===''?null:Number(v)};
 var txt=function(v){v=String(v==null?'':v).trim();return v===''?null:v};
-var tm=function(v){v=txt(v);return v?(v.length===5?v+':00':v):null};
+var P2=function(n){return('0'+n).slice(-2)};
+var normT=function(v){v=String(v==null?'':v).replace(/\s/g,'');if(!v)return null;var m=/^(\d{1,2})[:.,hH]?(\d{2})?(?::\d{2})?$/.exec(v);if(!m)return false;var h=+m[1],mi=m[2]?+m[2]:0;if(h>23||mi>59)return false;return P2(h)+':'+P2(mi)};
+var tm=function(v){var n=normT(v);return n?n+':00':null};
+var TIMES=(function(){var a=[];for(var h=0;h<24;h++)for(var m=0;m<60;m+=5)a.push(P2(h)+':'+P2(m));return a})();
 var opt=function(a,sel,blank){return (blank?'<option value="">'+blank+'</option>':'')+a.map(function(x){var v=typeof x==='object'?x.v:x,l=typeof x==='object'?x.l:x;return'<option value="'+esc(v)+'"'+(v===sel?' selected':'')+'>'+esc(l)+'</option>'}).join('')};
 var CSS='<style>.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px 14px}.fg label{font-size:12px;font-weight:600;color:var(--tx);display:flex;flex-direction:column;gap:5px}.fg label.w2{grid-column:span 2}.fg label.w3{grid-column:1/-1}'+
  '#ipg .card{border:1.5px solid #9aa6ba;box-shadow:0 1px 3px rgba(20,35,63,.12)}#ipg .ct{border-bottom:2px solid #9aa6ba;padding-bottom:8px;margin-bottom:12px}'+
@@ -1062,7 +1065,7 @@ function draw(U,MECH,RC,COMP,RL,LAST){
   var comp=COMP.map(function(x){return x.component});
   var lst=function(n){return RL.filter(function(x){return x.list_name===n}).map(function(x){return x.value})};
   var byU={};U.forEach(function(u){byU[u.unit_id]=u});
-  $('#view').innerHTML=CSS+'<div class="bar" style="margin-bottom:10px"><div class="seg" id="itabs"><button data-t="f1">Form 1 · Harian (HM/KM/BBM/P2H)</button><button data-t="f2">Form 2 · Breakdown / WO</button><button data-t="f3">Form 3 · Service &amp; Komponen</button><button data-t="f4">Form 4 · Aktivitas Mekanik</button><button data-t="gp">Plan Greasing</button><button data-t="cfg">Pengaturan HM/KM per hari</button></div></div><div id="ipg"></div><datalist id="dl_m"></datalist>';
+  $('#view').innerHTML=CSS+'<div class="bar" style="margin-bottom:10px"><div class="seg" id="itabs"><button data-t="f1">Form 1 · Harian (HM/KM/BBM/P2H)</button><button data-t="f2">Form 2 · Breakdown / WO</button><button data-t="f3">Form 3 · Service &amp; Komponen</button><button data-t="f4">Form 4 · Aktivitas Mekanik</button><button data-t="gp">Plan Greasing</button><button data-t="cfg">Pengaturan HM/KM per hari</button></div></div><div id="ipg"></div><datalist id="dl_m"></datalist><datalist id="dl_t">'+TIMES.map(function(t){return'<option value="'+t+'">'}).join('')+'</datalist>';
   dlm();
   $('#itabs').onclick=function(e){var b=e.target.closest('button');if(b){st.tab=b.dataset.t;show()}};
   function show(){document.querySelectorAll('#itabs button').forEach(function(b){b.className=b.dataset.t===st.tab?'on':''});({f1:f1w,f2:f2,f3:f3,f4:f4,cfg:cfg,gp:gp})[st.tab]()}
@@ -1086,14 +1089,14 @@ function draw(U,MECH,RC,COMP,RL,LAST){
     return new Promise(function(res){
       var ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;background:rgba(15,25,45,.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px';
       ov.innerHTML='<div class="card" id="ed_box" style="max-width:560px;width:100%;max-height:92vh;overflow:auto;border:2px solid #7d8aa3;padding:18px"><div class="ct">'+esc(title)+'</div><div class="fg" style="grid-template-columns:1fr 1fr">'+fields.map(function(f,k){var v=row[f[0]];v=v==null?'':String(v);if(f[2]==='m')v=v.slice(0,5);
-        return'<label'+(f[2]==='t'?' class="w3"':'')+'>'+esc(f[1])+'<input data-f="'+f[0]+'" type="'+(f[2]==='d'?'date':f[2]==='m'?'time':'text')+'" value="'+esc(v)+'" autocomplete="off"'+(f[2]==='n'?' inputmode="decimal"':'')+'></label>'}).join('')+'</div><div class="fm er" id="ed_m"></div><div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end"><button class="btn" id="ed_c">Batal</button><button class="btn pri" id="ed_s">Simpan perubahan</button></div></div>';
+        return'<label'+(f[2]==='t'?' class="w3"':'')+'>'+esc(f[1])+'<input data-f="'+f[0]+'" type="'+(f[2]==='d'?'date':'text')+'"'+(f[2]==='m'?' list="dl_t" placeholder="HH:MM" inputmode="numeric"':'')+' value="'+esc(v)+'" autocomplete="off"'+(f[2]==='n'?' inputmode="decimal"':'')+'></label>'}).join('')+'</div><div class="fm er" id="ed_m"></div><div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end"><button class="btn" id="ed_c">Batal</button><button class="btn pri" id="ed_s">Simpan perubahan</button></div></div>';
       document.body.appendChild(ov);var ins=[].slice.call(ov.querySelectorAll('input[data-f]'));ins[0].focus();
       function close(v){document.removeEventListener('keydown',esc_,true);ov.remove();res(v)}
       function esc_(e){if(e.key==='Escape'){e.stopPropagation();close(null)}}document.addEventListener('keydown',esc_,true);
       function save(){var b={};for(var k=0;k<fields.length;k++){var f=fields[k],v=ins[k].value.trim();
           if(f[2]==='n'){v=v===''?null:Number(v.replace(',','.'));if(v!==null&&isNaN(v)){$('#ed_m').textContent=f[1]+': harus berupa angka';ins[k].focus();return}}
           else if(f[2]==='d'){if(!v){$('#ed_m').textContent=f[1]+': wajib diisi';ins[k].focus();return}}
-          else if(f[2]==='m'){v=v===''?null:(v.length===5?v+':00':v)}
+          else if(f[2]==='m'){var nt=normT(v);if(nt===false){$('#ed_m').textContent=f[1]+': format jam salah (contoh 17:30)';ins[k].focus();return}v=nt?nt+':00':null}
           else v=v===''?null:v;b[f[0]]=v}
         close(b)}
       ov.querySelector('#ed_c').onclick=function(){close(null)};ov.querySelector('#ed_s').onclick=save;
@@ -1221,11 +1224,11 @@ function draw(U,MECH,RC,COMP,RL,LAST){
     $('#ipg').innerHTML='<div class="card"><div class="ct">Form 2 – Breakdown / Work Order</div><div class="fg">'+
      '<label>Tanggal laporan<input type="date" id="b_rd" value="'+(pre.d||today)+'"></label><label>Shift<select id="b_sh">'+opt(['1','2'],pre.sh||'1')+'</select></label>'+
      '<label class="w2">Unit<select id="b_u">'+opt(uid,pre.unit,'— pilih unit —')+'</select></label>'+
-     '<label>Tanggal BD<input type="date" id="b_bd" value="'+(pre.d||today)+'"></label><label>Jam BD<input type="time" id="b_bt"></label>'+
+     '<label>Tanggal BD<input type="date" id="b_bd" value="'+(pre.d||today)+'"></label><label>Jam BD<input id="b_bt" list="dl_t" placeholder="HH:MM" autocomplete="off" inputmode="numeric"></label>'+
      '<label>HM/KM saat BD<input id="b_hm" inputmode="decimal" value="'+esc(pre.hm||'')+'"></label><label>Lokasi<input id="b_loc" placeholder="mis. ws / pit"></label>'+
      '<label>Jenis downtime<select id="b_dt">'+opt(dt,'USM')+'</select></label><label class="w2">Komponen / sistem<select id="b_cp">'+opt(comp,'','— pilih —')+'</select></label>'+
      '<label class="w3">Problem<textarea id="b_pb">'+esc(pre.problem||'')+'</textarea></label><label class="w3">Tindakan / progress<textarea id="b_ac"></textarea></label>'+
-     '<label>Status unit<select id="b_js">'+opt(['BD','RFU'],'BD')+'</select></label><label>Mulai kerja<input type="time" id="b_ws"></label><label>Selesai kerja<input type="time" id="b_wf"></label><label>Unit RFU (jam)<input type="time" id="b_ft"></label>'+
+     '<label>Status unit<select id="b_js">'+opt(['BD','RFU'],'BD')+'</select></label><label>Mulai kerja<input id="b_ws" list="dl_t" placeholder="HH:MM" autocomplete="off" inputmode="numeric"></label><label>Selesai kerja<input id="b_wf" list="dl_t" placeholder="HH:MM" autocomplete="off" inputmode="numeric"></label><label>Unit RFU (jam)<input id="b_ft" list="dl_t" placeholder="HH:MM" autocomplete="off" inputmode="numeric"></label>'+
      '<label>No. WO / MOL<input id="b_mol"></label><label>No. PR<input id="b_pr"></label></div>'+
      '<div class="fs"><h4>Mekanik yang mengerjakan</h4><div class="fg">'+mrow(1)+mrow(2)+mrow(3)+mrow(4)+'</div></div>'+
      '<div class="fs"><h4>Delay (opsional)</h4><div class="fg"><label class="w2">Kode delay<select id="b_dl">'+opt(dl,'','— tidak ada —')+'</select></label><label>Lama delay (jam)<input id="b_dh" inputmode="decimal"></label></div></div>'+
@@ -1259,7 +1262,7 @@ function draw(U,MECH,RC,COMP,RL,LAST){
      '<div class="hint" id="c_h">Pilih unit. Isi hanya bagian yang dikerjakan, bagian lain biarkan tidak dicentang.</div>'+
      '<div class="fs"><label class="tg"><input type="checkbox" id="s_on"> <b>Service berkala selesai (PS)</b></label><div class="fg" id="s_f">'+
      '<label>Jenis PS<select id="s_ps">'+opt(['PS 1','PS 2','PS 3','PS 4'],'','—')+'</select></label><label>Meter rencana<input id="s_pm" inputmode="decimal"></label><label>Tanggal rencana<input type="date" id="s_pd"></label><label>Meter aktual service<input id="s_am" inputmode="decimal"></label>'+
-     '<label class="w2">Alasan bila beda dari rencana<input id="s_rs"></label><label class="w2">Catatan<input id="s_rm"></label><label>Mulai<input type="time" id="s_t1"></label><label>Selesai<input type="time" id="s_t2"></label></div></div>'+
+     '<label class="w2">Alasan bila beda dari rencana<input id="s_rs"></label><label class="w2">Catatan<input id="s_rm"></label><label>Mulai<input id="s_t1" list="dl_t" placeholder="HH:MM" autocomplete="off" inputmode="numeric"></label><label>Selesai<input id="s_t2" list="dl_t" placeholder="HH:MM" autocomplete="off" inputmode="numeric"></label></div></div>'+
      '<div class="fs"><label class="tg"><input type="checkbox" id="g_on"> <b>Greasing</b></label><div class="fg" id="g_f"><label>Area / titik<input id="g_pa" value="ALL POINT"></label><label>Jenis grease<input id="g_gt" value="STATES"></label><label>Jumlah (kg)<input id="g_q" inputmode="decimal"></label><label>Downtime (jam)<input id="g_dt" inputmode="decimal" value="0"></label></div></div>'+
      '<div class="fs"><label class="tg"><input type="checkbox" id="o_on"> <b>Oil sampling (ambil sampel)</b></label><div class="fg" id="o_f"><label>Kompartemen<select id="o_c">'+opt(oc,'Engine')+'</select></label><label>Umur oli (HM/KM)<input id="o_om" inputmode="decimal"></label><label>Lab<input id="o_lab"></label></div></div>'+
      '<div class="fs"><label class="tg"><input type="checkbox" id="t_on"> <b>Tyre</b></label><div class="fg" id="t_f"><label>Tindakan<select id="t_a">'+opt(['Cek tyre (update tanggal cek)','Pasang / ganti ban'],'Cek tyre (update tanggal cek)')+'</select></label><label>Posisi ban<input id="t_p" placeholder="mis. FL, RR1"></label><label>Merk<input id="t_b"></label><label>Target umur ban<input id="t_l" inputmode="decimal"></label></div></div>'+
@@ -1298,7 +1301,7 @@ function draw(U,MECH,RC,COMP,RL,LAST){
     $('#ipg').innerHTML='<div class="card"><div class="ct">Form 4 – Aktivitas Mekanik (Daily Activity)</div><div class="fg">'+
      '<label>Tanggal<input type="date" id="d_d" value="'+today+'"></label><label>Shift<select id="d_sh">'+opt(['1','2'],'1')+'</select></label>'+mi('d_m','Mekanik')+''+
      '<label class="w2">Unit (boleh kosong)<select id="d_u">'+opt(uid,'','— non-unit —')+'</select></label><label>Kategori<select id="d_c">'+opt(lst('Act_Category'),'')+'</select></label><label>Status<select id="d_s">'+opt(lst('Act_Status'),'Done')+'</select></label>'+
-     '<label>Mulai<input type="time" id="d_t1"></label><label>Selesai<input type="time" id="d_t2"></label><label>Atau jam manual<input id="d_hm" inputmode="decimal"></label><label>No. ref (WO)<input id="d_rf"></label>'+
+     '<label>Mulai<input id="d_t1" list="dl_t" placeholder="HH:MM" autocomplete="off" inputmode="numeric"></label><label>Selesai<input id="d_t2" list="dl_t" placeholder="HH:MM" autocomplete="off" inputmode="numeric"></label><label>Atau jam manual<input id="d_hm" inputmode="decimal"></label><label>No. ref (WO)<input id="d_rf"></label>'+
      '<label class="w3">Uraian pekerjaan<input id="d_ds"></label></div><div style="margin-top:14px"><button class="btn pri" id="d_sv">Simpan</button></div><div class="fm" id="fm"></div></div><div id="rc4"></div>';
     $('#d_sv').onclick=function(){run(this,function(){
       if(!val('d_m'))throw new Error('Isi nama mekanik.');learn([val('d_m')]);if(!txt(val('d_ds')))throw new Error('Isi uraian pekerjaan.');if(!((val('d_t1')&&val('d_t2'))||num(val('d_hm'))!=null))throw new Error('Isi jam mulai & selesai, atau jam manual.');
@@ -1324,6 +1327,8 @@ function draw(U,MECH,RC,COMP,RL,LAST){
       R('PATCH','units?model=eq.'+encodeURIComponent(m),{meter_per_day:v}).then(function(rows){U.forEach(function(u){if(u.model===m)u.meter_per_day=v});tb();$('#k_msg').className='note ok';$('#k_msg').textContent='Tersimpan ✓ '+rows.length+' unit '+m+' = '+v+' per hari'},function(er){$('#k_msg').className='note er';$('#k_msg').textContent='Gagal: '+er.message})};
   }
 
+  function fixTime(e){var t=e.target;if(!t||t.tagName!=='INPUT'||t.getAttribute('list')!=='dl_t')return;var n=normT(t.value);if(n===false){t.value='';t.style.borderColor='var(--red)';var m=document.getElementById('fm')||document.getElementById('ed_m');if(m){m.className='fm er';m.textContent='Format jam salah. Contoh: 17:30, 1730, atau 8'}}else{t.style.borderColor='';if(n)t.value=n}}
+  $('#ipg').addEventListener('change',fixTime);document.addEventListener('change',function(e){if(e.target.closest&&e.target.closest('#ed_box'))fixTime(e)});
   /* ---- keyboard: Enter = kolom berikutnya, Ctrl+Panah atas/bawah = ganti pilihan ---- */
   function focusables(){return Array.prototype.filter.call($('#ipg').querySelectorAll('input,select,textarea,button'),function(el){if(el.disabled||el.type==='hidden'||el.offsetParent===null)return false;if(el.tagName==='BUTTON'&&el.classList.contains('sm'))return false;var g=el.closest('.fg');return !(g&&getComputedStyle(g).pointerEvents==='none')})}
   $('#ipg').addEventListener('keydown',function(e){var t=e.target;
