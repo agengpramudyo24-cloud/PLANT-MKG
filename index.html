@@ -1369,6 +1369,7 @@ function draw(U,MECH,RC,COMP,RL,LAST,BDC){
     ['s','g','o','t'].forEach(function(k){var f=$('#'+k+'_f'),c=$('#'+k+'_on');var t=function(){f.style.opacity=c.checked?1:.4;f.style.pointerEvents=c.checked?'':'none'};c.onchange=t;t()});
     var cur=null;
     $('#c_u').onchange=function(){var u=byU[val('c_u')];cur=u||null;if(!u)return;
+      $('#s_ps').innerHTML=opt(u.meter_type==='KM'?['KM 1','KM 2','KM 3','KM 4']:['PS 1','PS 2','PS 3','PS 4'],'','\u2014');
       $('#c_h').textContent='Membaca jadwal service…';
       Promise.all([R('GET','v_service_status?select=current_meter,next_service_type,next_service_meter,est_plan_date,meter_type&unit_id=eq.'+encodeURIComponent(u.unit_id)),R('GET','service_log?select=actual_date,actual_meter,ps_type&unit_id=eq.'+encodeURIComponent(u.unit_id)+'&actual_date=not.is.null&order=actual_date.desc&limit=1')]).then(function(r){
         var s=r[0][0],l=r[1][0],t='';if(s){$('#c_mt').value=s.current_meter==null?'':s.current_meter;$('#s_am').value=s.current_meter==null?'':s.current_meter;$('#s_ps').value=s.next_service_type||'';$('#s_pm').value=s.next_service_meter==null?'':s.next_service_meter;$('#s_pd').value=s.est_plan_date||'';
