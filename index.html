@@ -1059,6 +1059,9 @@ window.inputPage=function(){
 
 function draw(U,MECH,RC,COMP,RL,LAST,BDC){
   var today=iso(new Date()),st={tab:'f1',pre:null};
+  function hk(str,u){str=String(str||'').trim();var n2=function(v){v=String(v==null?'':v).trim();if(v==='')return null;var x=num(v);return(x==null||isNaN(x)||!/^[0-9.,]+$/.test(v))?NaN:x};
+    if(!u.track_hm||str.indexOf('/')<0){var x=n2(str);return{h:null,e:isNaN(x)?null:x,bad:str.indexOf('/')>=0}}
+    var a=str.split('/'),h=n2(a[0]),k=n2(a[1]);return{h:isNaN(h)?null:h,e:isNaN(k)?null:k,bad:a.length>2||isNaN(h)||isNaN(k)}}
   var uid=U.map(function(u){return {v:u.unit_id,l:u.unit_id+' – '+(u.model||'')}});
   var mech=MECH.slice();
   var mi=function(id,lab,cls){return'<label'+(cls?' class="'+cls+'"':'')+'>'+lab+'<input id="'+id+'" list="dl_m" autocomplete="off" placeholder="pilih / ketik nama"></label>'};
@@ -1213,7 +1216,7 @@ function draw(U,MECH,RC,COMP,RL,LAST,BDC){
   function f1bulk(){
     var meterOf={},dateOf={},hmOf={};
     var thU=U.filter(function(u){return u.track_hm}).map(function(u){return u.unit_id});
-    function loadHm(){if(!thU.length)return Promise.resolve();return R('GET','hm_log?select=unit_id,hm_finish,log_date&unit_id=in.('+thU.map(encodeURIComponent).join(',')+')&hm_finish=not.is.null&order=log_date.desc,hm_id.desc&limit=200').then(function(r){hmOf={};r.forEach(function(x){if(hmOf[x.unit_id]==null)hmOf[x.unit_id]=x.hm_finish});document.querySelectorAll('#bt input[data-k=h]').forEach(function(i){i.placeholder='terakhir '+NF(hmOf[i.closest('tr').dataset.un])})},function(){})}
+    function loadHm(){if(!thU.length)return Promise.resolve();return R('GET','hm_log?select=unit_id,hm_finish,log_date&unit_id=in.('+thU.map(encodeURIComponent).join(',')+')&hm_finish=not.is.null&order=log_date.desc,hm_id.desc&limit=200').then(function(r){hmOf={};r.forEach(function(x){if(hmOf[x.unit_id]==null)hmOf[x.unit_id]=x.hm_finish});document.querySelectorAll('#bt tr[data-un]').forEach(function(tr){if(byU[tr.dataset.un].track_hm){var i=tr.querySelector('input[data-k=e]');i.title='HM terakhir '+NF(hmOf[tr.dataset.un])+' \u2013 tulis HM/KM, contoh 234/12567. Hanya KM: 12567. Hanya HM: 234/'}})},function(){})}
     function fillLast(rows){meterOf={};dateOf={};(rows||[]).forEach(function(r){meterOf[r.unit_id]=r.last_meter;dateOf[r.unit_id]=r.last_date})}
     fillLast(LAST);
     var list=U.filter(function(u){return u.status==null||u.status==='Active'||u.status===''});
@@ -1223,18 +1226,18 @@ function draw(U,MECH,RC,COMP,RL,LAST,BDC){
      '<div class="scroll" style="max-height:60vh;margin-top:10px"><table class="bt" id="bt"></table></div>'+
      '<div style="margin-top:14px"><button class="btn pri" id="bk_sv">Simpan semua</button> <span class="note" id="bk_n"></span></div><div class="fm" id="fm"></div></div><div id="rc1f"></div><div id="rc1d" class="scr"></div><div id="rc1dk"></div><div id="rc1"></div><div id="rc1k"></div>';
     function table(){
-      $('#bt').innerHTML='<tr><th>Unit</th><th>Model</th><th>Satuan</th><th class="h1">Awal (terakhir)</th><th class="h1">Tgl terakhir</th><th class="h2" style="min-width:130px">HM/KM akhir (isi)</th><th>Selisih</th><th class="h3" style="min-width:100px">BBM (L) (isi)</th>'+(thU.length?'<th class="h2" style="min-width:130px" title="Untuk unit satuan KM yang juga dicatat HM-nya (mis. MKG-WT-01/02/03)">HM akhir (jam kerja)</th>':'')+'</tr>'+
-        list.map(function(u){var a=meterOf[u.unit_id];return'<tr data-un="'+esc(u.unit_id)+'" data-q="'+esc((u.unit_id+' '+(u.model||'')).toLowerCase())+'"><td><b>'+esc(u.unit_id)+'</b></td><td>'+esc(u.model||'')+'</td><td>'+esc(u.meter_type||'HM')+'</td><td class="n">'+NF(a)+'</td><td>'+D8(dateOf[u.unit_id])+'</td><td><input data-k="e" inputmode="decimal" autocomplete="off"></td><td class="n df"></td><td><input data-k="f" inputmode="decimal" autocomplete="off"></td>'+(thU.length?(u.track_hm?'<td><input data-k="h" inputmode="decimal" autocomplete="off" placeholder="terakhir '+NF(hmOf[u.unit_id])+'"></td>':'<td></td>'):'')+'</tr>'}).join('')}
+      $('#bt').innerHTML='<tr><th>Unit</th><th>Model</th><th>Satuan</th><th class="h1">Awal (terakhir)</th><th class="h1">Tgl terakhir</th><th class="h2" style="min-width:130px">HM/KM akhir (isi)</th><th>Selisih</th><th class="h3" style="min-width:100px">BBM (L) (isi)</th>'+'</tr>'+
+        list.map(function(u){var a=meterOf[u.unit_id];return'<tr data-un="'+esc(u.unit_id)+'" data-q="'+esc((u.unit_id+' '+(u.model||'')).toLowerCase())+'"><td><b>'+esc(u.unit_id)+'</b></td><td>'+esc(u.model||'')+'</td><td>'+esc(u.meter_type||'HM')+'</td><td class="n">'+NF(a)+'</td><td>'+D8(dateOf[u.unit_id])+'</td><td><input data-k="e" inputmode="'+(u.track_hm?'text':'decimal')+'" autocomplete="off"'+(u.track_hm?' placeholder="HM/KM  mis. 234/12567" title="Unit ini dicatat HM dan KM. Tulis HM/KM, contoh 234/12567. Hanya KM: 12567. Hanya HM: 234/"':'')+'></td><td class="n df"></td><td><input data-k="f" inputmode="decimal" autocomplete="off"></td>'+'</tr>'}).join('')}
     table();loadHm();
     $('#a_q').oninput=function(){var q=this.value.toLowerCase();document.querySelectorAll('#bt tr[data-un]').forEach(function(r){r.style.display=!q||r.dataset.q.indexOf(q)>=0?'':'none'})};
-    $('#bt').oninput=function(e){var i=e.target;if(i.dataset.k!=='e')return;var tr=i.closest('tr'),u=byU[tr.dataset.un],a=meterOf[u.unit_id],e_=num(i.value),c=tr.querySelector('.df');
+    $('#bt').oninput=function(e){var i=e.target;if(i.dataset.k!=='e')return;var tr=i.closest('tr'),u=byU[tr.dataset.un],a=meterOf[u.unit_id],e_=hk(i.value,u).e,c=tr.querySelector('.df');
       if(e_==null||a==null){c.textContent='';c.style.color='';return}var d=e_-a,days=Math.max(1,Math.round((new Date(val('a_d'))-new Date(dateOf[u.unit_id]))/864e5)||1),lim=u.meter_type==='KM'?1e9:24*days;
       c.textContent=NF(d);c.style.color=d<0?'var(--red)':d>lim?'#c9810a':'var(--green)';c.title=d<0?'Akhir lebih kecil dari awal':d>lim?'Selisih lebih dari '+lim+' jam sejak data terakhir – cek angkanya':''};
     $('#bt').onkeyup=function(){var n=0;document.querySelectorAll('#bt input[data-k=e]').forEach(function(i){if(i.value.trim())n++});$('#bk_n').textContent=n+' unit terisi'};
     $('#bk_sv').onclick=function(){run(this,function(){
       var d=val('a_d');if(!d)throw new Error('Isi tanggal.');var hm=[],km=[],err=[],names=[];
-      document.querySelectorAll('#bt tr[data-un]').forEach(function(tr){var u=byU[tr.dataset.un],ei=tr.querySelector('[data-k=e]'),fi=tr.querySelector('[data-k=f]'),e=num(ei.value),f=num(fi.value);
-        var hi=tr.querySelector('[data-k=h]'),h=hi?num(hi.value):null;
+      document.querySelectorAll('#bt tr[data-un]').forEach(function(tr){var u=byU[tr.dataset.un],ei=tr.querySelector('[data-k=e]'),fi=tr.querySelector('[data-k=f]'),pk=hk(ei.value,u),e=pk.e,f=num(fi.value);if(pk.bad){err.push(u.unit_id+': format salah \u2013 tulis HM/KM, contoh 234/12567');return}
+        var h=pk.h;
         if(h!=null){var hs=hmOf[u.unit_id];if(hs==null)hs=h;if(h<hs){err.push(u.unit_id+': HM akhir ('+h+') lebih kecil dari HM awal ('+hs+')');return}if(h-hs>24*3){err.push(u.unit_id+': HM naik '+(h-hs)+' jam \u2013 cek angkanya');return}hm.push({log_date:d,shift:+val('a_sh'),unit_id:u.unit_id,hm_start:hs,hm_finish:h,fuel_liter:null})}
         if(e==null&&f==null)return;if(e==null){err.push(u.unit_id+': isi HM/KM akhir');return}
         var s=meterOf[u.unit_id];if(s==null)s=e;if(e<s){err.push(u.unit_id+': akhir ('+e+') lebih kecil dari awal ('+s+')');return}
