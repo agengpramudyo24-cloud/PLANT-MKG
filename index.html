@@ -1131,12 +1131,33 @@ function draw(U,MECH,RC,COMP,RL,LAST,BDC){
         RW('DELETE',table+'?'+idc+'=eq.'+b.dataset.id).then(function(){return table==='service_log'?linkSvc(byId[b.dataset.id],null):after?after(b.dataset.id,byId[b.dataset.id]):0}).then(function(){if(table==='hm_log'||table==='km_log')f1chg();recent(host,title,path,cols,idc,table,after,edit)},function(er){alert('Gagal hapus: '+er.message)})}
     },function(er){host.innerHTML='<div class="fm er">'+esc(er.message)+'</div>'})}
 
-  /* ---- Form 1: koreksi data tanggal terpilih (HM & KM) ---- */
-  function dayList(unitFn){
-    var d=val('a_d'),u=unitFn?unitFn():'';if(!d){return}
-    var uq=u?'&unit_id=eq.'+encodeURIComponent(u):'';
-    recent($('#rc1d'),'HM tanggal '+D8(d)+(u?' \u00b7 '+u:'')+' \u2013 klik Ubah untuk koreksi HM / BBM','hm_log?select=hm_id,log_date,unit_id,hm_start,hm_finish,fuel_liter,operator&log_date=eq.'+d+uq+'&order=unit_id.asc,hm_id.asc&limit=200',[['Tgl','log_date','d'],['Unit','unit_id'],['HM awal','hm_start','n'],['HM akhir','hm_finish','n'],['BBM','fuel_liter','n'],['Operator','operator']],'hm_id','hm_log');
-    recent($('#rc1dk'),'KM tanggal '+D8(d)+(u?' \u00b7 '+u:'')+' \u2013 klik Ubah untuk koreksi KM / BBM','km_log?select=km_id,log_date,unit_id,km_start,km_end,fuel_liter&log_date=eq.'+d+uq+'&order=unit_id.asc,km_id.asc&limit=200',[['Tgl','log_date','d'],['Unit','unit_id'],['KM awal','km_start','n'],['KM akhir','km_end','n'],['BBM','fuel_liter','n']],'km_id','km_log')}
+  /* ---- Form 1: riwayat HM & KM dengan filter unit / tahun / bulan / tanggal (untuk koreksi) ---- */
+  var FL=null;
+  function dayList(setTo){
+    var now=today,Y=+now.slice(0,4),BL=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+    if(!FL)FL={u:'',y:String(Y),m:now.slice(5,7),d:''};
+    if(setTo){for(var k in setTo)FL[k]=setTo[k]}
+    var bar=$('#rc1f');if(!bar)return;
+    var ys=[];for(var y=Y;y>=Y-4;y--)ys.push(String(y));if(ys.indexOf(FL.y)<0&&FL.y)ys.push(FL.y);
+    bar.innerHTML='<div class="ct" style="margin-top:14px">Riwayat HM / KM \u2013 filter lalu klik <b>Ubah</b> untuk koreksi</div><div class="bar" style="margin:0 0 4px;gap:8px;flex-wrap:wrap">'+
+      '<select id="fl_u"><option value="">Semua unit</option>'+uid.map(function(x){return'<option value="'+esc(x.v)+'"'+(x.v===FL.u?' selected':'')+'>'+esc(x.l)+'</option>'}).join('')+'</select>'+
+      '<select id="fl_y"><option value="">Semua tahun</option>'+ys.map(function(x){return'<option'+(x===FL.y?' selected':'')+'>'+x+'</option>'}).join('')+'</select>'+
+      '<select id="fl_m"><option value="">Semua bulan</option>'+BL.map(function(x,i){var v=('0'+(i+1)).slice(-2);return'<option value="'+v+'"'+(v===FL.m?' selected':'')+'>'+x+'</option>'}).join('')+'</select>'+
+      '<input type="date" id="fl_d" value="'+(FL.d||'')+'" title="Tanggal tertentu (kosongkan untuk satu bulan penuh)"><button class="btn sm" id="fl_x">Reset</button><span class="note" id="fl_n" style="margin:0"></span></div>';
+    var ch=function(){FL={u:$('#fl_u').value,y:$('#fl_y').value,m:$('#fl_m').value,d:$('#fl_d').value};if(FL.d){FL.y=FL.d.slice(0,4);FL.m=FL.d.slice(5,7)}dayList()};
+    ['fl_u','fl_y','fl_m','fl_d'].forEach(function(i){$('#'+i).onchange=ch});
+    $('#fl_x').onclick=function(){FL=null;dayList()};
+    var f='';
+    if(FL.d)f='&log_date=eq.'+FL.d;
+    else if(FL.y&&FL.m){var last=new Date(Date.UTC(+FL.y,+FL.m,0)).getUTCDate();f='&log_date=gte.'+FL.y+'-'+FL.m+'-01&log_date=lte.'+FL.y+'-'+FL.m+'-'+('0'+last).slice(-2)}
+    else if(FL.y)f='&log_date=gte.'+FL.y+'-01-01&log_date=lte.'+FL.y+'-12-31';
+    else if(FL.m)f='';
+    if(FL.u)f+='&unit_id=eq.'+encodeURIComponent(FL.u);
+    var lim=300;
+    var lab=(FL.u||'semua unit')+' \u00b7 '+(FL.d?D8(FL.d):((FL.m?BL[+FL.m-1]+' ':'')+(FL.y||'semua tahun')));
+    $('#fl_n').textContent='Maksimal '+lim+' baris terbaru per tabel \u2013 persempit filter bila perlu.';
+    recent($('#rc1d'),'HM \u00b7 '+lab,'hm_log?select=hm_id,log_date,unit_id,hm_start,hm_finish,fuel_liter,operator'+'&order=log_date.desc,unit_id.asc,hm_id.desc&limit='+lim+f.replace(/^&/,'&'),[['Tgl','log_date','d'],['Unit','unit_id'],['HM awal','hm_start','n'],['HM akhir','hm_finish','n'],['BBM','fuel_liter','n'],['Operator','operator']],'hm_id','hm_log');
+    recent($('#rc1dk'),'KM \u00b7 '+lab,'km_log?select=km_id,log_date,unit_id,km_start,km_end,fuel_liter'+'&order=log_date.desc,unit_id.asc,km_id.desc&limit='+lim+f,[['Tgl','log_date','d'],['Unit','unit_id'],['KM awal','km_start','n'],['KM akhir','km_end','n'],['BBM','fuel_liter','n']],'km_id','km_log')}
 
   /* ================= FORM 1 : harian ================= */
   function f1w(){
@@ -1157,14 +1178,14 @@ function draw(U,MECH,RC,COMP,RL,LAST,BDC){
      '<div class="fs"><h4>P2H (pemeriksaan harian unit)</h4><label class="tg"><input type="checkbox" id="p_on" checked> P2H dilakukan hari ini</label><div class="fg" id="p_f">'+
      '<label>Hasil<select id="p_st">'+opt(['OK – layak operasi','Ada temuan'],'OK – layak operasi')+'</select></label>'+mi('p_m','Pemeriksa')+''+
      '<label class="w3" id="p_tl" style="display:none">Temuan<input id="p_t" placeholder="mis. oli rembes, ban kempis, lampu mati"></label></div><div class="hint" id="p_bd" style="display:none">Temuan yang butuh perbaikan: <button class="btn sm" id="p_go">Buat laporan breakdown (Form 2)</button></div></div>'+
-     '<div style="margin-top:14px"><button class="btn pri" id="a_sv">Simpan</button></div><div class="fm" id="fm"></div></div><div id="rc1d"></div><div id="rc1dk"></div><div id="rc1"></div><div id="rc1k"></div>';
+     '<div style="margin-top:14px"><button class="btn pri" id="a_sv">Simpan</button></div><div class="fm" id="fm"></div></div><div id="rc1f"></div><div id="rc1d" class="scr"></div><div id="rc1dk"></div><div id="rc1"></div><div id="rc1k"></div>';
     var cur=null;
     function unitCh(){var u=byU[val('a_u')];cur=u||null;if(!u)return;var km=u.meter_type==='KM';$('#t_s').textContent=km?'KM awal':'HM awal';$('#t_e').textContent=km?'KM akhir':'HM akhir';
       var q=km?'km_log?select=km_end,log_date&unit_id=eq.'+encodeURIComponent(u.unit_id)+'&km_end=gt.100&order=log_date.desc,km_id.desc&limit=1':'hm_log?select=hm_finish,log_date&unit_id=eq.'+encodeURIComponent(u.unit_id)+'&hm_finish=not.is.null&order=log_date.desc,hm_id.desc&limit=1';
       $('#a_h').textContent='Mencari data terakhir…';
       R('GET',q).then(function(r){var x=r[0];if(x){var v=km?x.km_end:x.hm_finish;$('#a_s').value=v;$('#a_h').textContent='Terakhir tercatat: '+NF(v)+' '+u.meter_type+' ('+D8(x.log_date)+'). Kolom awal diisi otomatis, ubah jika berbeda.'}else $('#a_h').textContent='Belum ada data '+u.meter_type+' untuk unit ini.'},function(e){$('#a_h').textContent='Gagal membaca data terakhir: '+e.message})}
     f1chg=function(){unitCh()};
-    $('#a_u').addEventListener('change',function(){dayList(function(){return val('a_u')})});$('#a_d').addEventListener('change',function(){dayList(function(){return val('a_u')})});
+    $('#a_u').addEventListener('change',function(){dayList({u:val('a_u')})});$('#a_d').addEventListener('change',function(){var d=val('a_d');if(d)dayList({d:d,y:d.slice(0,4),m:d.slice(5,7)})});
     $('#a_u').onchange=unitCh;if(pre.unit)unitCh();if(pre.unit)$('#a_u').value=pre.unit;
     $('#p_st').onchange=function(){var t=val('p_st')==='Ada temuan';$('#p_tl').style.display=t?'':'none';$('#p_bd').style.display=t?'':'none'};
     $('#p_on').onchange=function(){$('#p_f').style.opacity=this.checked?1:.4};
@@ -1179,7 +1200,7 @@ function draw(U,MECH,RC,COMP,RL,LAST,BDC){
       if(!jobs.length)throw new Error('Tidak ada yang diisi.');
       return Promise.all(jobs).then(function(){$('#a_e').value='';$('#a_f').value='';$('#a_o').value='';$('#a_r').value='';unitCh();rl();return 'Tersimpan ✓ ('+did.join(', ')+') untuk '+u.unit_id})})};
     function rl(){
-      dayList(function(){return val('a_u')});
+      dayList();
       recent($('#rc1'),'Input HM terakhir','hm_log?select=hm_id,log_date,unit_id,hm_start,hm_finish,fuel_liter,operator&order=hm_id.desc&limit=8',[['Tgl','log_date','d'],['Unit','unit_id'],['HM awal','hm_start','n'],['HM akhir','hm_finish','n'],['BBM','fuel_liter','n'],['Operator','operator']],'hm_id','hm_log');
       recent($('#rc1k'),'Input KM terakhir','km_log?select=km_id,log_date,unit_id,km_start,km_end,fuel_liter&order=km_id.desc&limit=5',[['Tgl','log_date','d'],['Unit','unit_id'],['KM awal','km_start','n'],['KM akhir','km_end','n'],['BBM','fuel_liter','n']],'km_id','km_log')}
     rl();
@@ -1196,7 +1217,7 @@ function draw(U,MECH,RC,COMP,RL,LAST,BDC){
      '<label>Tanggal<input type="date" id="a_d" value="'+today+'"></label><label>Shift<select id="a_sh">'+opt(['1','2'],'1')+'</select></label><label>Cari unit<input id="a_q" placeholder="ketik untuk menyaring"></label></div>'+
      (LAST===null?'<div class="hint er">Data terakhir belum bisa dibaca \u2013 jalankan pms_forms.sql terbaru di Supabase.</div>':'')+
      '<div class="scroll" style="max-height:60vh;margin-top:10px"><table class="bt" id="bt"></table></div>'+
-     '<div style="margin-top:14px"><button class="btn pri" id="bk_sv">Simpan semua</button> <span class="note" id="bk_n"></span></div><div class="fm" id="fm"></div></div><div id="rc1d"></div><div id="rc1dk"></div><div id="rc1"></div><div id="rc1k"></div>';
+     '<div style="margin-top:14px"><button class="btn pri" id="bk_sv">Simpan semua</button> <span class="note" id="bk_n"></span></div><div class="fm" id="fm"></div></div><div id="rc1f"></div><div id="rc1d" class="scr"></div><div id="rc1dk"></div><div id="rc1"></div><div id="rc1k"></div>';
     function table(){
       $('#bt').innerHTML='<tr><th>Unit</th><th>Model</th><th>Satuan</th><th class="h1">Awal (terakhir)</th><th class="h1">Tgl terakhir</th><th class="h2" style="min-width:130px">HM/KM akhir (isi)</th><th>Selisih</th><th class="h3" style="min-width:100px">BBM (L) (isi)</th></tr>'+
         list.map(function(u){var a=meterOf[u.unit_id];return'<tr data-un="'+esc(u.unit_id)+'" data-q="'+esc((u.unit_id+' '+(u.model||'')).toLowerCase())+'"><td><b>'+esc(u.unit_id)+'</b></td><td>'+esc(u.model||'')+'</td><td>'+esc(u.meter_type||'HM')+'</td><td class="n">'+NF(a)+'</td><td>'+D8(dateOf[u.unit_id])+'</td><td><input data-k="e" inputmode="decimal" autocomplete="off"></td><td class="n df"></td><td><input data-k="f" inputmode="decimal" autocomplete="off"></td></tr>'}).join('')}
@@ -1219,7 +1240,7 @@ function draw(U,MECH,RC,COMP,RL,LAST,BDC){
         if(r)fillLast(r);else{hm.concat(km).forEach(function(x){meterOf[x.unit_id]=x.hm_finish!=null?x.hm_finish:x.km_end;dateOf[x.unit_id]=d})}
         table();$('#a_q').value='';$('#bk_n').textContent='';rl();return 'Tersimpan ✓ '+(hm.length+km.length)+' unit ('+hm.length+' HM, '+km.length+' KM)'})})};
     f1chg=function(){R('GET','v_last_meter?select=unit_id,last_meter,last_date,src').then(function(r){fillLast(r);document.querySelectorAll('#bt tr[data-un]').forEach(function(tr){var c=tr.children,id=tr.dataset.un;c[3].textContent=NF(meterOf[id]);c[4].textContent=D8(dateOf[id])})},function(){})};
-    $('#a_d').addEventListener('change',function(){dayList()});
+    $('#a_d').addEventListener('change',function(){var d=val('a_d');if(d)dayList({d:d,y:d.slice(0,4),m:d.slice(5,7)})});
     function rl(){
       dayList();
       recent($('#rc1'),'Input HM terakhir','hm_log?select=hm_id,log_date,unit_id,hm_start,hm_finish,fuel_liter,operator&order=hm_id.desc&limit=10',[['Tgl','log_date','d'],['Unit','unit_id'],['HM awal','hm_start','n'],['HM akhir','hm_finish','n'],['BBM','fuel_liter','n'],['Operator','operator']],'hm_id','hm_log');
@@ -1421,8 +1442,10 @@ function draw(U,MECH,RC,COMP,RL,LAST,BDC){
       e.preventDefault();var f=focusables(),i=f.indexOf(t);if(i>=0&&i<f.length-1){var n=f[i+1];n.focus();if(n.select&&n.tagName==='INPUT'&&n.type!=='checkbox'&&n.type!=='date'&&n.type!=='time')try{n.select()}catch(x){}}return}
     if(!e.ctrlKey&&!e.altKey&&!e.shiftKey&&(t.tagName==='INPUT'||t.tagName==='SELECT')&&!t.closest('#ed_box')){
       var K=e.key,go=function(n){var f=focusables(),i=f.indexOf(t),j=i+n;if(i<0||j<0||j>=f.length)return false;var x=f[j];x.focus();if(x.select&&x.tagName==='INPUT'&&x.type!=='checkbox'&&x.type!=='date'&&x.type!=='time')try{x.select()}catch(z){}return true};
-      var tr=t.closest&&t.closest('#bt tr[data-un]');
-      if(tr&&(K==='ArrowDown'||K==='ArrowUp'||K==='PageDown'||K==='PageUp')){var rows=[].slice.call(document.querySelectorAll('#bt tr[data-un]')).filter(function(r){return r.style.display!=='none'}),ri=rows.indexOf(tr),step=(K==='PageDown'||K==='PageUp')?10:1,nr=rows[Math.max(0,Math.min(rows.length-1,ri+((K==='ArrowDown'||K==='PageDown')?step:-step)))],ni=nr&&nr.querySelector('[data-k="'+t.dataset.k+'"]');if(ni){e.preventDefault();ni.focus();ni.select&&ni.select();return}}
+      var tr=t.closest&&t.closest('table tr'),td=tr&&t.closest('td');
+      if(tr&&td&&!t.closest('#ed_box')&&(K==='ArrowDown'||K==='ArrowUp'||K==='PageDown'||K==='PageUp')&&(t.tagName==='SELECT'||t.type==='checkbox'?(K==='PageDown'||K==='PageUp'):!t.list||K==='PageDown'||K==='PageUp')){
+        var tb=tr.closest('table'),ci=[].indexOf.call(tr.children,td),rows=[].slice.call(tb.querySelectorAll('tr')).filter(function(r){return r.style.display!=='none'&&r.children[ci]&&r.children[ci].querySelector('input,select')}),ri=rows.indexOf(tr),step=(K==='PageDown'||K==='PageUp')?10:1,nr=rows[Math.max(0,Math.min(rows.length-1,ri+((K==='ArrowDown'||K==='PageDown')?step:-step)))],ni=nr&&nr.children[ci].querySelector('input,select');
+        if(ni&&ni!==t){e.preventDefault();ni.focus();if(ni.select&&ni.tagName==='INPUT'&&ni.type!=='checkbox'&&ni.type!=='date')try{ni.select()}catch(z){}return}}
       if(K==='PageDown'||K==='PageUp'){e.preventDefault();go(K==='PageDown'?1:-1);return}
       var plain=t.tagName==='INPUT'&&!t.list&&t.type!=='date'&&t.type!=='checkbox'&&t.type!=='time';
       if(plain){var a=t.selectionStart,b=t.selectionEnd,len=t.value.length,all=(a===0&&b===len);
